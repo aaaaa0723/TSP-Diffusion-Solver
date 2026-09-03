@@ -4,7 +4,7 @@ from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
 import time
 
-NUM_SAMPLES = 500000  # 已經幫你設好 50 萬筆了
+NUM_SAMPLES = 50000  
 NUM_NODES = 20
 
 def create_data_model(dist_matrix_int):
@@ -53,7 +53,7 @@ def solve_single_tsp(seed):
             to_node = manager.IndexToNode(index)
             adj_matrix[from_node][to_node] = 1
             
-    # 【改動點】這裡不再回傳 dist_matrix，只留座標跟解答
+    # 不再回傳 dist_matrix，只留座標跟解答
     return coords, adj_matrix
 
 def main():
@@ -68,7 +68,7 @@ def main():
         
     print(f"✅ 運算完畢！耗時: {time.time() - start_time:.2f} 秒")
     
-    # 【改動點】只收集座標和相鄰矩陣
+    # 只收集座標和相鄰矩陣
     all_coords = np.array([r[0] for r in results], dtype=np.float32)
     all_adjs = np.array([r[1] for r in results], dtype=np.int8)
     
@@ -81,7 +81,7 @@ def main():
         adjacencies=all_adjs
     )
     
-    print("🎉 存檔完成！獲得 tsp_dataset_lite.npz")
+    print("🎉 存檔完成！獲得全新的 5 萬筆 tsp_dataset_lite.npz")
     print(f"📊 檔案維度確認 -> 座標: {all_coords.shape}, 標籤: {all_adjs.shape}")
 
 if __name__ == '__main__':
