@@ -7,6 +7,7 @@ from tqdm import tqdm
 # 從旁邊的檔案匯入
 from dataset import TSPDataset
 from model import TSPPureGNNModel 
+from evaluation import evaluate_route_gap
 
 def train_model():
     # 1. 基本設定
@@ -14,9 +15,11 @@ def train_model():
     print(f"🔥 使用裝置: {device}")
     
     epochs = 20
-    batch_size = 64
+    batch_size = 32
     # 【關鍵修改 1】調降學習率，防止訓練尾聲發生梯度爆炸
-    learning_rate = 5e-4 
+    learning_rate = 3.9268102733205044e-05
+    hidden_dim = 256
+    weight_decay = 0.00012419009246600194
 
     # 2. 載入與切割資料 (70/15/15)
     print("⏳ 準備載入與切割資料集...")
@@ -38,12 +41,18 @@ def train_model():
     print(f"✅ 切割完成！訓練集: {train_size} 筆 | 驗證集: {val_size} 筆 | 測試集: {test_size} 筆")
 
     # 3. 初始化模型 
-    model = TSPPureGNNModel().to(device)
+    model = TSPPureGNNModel(hidden_dim=hidden_dim).to(device)
     criterion = nn.BCEWithLogitsLoss()
-    optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+
+    optimizer = optim.AdamW(
+        model.parameters(),
+        lr=learning_rate,
+        weight_decay=weight_decay
+    )
 
     train_loss_history = []
     val_loss_history = []
+    best_route_gap = float("inf")
 
     # 4. 開始訓練
     print("🏃‍♂️ 訓練與監督正式開始！")
@@ -86,15 +95,30 @@ def train_model():
         
         avg_val_loss = total_val_loss / len(val_loader)
         val_loss_history.append(avg_val_loss)
-        
-        print(f"✅ Epoch {epoch+1} 結束 | Train Loss: {avg_train_loss:.4f} | Val Loss: {avg_val_loss:.4f}")
+
+        mean_gap, percentile_95_gap, objective = evaluate_route_gap(
+            model, val_loader, device
+        )
+
+        if objective < best_route_gap:
+            best_route_gap = objective
+            torch.save(model.state_dict(), "tsp_gnn_model.pth")
+            checkpoint_message = " | 已更新最佳模型"
+        else:
+            checkpoint_message = ""
+
+        print(
+            f"✅ Epoch {epoch+1} 結束 | Train Loss: {avg_train_loss:.4f} | "
+            f"Val Loss: {avg_val_loss:.4f} | Mean Gap: {mean_gap:.2f}% | "
+            f"P95 Gap: {percentile_95_gap:.2f}% | Objective: {objective:.2f}"
+            f"{checkpoint_message}"
+        )
 
     # ==========================================
     # 存檔與畫圖
     # ==========================================
-    print("\n💾 訓練完成，正在進行緊急存檔...")
-    torch.save(model.state_dict(), "tsp_gnn_model.pth")
-    print("🎉 模型權重已安全存檔！")
+    print(f"\n💾 訓練完成，最佳 Validation Objective: {best_route_gap:.2f}")
+    print("🎉 已保留 validation route gap 最低的模型權重！")
 
     print("🖼️ 準備繪製雙線 Loss 曲線...")
     plot_loss(train_loss_history, val_loss_history)

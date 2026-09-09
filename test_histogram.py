@@ -51,7 +51,7 @@ def run_test_and_plot():
     test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
     
     # 2. 載入模型
-    model = TSPPureGNNModel().to(device)
+    model = TSPPureGNNModel(hidden_dim=256).to(device)
     model.load_state_dict(torch.load("tsp_gnn_model.pth", map_location=device))
     model.eval()
 
