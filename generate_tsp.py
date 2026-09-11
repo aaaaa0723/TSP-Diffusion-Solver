@@ -4,8 +4,10 @@ from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
 import time
 
-NUM_SAMPLES = 50000  
-NUM_NODES = 20
+NUM_SAMPLES = 1000
+NUM_NODES = 494
+TAICHUNG_AREA_KM2 = 2215
+TAICHUNG_SIDE_KM = np.sqrt(TAICHUNG_AREA_KM2)
 
 def create_data_model(dist_matrix_int):
     data = {}
@@ -17,13 +19,13 @@ def create_data_model(dist_matrix_int):
 def solve_single_tsp(seed):
     np.random.seed(seed) 
     
-    # 1. 隨機撒 20 個點
-    coords = np.random.rand(NUM_NODES, 2)
+    # 1. 在等面積的台中市近似正方形範圍內隨機撒點，座標單位為公里
+    coords = (np.random.rand(NUM_NODES, 2) * TAICHUNG_SIDE_KM).astype(np.float32)
     
-    # 2. 算距離給 OR-Tools 跑最佳解
+    # 2. 算公里直線距離，交給 OR-Tools 找高品質 heuristic reference route
     diff = coords[:, np.newaxis, :] - coords[np.newaxis, :, :]
     dist_matrix = np.sqrt(np.sum(diff**2, axis=-1))
-    dist_matrix_int = (dist_matrix * 10000).astype(int)
+    dist_matrix_int = (dist_matrix * 1000).astype(int)
     
     data = create_data_model(dist_matrix_int)
     manager = pywrapcp.RoutingIndexManager(len(data['distance_matrix']), data['num_vehicles'], data['depot'])
@@ -39,6 +41,10 @@ def solve_single_tsp(seed):
     
     search_parameters = pywrapcp.DefaultRoutingSearchParameters()
     search_parameters.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC
+    search_parameters.local_search_metaheuristic = (
+        routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
+    )
+    search_parameters.time_limit.seconds = 30
     
     solution = routing.SolveWithParameters(search_parameters)
     
@@ -52,13 +58,15 @@ def solve_single_tsp(seed):
             index = solution.Value(routing.NextVar(index))
             to_node = manager.IndexToNode(index)
             adj_matrix[from_node][to_node] = 1
+    else:
+        raise RuntimeError(f"OR-Tools failed to find a route for seed {seed}")
             
     # 不再回傳 dist_matrix，只留座標跟解答
     return coords, adj_matrix
 
 def main():
-    cores = cpu_count()
-    print(f"🚀 啟動多執行緒引擎，火力全開 (核心數: {cores})...")
+    cores = min(cpu_count(), 16)
+    print(f"🚀 啟動 TSP reference route 生成器 (核心數: {cores})...")
     
     start_time = time.time()
     seeds = list(range(NUM_SAMPLES))
@@ -81,7 +89,7 @@ def main():
         adjacencies=all_adjs
     )
     
-    print("🎉 存檔完成！獲得全新的 5 萬筆 tsp_dataset_lite.npz")
+    print(f"🎉 存檔完成！獲得 {NUM_SAMPLES} 筆、每筆 {NUM_NODES} 節點的台中市 TSP 資料")
     print(f"📊 檔案維度確認 -> 座標: {all_coords.shape}, 標籤: {all_adjs.shape}")
 
 if __name__ == '__main__':

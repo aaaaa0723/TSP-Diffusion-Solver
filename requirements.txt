@@ -1,0 +1,11 @@
+# Core numerical and machine-learning dependencies
+numpy>=2.0,<3
+# Install a CUDA-enabled PyTorch build when a compatible NVIDIA driver is available.
+torch>=2.5,<3
+
+# Training, tuning, and visualization
+matplotlib>=3.8,<4
+optuna>=4,<5
+ortools>=9.10,<10
+seaborn>=0.13,<1
+tqdm>=4.66,<5

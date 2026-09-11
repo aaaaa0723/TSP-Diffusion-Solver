@@ -1,3 +1,4 @@
+import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -14,12 +15,13 @@ def train_model():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"🔥 使用裝置: {device}")
     
-    epochs = 20
-    batch_size = 32
+    epochs = int(os.getenv("TSP_EPOCHS", "20"))
+    # 494 個節點會產生大型 pairwise feature，使用小 batch 避免 GPU 記憶體不足
+    batch_size = 1
     # 【關鍵修改 1】調降學習率，防止訓練尾聲發生梯度爆炸
-    learning_rate = 3.9268102733205044e-05
-    hidden_dim = 256
-    weight_decay = 0.00012419009246600194
+    learning_rate = 6.441072982984653e-05
+    hidden_dim = 128
+    weight_decay = 0.0005248738212111669
 
     # 2. 載入與切割資料 (70/15/15)
     print("⏳ 準備載入與切割資料集...")
@@ -42,7 +44,7 @@ def train_model():
 
     # 3. 初始化模型 
     model = TSPPureGNNModel(hidden_dim=hidden_dim).to(device)
-    criterion = nn.BCEWithLogitsLoss()
+    pos_weight = torch.tensor(493.0, device=device)
 
     optimizer = optim.AdamW(
         model.parameters(),
@@ -70,7 +72,11 @@ def train_model():
 
             optimizer.zero_grad()
             outputs = model(batch_coords, batch_dists)
-            loss = criterion(outputs, batch_adjs)
+            valid_edges = ~torch.eye(outputs.shape[-1], device=device, dtype=torch.bool).unsqueeze(0)
+            loss = nn.functional.binary_cross_entropy_with_logits(
+                outputs[valid_edges], batch_adjs[valid_edges],
+                pos_weight=pos_weight,
+            )
             loss.backward()
             optimizer.step()
 
@@ -90,7 +96,11 @@ def train_model():
                 batch_adjs = batch_adjs.to(device, dtype=torch.float32) 
                 
                 outputs = model(batch_coords, batch_dists)
-                val_loss = criterion(outputs, batch_adjs)
+                valid_edges = ~torch.eye(outputs.shape[-1], device=device, dtype=torch.bool).unsqueeze(0)
+                val_loss = nn.functional.binary_cross_entropy_with_logits(
+                    outputs[valid_edges], batch_adjs[valid_edges],
+                    pos_weight=pos_weight,
+                )
                 total_val_loss += val_loss.item()
         
         avg_val_loss = total_val_loss / len(val_loader)

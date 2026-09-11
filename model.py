@@ -9,8 +9,8 @@ class SimpleGCNLayer(nn.Module):
         self.activation = nn.GELU()
 
     def forward(self, node_feat, adj_matrix):
-        # node_feat: (batch, 20, in_dim)
-        # adj_matrix: (batch, 20, 20) -> 這是城市之間的連接權重
+        # node_feat: (batch, num_nodes, in_dim)
+        # adj_matrix: (batch, num_nodes, num_nodes) -> 城市之間的連接權重
         
         # 【核心魔法】矩陣相乘 (bmm) 瞬間完成所有鄰居特徵的加權總和
         aggregated_feat = torch.bmm(adj_matrix, node_feat)
@@ -32,36 +32,29 @@ class TSPPureGNNModel(nn.Module):
         self.gcn2 = SimpleGCNLayer(hidden_dim, hidden_dim)
         
         # 最終預測器：把融合後的節點特徵轉成邊緣機率
-        self.predictor = nn.Sequential(
-            # 拔掉時間特徵後，輸入維度只剩下 i, j 兩個節點的特徵 (hidden_dim * 2)
-            nn.Linear(hidden_dim * 2, hidden_dim),
-            nn.GELU(),
-            # 【重點】輸出 1 維 Logits，不加 Sigmoid，交給外部的 BCEWithLogitsLoss 處理
-            nn.Linear(hidden_dim, 1)
-        )
+        self.edge_weight = nn.Parameter(torch.empty(hidden_dim, hidden_dim))
+        self.edge_bias = nn.Parameter(torch.zeros(1))
+        nn.init.xavier_uniform_(self.edge_weight)
 
     def forward(self, coords, dist_matrix):
         # 輸入參數乾淨俐落，只留下 coords 跟 dist_matrix
         batch_size, num_nodes, _ = coords.shape
         
-        # 1. 節點初始特徵 (batch, 20, hidden_dim)
-        x = self.node_encoder(coords) 
+        # 1. 統一座標輸入尺度，實際公里距離仍由資料集保留
+        coord_scale = coords.amax(dim=(1, 2), keepdim=True).clamp_min(1e-8)
+        x = self.node_encoder(coords / coord_scale)
         
         # 2. GCN 訊息傳遞 (Message Passing)
-        # 第一階段沒了雜訊矩陣，我們直接把真實的「距離矩陣」當作圖的權重來傳遞情報
-        weight = dist_matrix 
+        # 近距離邊具有較高關聯，並做 row normalization 保持聚合穩定
+        scale = dist_matrix.mean(dim=(-2, -1), keepdim=True).clamp_min(1e-8)
+        weight = torch.exp(-dist_matrix / scale)
+        weight = weight / weight.sum(dim=-1, keepdim=True).clamp_min(1e-8)
         
         x = self.gcn1(x, weight) # 第一回合情報交換
         x = self.gcn2(x, weight) # 第二回合情報交換
         
-        # 3. 把更新後的節點特徵配對 (i 節點 + j 節點)
-        x_i = x.unsqueeze(2).expand(batch_size, num_nodes, num_nodes, -1)
-        x_j = x.unsqueeze(1).expand(batch_size, num_nodes, num_nodes, -1)
-        
-        # 拼接在一起 (不用再拼接時間特徵了)
-        final_feat = torch.cat([x_i, x_j], dim=-1)
-        
-        # 4. 預測最終的 0/1 相鄰矩陣
-        pred_adj = self.predictor(final_feat).squeeze(-1) 
-        
+        # 3. Bilinear edge scorer 避免建立 (batch, N, N, 2 * hidden_dim)
+        pred_adj = torch.einsum("bih,hk,bjk->bij", x, self.edge_weight, x)
+        pred_adj = pred_adj + self.edge_bias
+
         return pred_adj

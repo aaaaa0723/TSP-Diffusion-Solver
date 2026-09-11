@@ -22,6 +22,8 @@ def greedy_decoder(prob_matrix, start_node=0):
 
 def adjacency_to_path(adj_matrix, start_node=0):
     num_nodes = adj_matrix.shape[0]
+    if not np.all(adj_matrix.sum(axis=1) == 1) or not np.all(adj_matrix.sum(axis=0) == 1):
+        raise ValueError("Reference adjacency must have one incoming and outgoing edge per node")
     visited = {start_node}
     path = [start_node]
     current_node = start_node
@@ -36,7 +38,13 @@ def adjacency_to_path(adj_matrix, start_node=0):
         visited.add(current_node)
 
     path.append(start_node)
+    if len(set(path[:-1])) != num_nodes or path[-1] != start_node:
+        raise ValueError("Reference adjacency does not describe one Hamiltonian cycle")
     return path
+
+
+def is_valid_tour(path, num_nodes):
+    return len(path) == num_nodes + 1 and path[0] == path[-1] and len(set(path[:-1])) == num_nodes
 
 
 def calculate_path_distance(path, coords_np):
@@ -61,6 +69,8 @@ def evaluate_route_gap(model, data_loader, device, max_samples=None):
             for index in range(len(coords_np)):
                 ai_path = greedy_decoder(probabilities[index])
                 reference_path = adjacency_to_path(ground_truth_np[index])
+                if not is_valid_tour(ai_path, len(coords_np[index])):
+                    continue
                 ai_distance = calculate_path_distance(ai_path, coords_np[index])
                 reference_distance = calculate_path_distance(
                     reference_path, coords_np[index]

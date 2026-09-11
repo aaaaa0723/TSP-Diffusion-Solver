@@ -7,27 +7,7 @@ from torch.utils.data import random_split, DataLoader
 
 from dataset import TSPDataset
 from model import TSPPureGNNModel
-
-def greedy_decoder(prob_matrix, start_node=0):
-    num_nodes = prob_matrix.shape[0]
-    visited = set([start_node])
-    path = [start_node]
-    current_node = start_node
-    for _ in range(num_nodes - 1):
-        step_probs = prob_matrix[current_node].copy()
-        step_probs[list(visited)] = -999.0 
-        next_node = np.argmax(step_probs)
-        path.append(next_node)
-        visited.add(next_node)
-        current_node = next_node
-    path.append(start_node)
-    return path
-
-def calculate_path_distance(path, coords_np):
-    dist = 0.0
-    for i in range(len(path) - 1):
-        dist += np.linalg.norm(coords_np[path[i]] - coords_np[path[i+1]])
-    return dist
+from evaluation import adjacency_to_path, calculate_path_distance, greedy_decoder
 
 def run_qualitative_analysis():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -44,17 +24,17 @@ def run_qualitative_analysis():
     test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
     
     # 2. 載入訓練好的 AI 腦袋
-    model = TSPPureGNNModel(hidden_dim=256).to(device)
+    model = TSPPureGNNModel(hidden_dim=128).to(device)
     model.load_state_dict(torch.load("tsp_gnn_model.pth", map_location=device))
     model.eval()
 
     worst_gap = -1
     worst_data = None
 
-    print("🕵️‍♂️ 正在 1000 份考卷中搜尋最爛作答...")
-    # 巡視前 1000 題找戰犯
+    sample_limit = min(1000, len(test_dataset))
+    print(f"🕵️‍♂️ 正在 {sample_limit} 份測資中搜尋最差作答...")
     for i, (coord, dist_matrix, ground_truth_adj) in enumerate(test_loader):
-        if i >= 1000: break
+        if i >= sample_limit: break
             
         with torch.no_grad():
             logits = model(coord.to(device), dist_matrix.to(device))
@@ -66,13 +46,7 @@ def run_qualitative_analysis():
         ai_path = greedy_decoder(probs)
         ai_dist = calculate_path_distance(ai_path, coords_np)
         
-        optimal_path = [0]
-        curr = 0
-        for _ in range(19):
-            next_node = np.argmax(gt_adj_np[curr])
-            optimal_path.append(next_node)
-            curr = next_node
-        optimal_path.append(0)
+        optimal_path = adjacency_to_path(gt_adj_np)
         optimal_dist = calculate_path_distance(optimal_path, coords_np)
         
         gap = ((ai_dist - optimal_dist) / optimal_dist) * 100
@@ -94,7 +68,7 @@ def run_qualitative_analysis():
         p1, p2 = optimal_path[i], optimal_path[i+1]
         ax1.plot([coords_np[p1, 0], coords_np[p2, 0]], 
                  [coords_np[p1, 1], coords_np[p2, 1]], 'k-', zorder=1)
-    ax1.set_title(f"OR-Tools Optimal\nDistance: {optimal_dist:.4f}")
+    ax1.set_title(f"OR-Tools Reference\nDistance: {optimal_dist:.4f} km")
     
     # 畫出 AI 迷宮路線
     ax2.scatter(coords_np[:, 0], coords_np[:, 1], c='red', s=50, zorder=5)
@@ -102,7 +76,7 @@ def run_qualitative_analysis():
         p1, p2 = ai_path[i], ai_path[i+1]
         ax2.plot([coords_np[p1, 0], coords_np[p2, 0]], 
                  [coords_np[p1, 1], coords_np[p2, 1]], 'b-', zorder=1)
-    ax2.set_title(f"AI Greedy Prediction\nDistance: {ai_dist:.4f} (Gap: {worst_gap:.2f}%)")
+    ax2.set_title(f"AI Greedy Prediction\nDistance: {ai_dist:.4f} km (Gap: {worst_gap:.2f}%)")
     
     plt.savefig('worst_case_comparison.png')
     print("🎉 質化實驗完成！請查看 worst_case_comparison.png")

@@ -1,4 +1,5 @@
 import gc
+import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -12,6 +13,9 @@ from evaluation import evaluate_route_gap
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 DATASET = TSPDataset("tsp_dataset_lite.npz")
+TUNE_EPOCHS = int(os.getenv("TSP_TUNE_EPOCHS", "5"))
+TUNE_TRIALS = int(os.getenv("TSP_TUNE_TRIALS", "5"))
+TUNE_MAX_SAMPLES = int(os.getenv("TSP_TUNE_MAX_SAMPLES", "100"))
 
 train_size = int(0.7 * len(DATASET))
 val_size = int(0.15 * len(DATASET))
@@ -28,11 +32,9 @@ def objective(trial):
     hidden_dim = trial.suggest_categorical(
         "hidden_dim", [64, 128, 256]
     )
-    batch_size = trial.suggest_categorical(
-        "batch_size", [32, 64, 128]
-    )
+    batch_size = 1
     learning_rate = trial.suggest_float(
-        "learning_rate", 1e-5, 3e-3, log=True
+        "learning_rate", 1e-5, 3e-4, log=True
     )
     weight_decay = trial.suggest_float(
         "weight_decay", 1e-7, 1e-3, log=True
@@ -46,7 +48,7 @@ def objective(trial):
     )
 
     model = TSPPureGNNModel(hidden_dim=hidden_dim).to(DEVICE)
-    criterion = nn.BCEWithLogitsLoss()
+    pos_weight = torch.tensor(DATASET[0][2].shape[-1] - 1, device=DEVICE)
     optimizer = optim.AdamW(
         model.parameters(),
         lr=learning_rate,
@@ -55,7 +57,7 @@ def objective(trial):
 
     best_objective = float("inf")
 
-    for epoch in range(20):
+    for epoch in range(TUNE_EPOCHS):
         model.train()
 
         for coords, distances, targets in train_loader:
@@ -65,7 +67,10 @@ def objective(trial):
 
             optimizer.zero_grad()
             outputs = model(coords, distances)
-            loss = criterion(outputs, targets)
+            valid_edges = ~torch.eye(outputs.shape[-1], device=DEVICE, dtype=torch.bool).unsqueeze(0)
+            loss = nn.functional.binary_cross_entropy_with_logits(
+                outputs[valid_edges], targets[valid_edges], pos_weight=pos_weight
+            )
             loss.backward()
             optimizer.step()
 
@@ -79,14 +84,17 @@ def objective(trial):
                 targets = targets.to(DEVICE)
 
                 outputs = model(coords, distances)
-                total_val_loss += criterion(outputs, targets).item()
+                valid_edges = ~torch.eye(outputs.shape[-1], device=DEVICE, dtype=torch.bool).unsqueeze(0)
+                total_val_loss += nn.functional.binary_cross_entropy_with_logits(
+                    outputs[valid_edges], targets[valid_edges], pos_weight=pos_weight
+                ).item()
 
         val_loss = total_val_loss / len(val_loader)
         mean_gap, percentile_95_gap, objective = evaluate_route_gap(
             model,
             val_loader,
             DEVICE,
-            max_samples=1000,
+            max_samples=TUNE_MAX_SAMPLES,
         )
         best_objective = min(best_objective, objective)
 
@@ -118,7 +126,7 @@ if __name__ == "__main__":
         ),
     )
 
-    study.optimize(objective, n_trials=20)
+    study.optimize(objective, n_trials=TUNE_TRIALS)
 
     print("\n最佳驗證 Objective (mean gap + 0.5 * p95 gap):", study.best_value)
     print("最佳參數:")
