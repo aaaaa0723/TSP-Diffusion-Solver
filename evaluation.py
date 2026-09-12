@@ -88,5 +88,5 @@ def evaluate_route_gap(model, data_loader, device, max_samples=None):
 def summarize_route_gaps(gaps):
     mean_gap = float(np.mean(gaps))
     percentile_95_gap = float(np.percentile(gaps, 95))
-    objective = mean_gap + 0.5 * percentile_95_gap
+    objective = mean_gap + 0.1 * percentile_95_gap
     return mean_gap, percentile_95_gap, objective

@@ -117,8 +117,8 @@ def objective(trial):
 
 if __name__ == "__main__":
     study = optuna.create_study(
-        study_name="tsp_gnn_mean_p95_tuning",
-        storage="sqlite:///optuna_mean_p95.db",
+        study_name="tsp_gnn_mean_p01_p95_tuning",
+        storage="sqlite:///optuna_mean_p01_p95.db",
         load_if_exists=True,
         direction="minimize",
         pruner=optuna.pruners.MedianPruner(
@@ -128,7 +128,7 @@ if __name__ == "__main__":
 
     study.optimize(objective, n_trials=TUNE_TRIALS)
 
-    print("\n最佳驗證 Objective (mean gap + 0.5 * p95 gap):", study.best_value)
+    print("\n最佳驗證 Objective (mean gap + 0.1 * p95 gap):", study.best_value)
     print("最佳參數:")
 
     for key, value in study.best_params.items():

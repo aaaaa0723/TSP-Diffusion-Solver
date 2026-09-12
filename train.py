@@ -19,9 +19,9 @@ def train_model():
     # 494 個節點會產生大型 pairwise feature，使用小 batch 避免 GPU 記憶體不足
     batch_size = 1
     # 【關鍵修改 1】調降學習率，防止訓練尾聲發生梯度爆炸
-    learning_rate = 6.441072982984653e-05
+    learning_rate = 0.0002847396090917137
     hidden_dim = 128
-    weight_decay = 0.0005248738212111669
+    weight_decay = 3.7599312940032895e-06
 
     # 2. 載入與切割資料 (70/15/15)
     print("⏳ 準備載入與切割資料集...")
