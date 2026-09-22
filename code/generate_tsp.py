@@ -4,6 +4,8 @@ from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
 import time
 
+from experiment_utils import DATASET_PATH
+
 NUM_SAMPLES = 1000
 NUM_NODES = 494
 TAICHUNG_AREA_KM2 = 2215
@@ -84,7 +86,7 @@ def main():
     
     # 存成瘦身版的 numpy 壓縮檔
     np.savez_compressed(
-        'tsp_dataset_lite.npz', 
+        DATASET_PATH, 
         coords=all_coords, 
         adjacencies=all_adjs
     )

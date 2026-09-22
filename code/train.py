@@ -5,27 +5,43 @@ import torch.optim as optim
 from torch.utils.data import DataLoader, random_split
 from tqdm import tqdm
 
+# 最佳超參數（由 Optuna 調優結果更新）
+BEST_HIDDEN_DIM = 256
+BEST_LEARNING_RATE = 0.00022544108446592517
+BEST_WEIGHT_DECAY = 1.3066764107828009e-05
+BEST_EPOCHS = 100
+
 # 從旁邊的檔案匯入
 from dataset import TSPDataset
 from model import TSPPureGNNModel 
 from evaluation import evaluate_route_gap
+from experiment_utils import DATASET_PATH, start_new_run
 
 def train_model():
     # 1. 基本設定
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"🔥 使用裝置: {device}")
     
-    epochs = int(os.getenv("TSP_EPOCHS", "20"))
+    epochs = int(os.getenv("TSP_EPOCHS", str(BEST_EPOCHS)))
     # 494 個節點會產生大型 pairwise feature，使用小 batch 避免 GPU 記憶體不足
     batch_size = 1
-    # 【關鍵修改 1】調降學習率，防止訓練尾聲發生梯度爆炸
-    learning_rate = 0.0002847396090917137
-    hidden_dim = 128
-    weight_decay = 3.7599312940032895e-06
+    learning_rate = float(os.getenv("TSP_LEARNING_RATE", str(BEST_LEARNING_RATE)))
+    hidden_dim = int(os.getenv("TSP_HIDDEN_DIM", str(BEST_HIDDEN_DIM)))
+    weight_decay = float(os.getenv("TSP_WEIGHT_DECAY", str(BEST_WEIGHT_DECAY)))
+
+    # 每次訓練都建立獨立的 run 資料夾，並記錄本次實驗的所有參數
+    run_dir = start_new_run({
+        "hidden_dim": hidden_dim,
+        "learning_rate": learning_rate,
+        "weight_decay": weight_decay,
+        "epochs": epochs,
+        "batch_size": batch_size,
+    })
+    print(f"🗂️ 本次實驗結果將存放於: {run_dir}")
 
     # 2. 載入與切割資料 (70/15/15)
     print("⏳ 準備載入與切割資料集...")
-    dataset = TSPDataset('tsp_dataset_lite.npz')
+    dataset = TSPDataset(str(DATASET_PATH))
     
     total_size = len(dataset)
     train_size = int(0.7 * total_size)
@@ -112,7 +128,7 @@ def train_model():
 
         if objective < best_route_gap:
             best_route_gap = objective
-            torch.save(model.state_dict(), "tsp_gnn_model.pth")
+            torch.save(model.state_dict(), run_dir / "tsp_gnn_model.pth")
             checkpoint_message = " | 已更新最佳模型"
         else:
             checkpoint_message = ""
@@ -131,10 +147,10 @@ def train_model():
     print("🎉 已保留 validation route gap 最低的模型權重！")
 
     print("🖼️ 準備繪製雙線 Loss 曲線...")
-    plot_loss(train_loss_history, val_loss_history)
+    plot_loss(train_loss_history, val_loss_history, run_dir)
 
 
-def plot_loss(train_loss, val_loss):
+def plot_loss(train_loss, val_loss, run_dir):
     import matplotlib
     matplotlib.use('Agg') 
     import matplotlib.pyplot as plt
@@ -158,7 +174,8 @@ def plot_loss(train_loss, val_loss):
     plt.legend()
     plt.grid(True)
     
-    plt.savefig('loss_curve.png') 
-    print("📊 雙線 Loss 曲線已成功儲存為 loss_curve.png！")
+    loss_curve_path = run_dir / "loss_curve.png"
+    plt.savefig(loss_curve_path) 
+    print(f"📊 雙線 Loss 曲線已成功儲存為 {loss_curve_path}！")
 if __name__ == "__main__":
     train_model()

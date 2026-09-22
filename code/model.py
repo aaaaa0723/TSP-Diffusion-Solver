@@ -21,7 +21,7 @@ class SimpleGCNLayer(nn.Module):
 
 class TSPPureGNNModel(nn.Module):
     """第一階段驗證專用：純 GNN 模型 (無 Diffusion 機制)"""
-    def __init__(self, node_dim=2, hidden_dim=128):
+    def __init__(self, node_dim=2, hidden_dim=256):
         super().__init__()
         
         # 節點特徵初始化

@@ -9,10 +9,11 @@ from torch.utils.data import DataLoader, random_split
 from dataset import TSPDataset
 from model import TSPPureGNNModel
 from evaluation import evaluate_route_gap
+from experiment_utils import DATASET_PATH, OPTUNA_DB_PATH
 
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-DATASET = TSPDataset("tsp_dataset_lite.npz")
+DATASET = TSPDataset(str(DATASET_PATH))
 TUNE_EPOCHS = int(os.getenv("TSP_TUNE_EPOCHS", "5"))
 TUNE_TRIALS = int(os.getenv("TSP_TUNE_TRIALS", "5"))
 TUNE_MAX_SAMPLES = int(os.getenv("TSP_TUNE_MAX_SAMPLES", "100"))
@@ -118,7 +119,7 @@ def objective(trial):
 if __name__ == "__main__":
     study = optuna.create_study(
         study_name="tsp_gnn_mean_p01_p95_tuning",
-        storage="sqlite:///optuna_mean_p01_p95.db",
+        storage=f"sqlite:///{OPTUNA_DB_PATH}",
         load_if_exists=True,
         direction="minimize",
         pruner=optuna.pruners.MedianPruner(

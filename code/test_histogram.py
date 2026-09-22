@@ -1,3 +1,4 @@
+import os
 import torch
 import numpy as np
 import matplotlib
@@ -10,13 +11,18 @@ from tqdm import tqdm
 from dataset import TSPDataset
 from model import TSPPureGNNModel
 from evaluation import adjacency_to_path, calculate_path_distance, greedy_decoder
+from experiment_utils import DATASET_PATH, get_latest_run
+
+# 最佳超參數（由 Optuna 調優結果更新）
+MODEL_HIDDEN_DIM = int(os.getenv("TSP_HIDDEN_DIM", "256"))
+
 
 def run_test_and_plot():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print("⏳ 載入資料並執行 70/15/15 切割...")
+    print(f"⏳ 載入資料並執行 70/15/15 切割... (hidden_dim={MODEL_HIDDEN_DIM})")
     
-    # 1. 資料切割 (核心防禦機制)
-    dataset = TSPDataset("tsp_dataset_lite.npz")
+    # 1. 資料切割 (核心防禁機制)
+    dataset = TSPDataset(str(DATASET_PATH))
     total_size = len(dataset)
     train_size = int(0.7 * total_size)
     val_size = int(0.15 * total_size)
@@ -29,9 +35,11 @@ def run_test_and_plot():
     # 為了快速產出圖表，我們從 Test Set 抽 1000 題來考
     test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
     
-    # 2. 載入模型
-    model = TSPPureGNNModel(hidden_dim=128).to(device)
-    model.load_state_dict(torch.load("tsp_gnn_model.pth", map_location=device))
+    # 2. 載入模型（使用最新一次 train.py 產出的 run 資料夾）
+    run_dir = get_latest_run()
+    model = TSPPureGNNModel(hidden_dim=MODEL_HIDDEN_DIM).to(device)
+    checkpoint = torch.load(run_dir / "tsp_gnn_model.pth", map_location=device)
+    model.load_state_dict(checkpoint)
     model.eval()
 
     gaps = []
@@ -49,7 +57,7 @@ def run_test_and_plot():
         gt_adj_np = ground_truth_adj.squeeze(0).cpu().numpy()
         
         # 計算 AI 距離
-        ai_path = greedy_decoder(probs)
+        ai_path = greedy_decoder(probs, coords=coords_np)
         ai_dist = calculate_path_distance(ai_path, coords_np)
         
         # 計算 OR-Tools 最佳距離
@@ -72,10 +80,11 @@ def run_test_and_plot():
     plt.xlabel('Optimality Gap (%)')
     plt.ylabel('Frequency')
     plt.legend()
-    plt.savefig('error_histogram.png')
+    error_hist_path = run_dir / "error_histogram.png"
+    plt.savefig(error_hist_path)
     
     print(f"🎉 測試完成！{len(gaps)} 題的平均 Reference Route Gap 為: {mean_gap:.2f}%")
-    print("📊 誤差直方圖已儲存為 error_histogram.png")
+    print(f"📊 誤差直方圖已儲存為 {error_hist_path}")
 
 if __name__ == "__main__":
     run_test_and_plot()

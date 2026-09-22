@@ -32,8 +32,8 @@ class TSPDataset(Dataset):
 # 本地端快速測試 (Dry Run)
 # ==========================================
 if __name__ == "__main__":
-    # 替換成你剛剛生出來的檔案名稱
-    dataset = TSPDataset('tsp_dataset_lite.npz')
+    from experiment_utils import DATASET_PATH
+    dataset = TSPDataset(str(DATASET_PATH))
     
     # 建立 DataLoader，batch_size 設 32 跑跑看
     dataloader = DataLoader(dataset, batch_size=32, shuffle=True)

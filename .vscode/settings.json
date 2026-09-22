@@ -1,5 +1,0 @@
-{
-    "python-envs.defaultEnvManager": "ms-python.python:conda",
-    "python.defaultInterpreterPath": "/home/labusers/nchu4113056013/miniconda3/envs/tsp_env/bin/python",
-    "python.terminal.activateEnvironment": true
-}
