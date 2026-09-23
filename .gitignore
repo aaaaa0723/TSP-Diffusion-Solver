@@ -2,5 +2,5 @@
 __pycache__/
 .venv/
 *.db
-results/runs/
+*.pth
 results/logs/
