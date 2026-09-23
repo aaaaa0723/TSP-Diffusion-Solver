@@ -10,7 +10,7 @@ from tqdm import tqdm
 
 from dataset import TSPDataset
 from model import TSPPureGNNModel
-from evaluation import adjacency_to_path, calculate_path_distance, greedy_decoder
+from evaluation import adjacency_to_path, calculate_path_distance, divide_and_conquer_decoder
 from experiment_utils import DATASET_PATH, get_latest_run
 
 # 最佳超參數（由 Optuna 調優結果更新）
@@ -57,7 +57,7 @@ def run_test_and_plot():
         gt_adj_np = ground_truth_adj.squeeze(0).cpu().numpy()
         
         # 計算 AI 距離
-        ai_path = greedy_decoder(probs, coords=coords_np)
+        ai_path = divide_and_conquer_decoder(probs, coords=coords_np)
         ai_dist = calculate_path_distance(ai_path, coords_np)
         
         # 計算 OR-Tools 最佳距離
