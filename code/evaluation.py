@@ -219,38 +219,64 @@ def _symmetric_cost(cost_matrix, a, b):
     return (cost_matrix[a, b] + cost_matrix[b, a]) / 2.0
 
 
-def _best_merge(cycle_a, cycle_b, cost_matrix):
-    """窮舉 A、B 兩子迴圈的所有邊配對與兩種接法，找出邊交換成本 Delta 最小的合併結果。"""
+def _best_merge(cycle_a, cycle_b, cost_matrix, top_k=10):
+    """
+    加速版區塊合併：
+    只挑選 cycle_a 中最有潛力（距離 cycle_b 最近）的 top_k 條邊進行剪接試算。
+    大幅減少 O(N) 的陣列切片次數，解決合併後期的效能瓶頸。
+    """
     best_delta = math.inf
     best_cycle = None
 
-    for u1, v1 in _cycle_edges(cycle_a):
+    edges_a = _cycle_edges(cycle_a)
+    edges_b = _cycle_edges(cycle_b)
+
+    # 【加速核心】：過濾 cycle_a 的邊
+    if len(edges_a) > top_k:
+        # 評估指標：把 (u1, v1) 剪開並拉到 cycle_b 任意節點的大致成本增加量
+        def edge_affinity(edge):
+            u1, v1 = edge
+            # 計算 u1 和 v1 連到 cycle_b 內任意節點的最低可能成本
+            # 減去原本 (u1, v1) 斷開省下的成本，以此預估這條邊有多適合被剪開
+            return min(cost_matrix[u1, n] + cost_matrix[v1, n] for n in cycle_b) - _symmetric_cost(cost_matrix, u1, v1)
+        
+        # 依照親密度 (成本增加越少越好) 排序，只取前 top_k 條邊
+        candidate_edges_a = sorted(edges_a, key=edge_affinity)[:top_k]
+    else:
+        # 如果大圈圈還很小，不需要過濾，全部保留
+        candidate_edges_a = edges_a
+
+    # 開始詳細試算 (現在外層迴圈最多只跑 10 次！)
+    for u1, v1 in candidate_edges_a:
         old_a = _symmetric_cost(cost_matrix, u1, v1)
+        
+        # 這裡的 _break_cycle_at_edge 包含 O(N) 的陣列切片，是原本變慢的元兇
+        # 現在它被限制最多只執行 top_k 次
         path_a = _break_cycle_at_edge(cycle_a, (u1, v1))
 
-        for u2, v2 in _cycle_edges(cycle_b):
+        for u2, v2 in edges_b:
             old_b = _symmetric_cost(cost_matrix, u2, v2)
             path_b = _break_cycle_at_edge(cycle_b, (u2, v2))
 
             # 接法一：path_a 尾接 path_b 頭，path_b 尾接回 path_a 頭
-            delta = (
+            delta1 = (
                 _symmetric_cost(cost_matrix, path_a[-1], path_b[0])
                 + _symmetric_cost(cost_matrix, path_b[-1], path_a[0])
                 - old_a - old_b
             )
-            if delta < best_delta:
-                best_delta = delta
+            if delta1 < best_delta:
+                best_delta = delta1
                 best_cycle = path_a + path_b
 
             # 接法二：path_b 反向後再接
             reversed_b = path_b[::-1]
-            delta = (
+            delta2 = (
                 _symmetric_cost(cost_matrix, path_a[-1], reversed_b[0])
                 + _symmetric_cost(cost_matrix, reversed_b[-1], path_a[0])
                 - old_a - old_b
             )
-            if delta < best_delta:
-                best_delta = delta
+            if delta2 < best_delta:
+                best_delta = delta2
                 best_cycle = path_a + reversed_b
 
     return best_delta, best_cycle

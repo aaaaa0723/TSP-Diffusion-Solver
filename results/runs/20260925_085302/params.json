@@ -1,0 +1,7 @@
+{
+  "hidden_dim": 256,
+  "learning_rate": 7.565761389197672e-05,
+  "weight_decay": 3.998958891797496e-05,
+  "epochs": 25,
+  "batch_size": 1
+}
