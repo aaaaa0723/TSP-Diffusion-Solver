@@ -6,10 +6,12 @@ import time
 
 from experiment_utils import DATASET_PATH
 
-NUM_SAMPLES = 1000
+NUM_SAMPLES = 10
 NUM_NODES = 494
-TAICHUNG_AREA_KM2 = 2215
-TAICHUNG_SIDE_KM = np.sqrt(TAICHUNG_AREA_KM2)
+
+# 台中市大致的經緯度範圍 (Lat: 緯度, Lon: 經度)
+MIN_LAT, MAX_LAT = 24.1, 24.4
+MIN_LON, MAX_LON = 120.5, 120.9
 
 def create_data_model(dist_matrix_int):
     data = {}
@@ -21,14 +23,35 @@ def create_data_model(dist_matrix_int):
 def solve_single_tsp(seed):
     np.random.seed(seed) 
     
-    # 1. 在等面積的台中市近似正方形範圍內隨機撒點，座標單位為公里
-    coords = (np.random.rand(NUM_NODES, 2) * TAICHUNG_SIDE_KM).astype(np.float32)
+    # 1. 經緯度撒點：在台中市的真實範圍內隨機產生座標 (Lat, Lon)
+    lats = np.random.uniform(MIN_LAT, MAX_LAT, NUM_NODES)
+    lons = np.random.uniform(MIN_LON, MAX_LON, NUM_NODES)
+    coords = np.stack([lats, lons], axis=1).astype(np.float32)
+
+    # 2. Vectorized Haversine 計算真實球面距離 (取代原本的 Euclidean 直線距離)
+    # 將經緯度轉換為弧度 (Radians) 以便計算
+    coords_rad = np.radians(coords)
+    lat = coords_rad[:, 0]
+    lon = coords_rad[:, 1]
+
+    dlat = lat[:, np.newaxis] - lat[np.newaxis, :]
+    dlon = lon[:, np.newaxis] - lon[np.newaxis, :]
     
-    # 2. 算公里直線距離，交給 OR-Tools 找高品質 heuristic reference route
-    diff = coords[:, np.newaxis, :] - coords[np.newaxis, :, :]
-    dist_matrix = np.sqrt(np.sum(diff**2, axis=-1))
+    # Haversine 核心公式
+    a = (np.sin(dlat / 2.0)**2 +
+         np.cos(lat[:, np.newaxis]) * np.cos(lat[np.newaxis, :]) * np.sin(dlon / 2.0)**2)
+
+    # 【防呆機制】：浮點數運算可能產生 1.0000000002，會讓 arcsin 報錯 (NaN)，強制夾在 0~1 之間
+    a = np.clip(a, 0.0, 1.0)
+    c = 2 * np.arcsin(np.sqrt(a))
+
+    # 6371 是地球平均半徑 (公里)，所以 dist_matrix 的單位是「公里」
+    dist_matrix = 6371.0 * c
+
+    # 轉換成「公尺」並轉為整數，交給 OR-Tools 處理 (它最喜歡整數了)
     dist_matrix_int = (dist_matrix * 1000).astype(int)
     
+    # 3. 呼叫 OR-Tools 找高品質 Reference Route (以下邏輯跟原本完全一樣)
     data = create_data_model(dist_matrix_int)
     manager = pywrapcp.RoutingIndexManager(len(data['distance_matrix']), data['num_vehicles'], data['depot'])
     routing = pywrapcp.RoutingModel(manager)
@@ -50,7 +73,7 @@ def solve_single_tsp(seed):
     
     solution = routing.SolveWithParameters(search_parameters)
     
-    # 3. 建立 0/1 相鄰矩陣 (Ground Truth)
+    # 4. 建立 0/1 相鄰矩陣 (Ground Truth)
     adj_matrix = np.zeros((NUM_NODES, NUM_NODES), dtype=np.int8)
     
     if solution:
@@ -63,12 +86,11 @@ def solve_single_tsp(seed):
     else:
         raise RuntimeError(f"OR-Tools failed to find a route for seed {seed}")
             
-    # 不再回傳 dist_matrix，只留座標跟解答
     return coords, adj_matrix
 
 def main():
     cores = min(cpu_count(), 16)
-    print(f"🚀 啟動 TSP reference route 生成器 (核心數: {cores})...")
+    print(f"🌍 啟動【真實經緯度版】TSP reference route 生成器 (核心數: {cores})...")
     
     start_time = time.time()
     seeds = list(range(NUM_SAMPLES))
@@ -78,21 +100,18 @@ def main():
         
     print(f"✅ 運算完畢！耗時: {time.time() - start_time:.2f} 秒")
     
-    # 只收集座標和相鄰矩陣
     all_coords = np.array([r[0] for r in results], dtype=np.float32)
     all_adjs = np.array([r[1] for r in results], dtype=np.int8)
     
     print("💾 準備進行 Byte-level 寫入，存檔中...")
     
-    # 存成瘦身版的 numpy 壓縮檔
     np.savez_compressed(
         DATASET_PATH, 
         coords=all_coords, 
         adjacencies=all_adjs
     )
     
-    print(f"🎉 存檔完成！獲得 {NUM_SAMPLES} 筆、每筆 {NUM_NODES} 節點的台中市 TSP 資料")
-    print(f"📊 檔案維度確認 -> 座標: {all_coords.shape}, 標籤: {all_adjs.shape}")
+    print(f"🎉 存檔完成！獲得 {NUM_SAMPLES} 筆、每筆 {NUM_NODES} 節點的真實經緯度 TSP 資料")
 
 if __name__ == '__main__':
     main()
