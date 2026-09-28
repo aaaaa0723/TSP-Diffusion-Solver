@@ -286,8 +286,9 @@ def two_opt(path, distance_matrix, max_passes=5):
     return path_arr.tolist()
 
 
-def calculate_path_distance(path, coords_np):
+def calculate_path_distance(path, distance_matrix):
+    """Return a route length in kilometres from its precomputed cost matrix."""
     return sum(
-        np.linalg.norm(coords_np[path[index]] - coords_np[path[index + 1]])
+        float(distance_matrix[path[index], path[index + 1]])
         for index in range(len(path) - 1)
     )

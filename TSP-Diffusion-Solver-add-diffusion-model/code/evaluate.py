@@ -49,6 +49,10 @@ def evaluate_checkpoint(run_dir, sample_limit=30, split="test"):
     dataset = np.load(DATASET_PATH)
     coords = dataset["coords"][:params["dataset_size"]]
     labels = dataset["adjacencies"][:params["dataset_size"]]
+    distances = (
+        dataset["distances"][:params["dataset_size"]]
+        if "distances" in dataset.files else None
+    )
     train_ids, validation_ids, test_ids = split_indices(len(coords))
     if split == "validation":
         test_ids = params.get("validation_indices", validation_ids)
@@ -76,8 +80,11 @@ def evaluate_checkpoint(run_dir, sample_limit=30, split="test"):
         if len(set(route[:-1])) != len(coords[index]) or route[0] != route[-1]:
             raise RuntimeError(f"Decoder returned an invalid tour for instance {index}")
         reference = adjacency_to_tour(labels[index])
-        predicted_length = float(calculate_path_distance(route, coords[index]))
-        reference_length = float(calculate_path_distance(reference, coords[index]))
+        distance_matrix = distances[index] if distances is not None else np.linalg.norm(
+            coords[index][:, None, :] - coords[index][None, :, :], axis=-1
+        )
+        predicted_length = float(calculate_path_distance(route, distance_matrix))
+        reference_length = float(calculate_path_distance(reference, distance_matrix))
         extra_km = predicted_length - reference_length
         records.append({"index": int(index), "coords": coords[index], "route": route,
                         "reference": reference, "route_length": predicted_length,
