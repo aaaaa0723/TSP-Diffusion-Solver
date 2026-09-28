@@ -8,4 +8,4 @@
 
 GitHub 上的資料集尚未包含 `distances` 欄位；上述 fallback 可讓舊資料集繼續使用。新生成資料集可存放 OSRM 道路距離。產生器預設 `TSP_DISTANCE_MODE=auto`，目前實際使用 Haversine；設定 `road` 才會連線本機 `http://localhost:5000` 的 OSRM 服務。
 
-本次只推程式與本說明，不包含本地更新的 859 MB 資料集、模型 checkpoint、執行結果、log、編輯器設定、虛擬環境、bytecode 或 `.orig` 備份檔。
+本分支另包含 `results/runs/20260928_163628/` 的模型 checkpoint、參數、評估報告與圖表，以及更新後的 `results/runs/latest.txt`。859 MB 的 `results/tsp_dataset_lite.npz` 未推送：GitHub 一般 Git push 不接受超過 100 MB 的單一檔案，且目前環境未安裝 Git LFS。空白訓練 log、編輯器設定、虛擬環境、bytecode 與 `.orig` 備份檔也未納入。
