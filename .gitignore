@@ -1,6 +1,0 @@
-*.npz
-__pycache__/
-.venv/
-*.db
-*.pth
-results/logs/
