@@ -1,0 +1,14 @@
+{
+  "learning_rate": 0.0002080510765641852,
+  "weight_decay": 5.987474910461405e-05,
+  "hidden": 16,
+  "layers": 1,
+  "diffusion_steps": 32,
+  "inference_steps": 4,
+  "objective_mean_plus_0_1_p95": 5.482448911310238,
+  "mean_gap_percent": 4.900511962220675,
+  "p95_gap_percent": 5.819369490895626,
+  "tuning_samples": 200,
+  "tuning_epochs": 10,
+  "trials": 32
+}

@@ -1,0 +1,19 @@
+{
+  "smoke_test": true,
+  "epochs": 20,
+  "samples": 0,
+  "diffusion_steps": 8,
+  "inference_steps": 4,
+  "hidden": 16,
+  "layers": 2,
+  "validation_limit": 32,
+  "run_id": "20260927_225902",
+  "device": "cuda",
+  "dataset_size": 1000,
+  "train_size": 1,
+  "validation_size": 1,
+  "test_size": 1,
+  "num_nodes": 494,
+  "diffusion_type": "categorical",
+  "edge_representation": "symmetric binary adjacency"
+}

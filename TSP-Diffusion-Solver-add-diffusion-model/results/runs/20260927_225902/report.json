@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "train_loss": [
+    0.7125391960144043
+  ],
+  "validation_loss": [
+    0.6852035522460938
+  ],
+  "best_validation_loss": 0.6852035522460938,
+  "test_index": 2,
+  "decoded_route_nodes": 494,
+  "expected_nodes": 494,
+  "route_distance": 879.0219116210938,
+  "route_closed": true,
+  "elapsed_seconds": 4.68
+}

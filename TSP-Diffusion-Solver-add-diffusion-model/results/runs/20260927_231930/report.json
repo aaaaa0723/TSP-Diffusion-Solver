@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "train_loss": [
+    0.5324966907501221
+  ],
+  "validation_loss": [
+    0.6439930200576782
+  ],
+  "best_validation_loss": 0.6439930200576782,
+  "elapsed_seconds": 5.88,
+  "decoded_test_cases": 1,
+  "mean_gap_percent": 14.46307780791739,
+  "p95_gap_percent": 14.46307780791739,
+  "route_closed": true
+}
