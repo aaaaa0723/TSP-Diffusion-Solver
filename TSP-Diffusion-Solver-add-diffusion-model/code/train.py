@@ -11,8 +11,9 @@ from torch.nn import functional as F
 
 from difusco_model import CategoricalEdgeDiffusion, DIFUSCOTSP
 
+from experiment_utils import DATASET_PATH
+
 ROOT = Path(__file__).resolve().parents[1]
-DATASET_PATH = ROOT / "results" / "tsp_dataset_lite.npz"
 RUNS = ROOT / "results" / "runs"
 
 
@@ -23,6 +24,10 @@ def main():
     parser.add_argument("--samples", type=int, default=0, help="limit training data; 0 uses all records")
     parser.add_argument("--diffusion-steps", type=int, default=32)
     parser.add_argument("--inference-steps", type=int, default=8)
+    parser.add_argument("--no-eval-plots", action="store_true", help="skip evaluation plots and OSRM geometry queries")
+    parser.add_argument("--decoder", choices=("legacy", "road_multistart"), default="road_multistart")
+    parser.add_argument("--decoder-starts", type=int, default=16)
+    parser.add_argument("--local-search-moves", type=int, default=200)
     parser.add_argument("--hidden", type=int, default=16)
     parser.add_argument("--layers", type=int, default=2)
     parser.add_argument("--validation-limit", type=int, default=32,
@@ -39,6 +44,8 @@ def main():
                         help="load the best Optuna configuration from results/optuna/best_params.json")
     args = parser.parse_args()
 
+    if args.decoder_starts < 1 or args.local_search_moves < 0:
+        parser.error("decoder-starts must be positive; local-search-moves must be nonnegative")
     if args.use_best_params:
         best_path = ROOT / "results" / "optuna" / "best_params.json"
         if not best_path.exists():
@@ -55,11 +62,18 @@ def main():
     np.random.seed(42)
     random.seed(42)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    arrays = np.load(DATASET_PATH)
-    coords = torch.from_numpy(arrays["coords"])
-    labels = torch.from_numpy(arrays["adjacencies"])
+    print(f"Loading dataset: {DATASET_PATH} | device={device}", flush=True)
+    with np.load(DATASET_PATH, allow_pickle=False) as arrays:
+        if "distances" not in arrays.files:
+            raise ValueError("Dataset has no OSRM distance matrix. Regenerate it with generate_tsp.py.")
+        if "distance_mode" not in arrays.files or str(arrays["distance_mode"]) != "osrm_driving":
+            raise ValueError("Dataset distance_mode must be osrm_driving; regenerate the dataset.")
+        coords = torch.from_numpy(arrays["coords"])
+        labels = torch.from_numpy(arrays["adjacencies"])
+        road_distances = torch.from_numpy(arrays["distances"])
+        reference_solve_seconds = int(arrays["solve_seconds"]) if "solve_seconds" in arrays.files else None
     count = min(len(coords), args.samples) if args.samples else len(coords)
-    coords, labels = coords[:count], labels[:count]
+    coords, labels, road_distances = coords[:count], labels[:count], road_distances[:count]
     if count < 3:
         raise ValueError("At least three instances are required for train/validation/test splits.")
     if args.smoke_test:
@@ -82,7 +96,8 @@ def main():
         (RUNS / "latest.txt").write_text(run_id, encoding="utf-8")
     params = vars(args).copy()
     params["run_dir"] = str(run_dir) if args.run_dir else None
-    params |= {"run_id": run_id, "device": str(device), "dataset_size": count,
+    params |= {"dataset_path": DATASET_PATH.relative_to(ROOT).as_posix() if DATASET_PATH.is_relative_to(ROOT) else str(DATASET_PATH), "run_id": run_id, "device": str(device), "dataset_size": count,
+                           "reference_solve_seconds": reference_solve_seconds,
                            "train_size": len(train_ids), "validation_size": len(validation_ids),
                            "validation_indices": validation_ids,
                            "test_size": len(test_ids), "test_indices": test_ids,
@@ -98,16 +113,20 @@ def main():
     best_validation_loss = float("inf")
     best_state = None
     started = time.perf_counter()
+    print(f"Training {epochs} epochs | {len(train_ids)} training instances | "
+          f"{coords.shape[1]} nodes | output={run_dir}", flush=True)
 
     for epoch in range(epochs):
+        epoch_started = time.perf_counter()
+        last_progress = epoch_started
         model.train()
         epoch_losses = []
         order = train_ids if args.smoke_test else np.random.permutation(train_ids).tolist()
-        for index in order:
+        for step, index in enumerate(order, start=1):
             points = coords[index:index + 1].to(device)
             target = torch.maximum(labels[index], labels[index].T).to(device=device, dtype=torch.long).unsqueeze(0)
             noisy, t = diffusion.corrupt(target)
-            logits = model(points, noisy, t)
+            logits = model(points, noisy, t, road_distances[index:index + 1].to(device))
             valid = ~torch.eye(target.shape[-1], device=device, dtype=torch.bool).unsqueeze(0)
             loss = F.cross_entropy(logits.permute(0, 2, 3, 1)[valid], target[valid])
             optimizer.zero_grad(set_to_none=True)
@@ -115,18 +134,26 @@ def main():
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
             optimizer.step()
             epoch_losses.append(float(loss.detach().cpu()))
+            now = time.perf_counter()
+            if step == 1 or step == len(order) or now - last_progress >= 15:
+                remaining = (now - epoch_started) / step * (len(order) - step)
+                print(f"epoch {epoch + 1}/{epochs} train {step}/{len(order)} "
+                      f"({step / len(order):.1%}) | loss={np.mean(epoch_losses):.5f} | "
+                      f"train ETA {remaining / 60:.1f} min", flush=True)
+                last_progress = now
         history.append(float(np.mean(epoch_losses)))
         model.eval()
         val_ids = validation_ids
         if args.validation_limit > 0:
             val_ids = val_ids[:args.validation_limit]
+        print(f"epoch {epoch + 1}/{epochs} validating {len(val_ids)} instances...", flush=True)
         val_losses = []
         with torch.no_grad():
             for index in val_ids:
                 points = coords[index:index + 1].to(device)
                 target = torch.maximum(labels[index], labels[index].T).to(device=device, dtype=torch.long).unsqueeze(0)
                 noisy, t = diffusion.corrupt(target)
-                logits = model(points, noisy, t)
+                logits = model(points, noisy, t, road_distances[index:index + 1].to(device))
                 valid = ~torch.eye(target.shape[-1], device=device, dtype=torch.bool).unsqueeze(0)
                 val_losses.append(float(F.cross_entropy(logits.permute(0, 2, 3, 1)[valid], target[valid]).cpu()))
         val_loss = float(np.mean(val_losses))
@@ -134,7 +161,7 @@ def main():
         if val_loss < best_validation_loss:
             best_validation_loss = val_loss
             best_state = {key: value.detach().cpu().clone() for key, value in model.state_dict().items()}
-        print(f"epoch {epoch + 1}/{epochs} train_loss={history[-1]:.5f} val_loss={val_loss:.5f}")
+        print(f"epoch {epoch + 1}/{epochs} train_loss={history[-1]:.5f} val_loss={val_loss:.5f}", flush=True)
 
     save_loss_curve(history, validation_history, run_dir)
     if best_state is None:
@@ -145,8 +172,11 @@ def main():
               "elapsed_seconds": round(time.perf_counter() - started, 2)}
     # Import lazily so Optuna's objective and the command-line training path share one evaluator.
     from evaluate import evaluate_checkpoint
-    metrics = evaluate_checkpoint(run_dir, sample_limit=args.eval_samples, split=args.evaluation_split)
+    metrics = evaluate_checkpoint(run_dir, sample_limit=args.eval_samples, split=args.evaluation_split,
+                                  make_plots=not args.no_eval_plots)
     report["status"] = "passed"
+    report["evaluation_split"] = args.evaluation_split
+    report["decoder"] = args.decoder
     report["decoded_test_cases"] = metrics["num_test_cases"]
     report["mean_gap_percent"] = metrics["mean_gap_percent"]
     report["p95_gap_percent"] = metrics["p95_gap_percent"]

@@ -45,11 +45,13 @@ class DIFUSCOTSP(nn.Module):
         self.layers = nn.ModuleList([GatedEdgeLayer(hidden) for _ in range(layers)])
         self.out = nn.Sequential(nn.LayerNorm(hidden), nn.SiLU(), nn.Linear(hidden, 2))
 
-    def forward(self, points, noisy_edges, timesteps):
+    def forward(self, points, noisy_edges, timesteps, road_distances):
         points = points - points.mean(dim=1, keepdim=True)
         scale = points.std(dim=1, keepdim=True).clamp_min(1e-6)
         nodes = self.node_in(points / scale)
-        distances = torch.cdist(points, points)
+        if road_distances.shape != noisy_edges.shape:
+            raise ValueError("road_distances must have shape [batch, nodes, nodes]")
+        distances = road_distances.to(dtype=points.dtype)
         distances = distances / distances.mean(dim=(1, 2), keepdim=True).clamp_min(1e-6)
         edge_input = torch.stack((noisy_edges.float(), distances), dim=-1)
         edges = self.edge_in(edge_input)
@@ -89,14 +91,14 @@ class CategoricalEdgeDiffusion:
         return noisy, t
 
     @torch.no_grad()
-    def sample(self, model, points, inference_steps=8):
+    def sample(self, model, points, road_distances, inference_steps=8):
         b, n, _ = points.shape
         state = torch.randint(0, 2, (b, n, n), device=points.device)
         schedule = np.linspace(self.steps, 0, min(inference_steps, self.steps) + 1).round().astype(int)
         schedule = np.unique(schedule)[::-1]
         for current, target in zip(schedule[:-1], schedule[1:]):
             t = torch.full((b,), int(current), device=points.device)
-            x0 = model(points, state, t).softmax(dim=1).permute(0, 2, 3, 1)
+            x0 = model(points, state, t, road_distances).softmax(dim=1).permute(0, 2, 3, 1)
             qbar_now = self.qbar[current]
             qbar_target = self.qbar[target]
             q_step = torch.linalg.solve(qbar_target.T, qbar_now.T).T

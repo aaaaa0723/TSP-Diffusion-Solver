@@ -1,4 +1,6 @@
 import os
+import json
+import hashlib
 import shutil
 import sys
 import time
@@ -8,33 +10,43 @@ import numpy as np
 import requests
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
-from experiment_utils import DATASET_PATH
+from experiment_utils import DATASET_PATH, TAICHUNG_BOUNDARY_PATH
+from seven_eleven import prepare_stores
 
 
 NUM_SAMPLES = int(os.environ.get("TSP_NUM_SAMPLES", "1000"))
-NUM_NODES = int(os.environ.get("TSP_NUM_NODES", "494"))
-SOLVE_SECONDS = max(1, int(os.environ.get("TSP_SOLVE_SECONDS", os.environ.get("TSP_SOLVER_TIME_LIMIT_SECONDS", "5"))))
+NUM_NODES = int(os.environ.get("TSP_NUM_NODES", "500"))
+SOLVE_SECONDS = max(1, int(os.environ.get("TSP_SOLVE_SECONDS", os.environ.get("TSP_SOLVER_TIME_LIMIT_SECONDS", "30"))))
 NUM_WORKERS = max(1, min(cpu_count(), int(os.environ.get("TSP_NUM_WORKERS", "8"))))
 CHECKPOINT_EVERY = max(1, int(os.environ.get("TSP_CHECKPOINT_EVERY", "10")))
-DISTANCE_MODE = os.environ.get("TSP_DISTANCE_MODE", "auto").lower()
-
-LON_MIN, LON_MAX = 120.5500, 120.8500
-LAT_MIN, LAT_MAX = 24.0500, 24.3500
+OSRM_URL = os.environ.get("TSP_OSRM_URL", "http://localhost:5000").rstrip("/")
+BOUNDARY_URL = os.environ.get(
+    "TSP_TAICHUNG_BOUNDARY_URL",
+    "https://nominatim.openstreetmap.org/search?format=geojson&polygon_geojson=1&limit=5&q=Taichung%2C%20Taiwan",
+)
 OSRM_SESSION = None
+STORE_CATALOG = None
+CATALOG_HASH = None
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 
-def init_worker():
-    """Reuse one HTTP connection per worker for repeated OSRM requests."""
-    global OSRM_SESSION
+def init_worker(catalog, catalog_hash):
+    """Share a fixed store pool across Windows/Linux workers."""
+    global OSRM_SESSION, STORE_CATALOG, CATALOG_HASH
     OSRM_SESSION = requests.Session()
+    STORE_CATALOG = catalog
+    CATALOG_HASH = catalog_hash
+
+
+class UnreachableStoresError(ValueError):
+    pass
 
 
 def get_osrm_distance_matrix(coords):
     """Request an OSRM road-distance matrix for the supplied coordinates."""
-    url = "http://localhost:5000/table/v1/driving"
+    url = f"{OSRM_URL}/table/v1/driving"
     payload = {
         "coordinates": np.asarray(coords, dtype=float).tolist(),
         "annotations": ["distance"],
@@ -51,40 +63,72 @@ def get_osrm_distance_matrix(coords):
 
         matrix = np.asarray(data["distances"], dtype=np.float32)
         # Keep distances in kilometers to reduce storage while retaining road costs.
-        matrix = np.nan_to_num(
-            matrix, nan=9999999, posinf=9999999, neginf=9999999
-        )
+        if matrix.shape != (len(coords), len(coords)):
+            raise ValueError("OSRM returned an invalid matrix shape")
+        if not np.isfinite(matrix).all() or (matrix < 0).any():
+            raise UnreachableStoresError("Some selected stores have no driving route between them")
         return (matrix / 1000.0).astype(np.float32)
+    except UnreachableStoresError:
+        raise
     except Exception as exc:
         detail = exc
         if isinstance(exc, requests.HTTPError) and exc.response is not None:
             detail = f"HTTP {exc.response.status_code}: {exc.response.text[:1000]}"
         raise RuntimeError(
             f"OSRM request failed for {len(coords)} coordinates: {detail}. "
-            "Check localhost:5000 and ensure --max-table-size >= NUM_NODES."
+            f"Check {OSRM_URL} and ensure --max-table-size >= NUM_NODES."
         ) from exc
 
 
-def get_haversine_distance_matrix(coords):
-    """Return an aerial-distance matrix in kilometres for lon/lat coordinates."""
-    lon = np.radians(coords[:, 0])
-    lat = np.radians(coords[:, 1])
-    delta_lon = lon[:, None] - lon[None, :]
-    delta_lat = lat[:, None] - lat[None, :]
-    a = np.sin(delta_lat / 2) ** 2 + np.cos(lat[:, None]) * np.cos(lat[None, :]) * np.sin(delta_lon / 2) ** 2
-    return (6371.0088 * 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))).astype(np.float32)
+def _extract_taichung_geometry(feature_collection):
+    """Return the city relation geometry from a Nominatim response."""
+    for feature in feature_collection.get("features", []):
+        properties = feature.get("properties", {})
+        if (properties.get("osm_type") == "relation" and
+                properties.get("osm_id") == 2921154 and
+                properties.get("name") in {"臺中市", "台中市"}):
+            return feature["geometry"]
+    raise ValueError("The boundary response did not contain OSM relation 2921154 (臺中市).")
+
+
+def load_taichung_boundary():
+    """Load cached WGS84 city boundary, downloading it once when absent."""
+    if TAICHUNG_BOUNDARY_PATH.exists():
+        document = json.loads(TAICHUNG_BOUNDARY_PATH.read_text(encoding="utf-8"))
+    else:
+        response = requests.get(
+            BOUNDARY_URL,
+            headers={"User-Agent": "TSP-Diffusion-Solver/1.0 (educational project)"},
+            timeout=60,
+        )
+        response.raise_for_status()
+        geometry = _extract_taichung_geometry(response.json())
+        document = {"type": "Feature", "properties": {
+            "name": "臺中市", "source": "OpenStreetMap relation 2921154 via Nominatim",
+            "license": "ODbL 1.0"}, "geometry": geometry}
+        TAICHUNG_BOUNDARY_PATH.parent.mkdir(parents=True, exist_ok=True)
+        TAICHUNG_BOUNDARY_PATH.write_text(json.dumps(document, ensure_ascii=False), encoding="utf-8")
+        print(f"Downloaded and cached Taichung boundary: {TAICHUNG_BOUNDARY_PATH}")
+    geometry = document.get("geometry", document)
+    if geometry.get("type") == "Polygon":
+        return [np.asarray(ring, dtype=np.float64) for ring in geometry["coordinates"]]
+    if geometry.get("type") == "MultiPolygon":
+        return [np.asarray(ring, dtype=np.float64) for polygon in geometry["coordinates"] for ring in polygon]
+    raise ValueError("Taichung boundary must be a Polygon or MultiPolygon.")
 
 
 def solve_single_tsp(seed):
     rng = np.random.default_rng(seed)
-    lons = rng.uniform(LON_MIN, LON_MAX, NUM_NODES)
-    lats = rng.uniform(LAT_MIN, LAT_MAX, NUM_NODES)
-    coords = np.column_stack((lons, lats)).astype(np.float32)
-
-    if DISTANCE_MODE == "road":
-        distance_matrix = get_osrm_distance_matrix(coords)
-    else:
-        distance_matrix = get_haversine_distance_matrix(coords)
+    for attempt in range(20):
+        store_indices = rng.choice(len(STORE_CATALOG["stores"]), NUM_NODES, replace=False)
+        coords = np.asarray([STORE_CATALOG["stores"][i]["coords"] for i in store_indices], dtype=np.float32)
+        try:
+            distance_matrix = get_osrm_distance_matrix(coords)
+            break
+        except UnreachableStoresError:
+            if attempt == 19:
+                raise RuntimeError(f"Could not find {NUM_NODES} mutually reachable stores for seed {seed}")
+    # Only finite, fully reachable samples are passed to the solver.
     manager = pywrapcp.RoutingIndexManager(NUM_NODES, 1, 0)
     routing = pywrapcp.RoutingModel(manager)
 
@@ -117,7 +161,26 @@ def solve_single_tsp(seed):
         to_node = manager.IndexToNode(index)
         adjacency[from_node, to_node] = 1
 
-    return seed, coords, adjacency, distance_matrix
+    return seed, coords, adjacency, distance_matrix, store_indices
+
+
+
+def replace_checkpoint(temp_path, path):
+    """Retry transient Windows file locks without deleting the previous dataset."""
+    for attempt in range(6):
+        try:
+            os.replace(temp_path, path)
+            return
+        except PermissionError as exc:
+            if attempt == 5:
+                raise PermissionError(
+                    f"Cannot replace {path}; it may be open in a training/evaluation "
+                    f"process or not writable. Close processes using this file and "
+                    f"check its permissions, then rerun generation to resume. "
+                    f"Generated data is preserved at {temp_path}; "
+                    "progress checkpoints are also retained."
+                ) from exc
+            time.sleep(0.5)
 
 
 def save_samples(path, results):
@@ -126,18 +189,29 @@ def save_samples(path, results):
     coords = np.stack([results[int(seed)][0] for seed in seeds]).astype(np.float32)
     adjacencies = np.stack([results[int(seed)][1] for seed in seeds]).astype(np.int8)
     distances = np.stack([results[int(seed)][2] for seed in seeds]).astype(np.float32)
+    sample_indices = np.stack([results[int(seed)][3] for seed in seeds])
+    catalog_stores = STORE_CATALOG["stores"]
     temp_path = path.with_name(f"{path.stem}.tmp.npz")
     np.savez_compressed(
         temp_path,
         seeds=seeds,
+        store_indices=sample_indices,
+        store_ids=np.asarray([store["id"] for store in catalog_stores])[sample_indices],
+        store_names=np.asarray([store["name"] for store in catalog_stores])[sample_indices],
+        store_coords=np.asarray([store["original_coords"] for store in catalog_stores], dtype=np.float64)[sample_indices],
+        store_catalog_json=np.asarray(json.dumps(STORE_CATALOG, ensure_ascii=False)),
+        catalog_hash=np.asarray(CATALOG_HASH),
+        node_source=np.asarray("taichung_7eleven_osm"),
         coords=coords,
         adjacencies=adjacencies,
         distances=distances,
         num_samples=np.int32(NUM_SAMPLES),
         num_nodes=np.int32(NUM_NODES),
         solve_seconds=np.int32(SOLVE_SECONDS),
+        distance_mode=np.asarray("osrm_driving"),
+        boundary_name=np.asarray("臺中市"),
     )
-    os.replace(temp_path, path)
+    replace_checkpoint(temp_path, path)
 
 
 def load_progress(path):
@@ -147,6 +221,8 @@ def load_progress(path):
     results = {}
     for checkpoint_path in sorted(path.glob("sample_*.npz")):
         with np.load(checkpoint_path, allow_pickle=False) as saved:
+            if "catalog_hash" not in saved.files or str(saved["catalog_hash"]) != CATALOG_HASH:
+                raise ValueError(f"Store catalog mismatch in {checkpoint_path}; do not mix datasets.")
             expected = (NUM_SAMPLES, NUM_NODES, SOLVE_SECONDS)
             actual = (
                 int(saved["num_samples"]),
@@ -165,18 +241,21 @@ def load_progress(path):
                 )
             seed = int(saved["seed"])
             results[seed] = (
-                saved["coords"], saved["adjacencies"], saved["distances"]
+                saved["coords"], saved["adjacencies"], saved["distances"], saved["store_indices"]
             )
     return results
 
 
-def save_progress_sample(path, seed, coords, adjacency, distances):
+def save_progress_sample(path, seed, coords, adjacency, distances, store_indices):
     path.mkdir(parents=True, exist_ok=True)
     sample_path = path / f"sample_{seed:06d}.npz"
     temp_path = path / f"sample_{seed:06d}.tmp.npz"
     np.savez_compressed(
         temp_path,
         seed=np.int32(seed),
+        store_indices=store_indices,
+        catalog_hash=np.asarray(CATALOG_HASH),
+        node_source=np.asarray("taichung_7eleven_osm"),
         coords=coords,
         adjacencies=adjacency,
         distances=distances,
@@ -184,7 +263,7 @@ def save_progress_sample(path, seed, coords, adjacency, distances):
         num_nodes=np.int32(NUM_NODES),
         solve_seconds=np.int32(SOLVE_SECONDS),
     )
-    os.replace(temp_path, sample_path)
+    replace_checkpoint(temp_path, sample_path)
 
 
 def main():
@@ -192,13 +271,20 @@ def main():
         raise ValueError("TSP_NUM_SAMPLES must be at least 1.")
     if NUM_NODES < 3:
         raise ValueError("TSP_NUM_NODES must be at least 3.")
-    if DISTANCE_MODE not in {"auto", "road", "haversine"}:
-        raise ValueError("TSP_DISTANCE_MODE must be auto, road, or haversine.")
+    global STORE_CATALOG, CATALOG_HASH
+    load_taichung_boundary()
+    STORE_CATALOG = prepare_stores(OSRM_URL, NUM_NODES)
+    CATALOG_HASH = hashlib.sha256(json.dumps(
+        {key: value for key, value in STORE_CATALOG.items() if key != "prepared_at"},
+        sort_keys=True).encode("utf-8")).hexdigest()
 
     DATASET_PATH.parent.mkdir(parents=True, exist_ok=True)
     progress_path = DATASET_PATH.with_name(
-        f"{DATASET_PATH.stem}.progress_{NUM_SAMPLES}x{NUM_NODES}_{SOLVE_SECONDS}s"
+        f"{DATASET_PATH.stem}.progress_{NUM_SAMPLES}x{NUM_NODES}_{SOLVE_SECONDS}s_{CATALOG_HASH[:12]}"
     )
+    progress_path.mkdir(parents=True, exist_ok=True)
+    (progress_path / "store_catalog.json").write_text(
+        json.dumps(STORE_CATALOG, ensure_ascii=False, indent=2), encoding="utf-8")
     results = load_progress(progress_path)
     pending_seeds = [seed for seed in range(NUM_SAMPLES) if seed not in results]
     workers = min(NUM_WORKERS, max(1, len(pending_seeds)))
@@ -206,21 +292,21 @@ def main():
     run_start = time.time()
 
     print(
-        f"Generating {NUM_SAMPLES} TSP samples ({NUM_NODES} nodes each); "
-        f"workers={workers}, solver limit={SOLVE_SECONDS}s."
+        f"Generating {NUM_SAMPLES} TSP samples ({NUM_NODES} 7-ELEVEN stores each); "
+        f"workers={workers}, solver limit={SOLVE_SECONDS}s, distance=osrm_driving, boundary=臺中市."
     )
     if completed_before:
         print(f"Loaded checkpoint: {completed_before}/{NUM_SAMPLES}; resuming.")
 
     try:
         if pending_seeds:
-            with Pool(processes=workers, initializer=init_worker) as pool:
-                for seed, coords, adjacency, distances in pool.imap_unordered(
+            with Pool(processes=workers, initializer=init_worker, initargs=(STORE_CATALOG, CATALOG_HASH)) as pool:
+                for seed, coords, adjacency, distances, store_indices in pool.imap_unordered(
                     solve_single_tsp, pending_seeds, chunksize=1
                 ):
-                    results[seed] = (coords, adjacency, distances)
+                    results[seed] = (coords, adjacency, distances, store_indices)
                     save_progress_sample(
-                        progress_path, seed, coords, adjacency, distances
+                        progress_path, seed, coords, adjacency, distances, store_indices
                     )
                     completed = len(results)
                     run_completed = completed - completed_before

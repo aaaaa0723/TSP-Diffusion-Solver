@@ -1,139 +1,188 @@
 import math
-import warnings
 import numpy as np
-from sklearn.cluster import KMeans
 
-# ===== 目前正式 decoder 的可調整參數 =====
 COST_EPSILON = 1e-9
-MAX_SUBGRAPH_SIZE = 12  # Held-Karp 的葉細胞最大節點數
-BEAM_WIDTH = 2          # 區塊合併時的波束寬度 (同時保留的最佳路線數)
-CANDIDATE_LIMIT = 2     # 每次合併時，最多考慮幾個距離最近的相鄰區塊
+MAX_SUBGRAPH_SIZE = 12
+BEAM_WIDTH = 2
+CANDIDATE_LIMIT = 2
 
 
-def _recursive_kmeans_bisection(nodes, coords_np, max_size):
-    """
-    遞迴 K-Means 切割法：
-    將節點集一分為二，直到每個子集的節點數 <= max_size。
-    這樣能確保地理位置相近的節點被分在同一組，不會被死板的幾何網格切斷。
-    """
+def _symmetric_road_cost(distance_matrix):
+    return (distance_matrix + distance_matrix.T) * 0.5
+
+
+def _recursive_road_bisection(nodes, road_cost, max_size):
+    """Split nodes using only OSRM driving costs, never coordinate distances."""
     if len(nodes) <= max_size:
         return [nodes]
-    
-    sub_coords = coords_np[nodes]
-    
-    # 忽略 KMeans 可能在極少樣本時產生的警告
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
-        kmeans = KMeans(n_clusters=2, n_init=10, random_state=42).fit(sub_coords)
-    
-    labels = kmeans.labels_
-    nodes_0 = [nodes[i] for i, label in enumerate(labels) if label == 0]
-    nodes_1 = [nodes[i] for i, label in enumerate(labels) if label == 1]
-    
-    # 防呆：如果 KMeans 無法有效切分 (例如點都在同一個座標)，則強行平分
-    if not nodes_0 or not nodes_1:
-        mid = len(nodes) // 2
-        nodes_0, nodes_1 = nodes[:mid], nodes[mid:]
-        
-    return _recursive_kmeans_bisection(nodes_0, coords_np, max_size) + \
-           _recursive_kmeans_bisection(nodes_1, coords_np, max_size)
+    subset = np.asarray(nodes, dtype=int)
+    local = road_cost[np.ix_(subset, subset)]
+    left_anchor = 0
+    right_anchor = int(np.argmax(local[left_anchor]))
+    if right_anchor == left_anchor:
+        midpoint = len(nodes) // 2
+        return (_recursive_road_bisection(nodes[:midpoint], road_cost, max_size) +
+                _recursive_road_bisection(nodes[midpoint:], road_cost, max_size))
+    left, right = [], []
+    for local_index, node in enumerate(nodes):
+        (left if local[local_index, left_anchor] <= local[local_index, right_anchor] else right).append(node)
+    if not left or not right:
+        midpoint = len(nodes) // 2
+        left, right = nodes[:midpoint], nodes[midpoint:]
+    return (_recursive_road_bisection(left, road_cost, max_size) +
+            _recursive_road_bisection(right, road_cost, max_size))
+
+
+def _cluster_road_distance(nodes_a, nodes_b, road_cost):
+    return float(road_cost[np.ix_(nodes_a, nodes_b)].mean())
 
 
 def divide_and_conquer_kmeans_beam_decoder(
-    prob_matrix, start_node=0, coords=None, max_subgraph_size=MAX_SUBGRAPH_SIZE,
+    prob_matrix, start_node=0, distance_matrix=None, max_subgraph_size=MAX_SUBGRAPH_SIZE,
     apply_two_opt=True, beam_width=BEAM_WIDTH, candidate_limit=CANDIDATE_LIMIT
 ):
-    """
-    K-Means 聚類 + 區塊級波束搜索 (Beam Search) 求解器。
-    先用 KMeans 把全圖切成合理的聚落，用 Held-Karp 完美求解聚落，
-    最後用 Beam Search 探索最佳的區塊合併順序。
-    """
+    """Road-cost bisection + beam decoder; every cost-based choice uses OSRM."""
     prob_matrix = np.asarray(prob_matrix, dtype=np.float64)
     num_nodes = prob_matrix.shape[0]
-    
     if prob_matrix.ndim != 2 or prob_matrix.shape[1] != num_nodes:
         raise ValueError("prob_matrix must be a square matrix")
     if not 0 <= start_node < max(num_nodes, 1):
         raise ValueError("start_node is outside prob_matrix")
     if num_nodes <= 1:
         return [start_node, start_node]
-    if coords is None:
-        raise ValueError("Decoder requires coords")
-
-    coords_np = np.asarray(coords, dtype=np.float64)
-    if coords_np.shape[0] != num_nodes:
-        raise ValueError("coords and prob_matrix must contain the same number of nodes")
-    
+    if distance_matrix is None:
+        raise ValueError("Decoder requires an OSRM driving distance matrix")
+    distance_matrix = np.asarray(distance_matrix, dtype=np.float64)
+    if distance_matrix.shape != (num_nodes, num_nodes):
+        raise ValueError("distance_matrix and prob_matrix must have matching square shapes")
+    road_cost = _symmetric_road_cost(distance_matrix)
     cost_matrix = compute_cost_matrix(prob_matrix)
-    
-    # --- 1. Divide: 使用 K-Means 切割 ---
     all_nodes = list(range(num_nodes))
-    leaf_node_lists = _recursive_kmeans_bisection(all_nodes, coords_np, max_subgraph_size)
-    
-    # --- 2. Conquer: 局部 Held-Karp 完美求解 ---
-    leaves = []
-    centroids = []
-    for nodes in leaf_node_lists:
-        cycle = held_karp_tsp(nodes, cost_matrix)
-        leaves.append(cycle)
-        centroids.append(coords_np[nodes].mean(axis=0))  # 計算區塊的幾何中心
-        
-    centroids = np.array(centroids)
-    # 預先計算區塊中心之間的距離矩陣，用於尋找相鄰區塊
-    cluster_dist = np.linalg.norm(centroids[:, None, :] - centroids[None, :, :], axis=-1)
-
-    # --- 3. Merge: 區塊級波束搜索 (Beam Search) ---
-    # 找出包含起點城市的區塊
+    leaf_node_lists = _recursive_road_bisection(all_nodes, road_cost, max_subgraph_size)
+    leaves = [held_karp_tsp(nodes, cost_matrix) for nodes in leaf_node_lists]
+    cluster_dist = np.asarray([[_cluster_road_distance(a, b, road_cost) for b in leaf_node_lists]
+                               for a in leaf_node_lists])
     start_cluster = next(i for i, leaf in enumerate(leaf_node_lists) if start_node in leaf)
-    
-    # Beam state 結構: (合併累積成本, 當前區塊 index, 已經走訪的區塊集合(frozenset), 當前串接的大迴圈)
     beam = [(0.0, start_cluster, frozenset([start_cluster]), leaves[start_cluster])]
-    
-    # 總共需要執行 (葉子數量 - 1) 次合併
     for _ in range(len(leaves) - 1):
         new_beam = []
-        
         for score, curr_idx, visited, cycle in beam:
-            # 找出尚未走訪的區塊
             unvisited = [i for i in range(len(leaves)) if i not in visited]
-            # 依據幾何中心距離，由近到遠排序
             unvisited.sort(key=lambda x: cluster_dist[curr_idx, x])
-            
-            # 只取距離最近的前 candidate_limit 個區塊進行嘗試，避免窮舉過於耗時
-            candidates = unvisited[:candidate_limit]
-            
-            for nxt_idx in candidates:
-                # 計算合併成本
+            for nxt_idx in unvisited[:candidate_limit]:
                 delta, next_cycle = _best_merge(cycle, leaves[nxt_idx], cost_matrix)
-                new_score = score + delta
-                new_visited = visited | frozenset([nxt_idx])
-                new_beam.append((new_score, nxt_idx, new_visited, next_cycle))
-                
-        # 將所有探索到的可能路徑依成本排序，只保留前 beam_width 條
+                new_beam.append((score + delta, nxt_idx, visited | frozenset([nxt_idx]), next_cycle))
         new_beam.sort(key=lambda x: x[0])
         beam = new_beam[:beam_width]
-
-    # 取出最終成本最低的那條大迴圈
     best_cycle = beam[0][3]
-
-    # 旋轉陣列，確保從指定的 start_node 出發
     start_index = best_cycle.index(start_node)
     final_cycle = best_cycle[start_index:] + best_cycle[:start_index] + [start_node]
-
-    # --- 4. Refine: 2-Opt 修補 ---
-    if apply_two_opt:
-        distance_matrix = np.linalg.norm(coords_np[:, None, :] - coords_np[None, :, :], axis=-1)
-        final_cycle = two_opt(final_cycle, distance_matrix)
-        
-    return final_cycle
+    return two_opt(final_cycle, distance_matrix) if apply_two_opt else final_cycle
 
 
-def divide_and_conquer_decoder(prob_matrix, start_node=0, coords=None):
-    """正式使用的 decoder：已經升級為 K-Means + Beam Search 引擎。"""
-    return divide_and_conquer_kmeans_beam_decoder(
-        prob_matrix, start_node, coords, apply_two_opt=True
+def divide_and_conquer_decoder(prob_matrix, start_node=0, distance_matrix=None,
+                               decoder="road_multistart", starts=16, max_moves=200):
+    initial = divide_and_conquer_kmeans_beam_decoder(
+        prob_matrix, start_node, distance_matrix, apply_two_opt=True
     )
+    if decoder == "legacy":
+        return initial
+    if decoder != "road_multistart":
+        raise ValueError(f"Unknown decoder: {decoder}")
+    return road_multistart_decoder(prob_matrix, distance_matrix, initial, start_node, starts, max_moves)
 
+
+def directed_local_search(path, distance_matrix, max_moves=200):
+    """Best-improvement directed 2-opt and relocation of 1--3 consecutive nodes.
+
+    Reversal deltas include every reversed internal arc. Relocations preserve
+    internal arc directions. The depot remains fixed and every move lowers cost.
+    """
+    distance = np.asarray(distance_matrix, dtype=np.float64)
+    route = np.asarray(path[:-1], dtype=int)
+    n = len(route)
+    if n < 3:
+        return list(path)
+    i, j = np.indices((n, n))
+    reversal_mask = (i >= 1) & (j > i)
+    for _ in range(max_moves):
+        prev, nxt = np.roll(route, 1), np.roll(route, -1)
+        difference = distance[nxt, route] - distance[route, nxt]
+        prefix = np.concatenate(([0.0], np.cumsum(difference)))
+        reversal = (distance[prev[:, None], route[None, :]]
+                    + distance[route[:, None], nxt[None, :]]
+                    - distance[prev, route][:, None] - distance[route, nxt][None, :]
+                    + prefix[j] - prefix[i])
+        reversal[~reversal_mask] = np.inf
+        a, b = np.unravel_index(np.argmin(reversal), reversal.shape)
+        best_delta = reversal[a, b]
+        move = ("reverse", a, b)
+        for length in (1, 2, 3):
+            if length >= n - 1:
+                continue
+            first = np.arange(1, n - length + 1)
+            last = first + length - 1
+            u, v = route[first - 1], route[(last + 1) % n]
+            head, tail = route[first], route[last]
+            delta = ((distance[u, v] - distance[u, head] - distance[tail, v])[:, None]
+                     + distance[route[None, :], head[:, None]]
+                     + distance[tail[:, None], nxt[None, :]]
+                     - distance[route, nxt][None, :])
+            positions = np.arange(n)[None, :]
+            invalid = (positions >= (first - 1)[:, None]) & (positions <= last[:, None])
+            delta[invalid] = np.inf
+            row, after = np.unravel_index(np.argmin(delta), delta.shape)
+            if delta[row, after] < best_delta:
+                best_delta = delta[row, after]
+                move = ("relocate", int(first[row]), length, int(route[after]))
+        if best_delta >= -1e-9:
+            break
+        if move[0] == "reverse":
+            route[move[1]:move[2] + 1] = route[move[1]:move[2] + 1][::-1]
+        else:
+            _, first, length, after_node = move
+            block = route[first:first + length].copy()
+            remaining = np.concatenate((route[:first], route[first + length:]))
+            position = int(np.flatnonzero(remaining == after_node)[0]) + 1
+            route = np.concatenate((remaining[:position], block, remaining[position:]))
+    return route.tolist() + [int(route[0])]
+
+
+def road_multistart_decoder(prob_matrix, distance_matrix, initial, start_node=0,
+                           starts=16, max_moves=200):
+    """Neural seed plus road/heatmap-guided greedy starts, selected by road cost.
+
+    No reference adjacency or reference tour is available to this function.
+    This is a hybrid decoder, not a claim about raw neural model quality.
+    """
+    distance = np.asarray(distance_matrix, dtype=np.float64)
+    n = len(distance)
+    if starts < 1 or max_moves < 0:
+        raise ValueError("starts must be positive and max_moves must be nonnegative")
+    if distance.shape != (n, n) or not np.isfinite(distance).all() or (distance < 0).any():
+        raise ValueError("Road costs must be a finite nonnegative square matrix")
+    best = directed_local_search(initial, distance, max_moves)
+    best_cost = calculate_path_distance(best, distance)
+    probabilities = np.clip(np.asarray(prob_matrix), 1e-6, 1)
+    penalty = -np.log(probabilities)
+    penalty /= max(float(np.mean(penalty)), 1e-6)
+    for trial, first in enumerate(np.linspace(0, n - 1, min(starts, n), dtype=int)):
+        # Alternate pure road and learned-edge guided starts for diversity.
+        costs = distance * (1 + (0.15 if trial % 2 else 0.0) * penalty)
+        route, remaining = [int(first)], np.ones(n, dtype=bool)
+        remaining[first] = False
+        while remaining.any():
+            candidates = np.flatnonzero(remaining)
+            node = int(candidates[np.argmin(costs[route[-1], candidates])])
+            route.append(node)
+            remaining[node] = False
+        offset = route.index(start_node)
+        route = route[offset:] + route[:offset] + [start_node]
+        candidate = directed_local_search(route, distance, max_moves)
+        cost = calculate_path_distance(candidate, distance)
+        if cost < best_cost:
+            best, best_cost = candidate, cost
+    return best
 
 def compute_cost_matrix(prob_matrix, eps=COST_EPSILON):
     """把邊機率轉成 Decoder 用的成本：W_ij = -log(P_ij + eps)，機率越高成本越低。"""
@@ -256,34 +305,32 @@ def _best_merge(cycle_a, cycle_b, cost_matrix):
 
 
 def two_opt(path, distance_matrix, max_passes=5):
-    """標準 2-opt 區域優化：反覆交換路徑段，消除交叉或成本偏高的邊。"""
+    """Directed 2-opt evaluated entirely with OSRM costs, including reversed arcs."""
     path = list(path)
-    n = len(path) - 1  # 最後一個節點是回到起點，不參與交換
-    if n < 4:
-        return path
-
-    path_arr = np.array(path)
-    improved = True
-    passes = 0
-    while improved and passes < max_passes:
-        improved = False
-        passes += 1
+    n = len(path) - 1
+    for _ in range(max_passes):
+        forward = np.asarray([distance_matrix[path[k], path[k + 1]] for k in range(n)])
+        reverse = np.asarray([distance_matrix[path[k + 1], path[k]] for k in range(n)])
+        forward_prefix = np.concatenate(([0.0], np.cumsum(forward)))
+        reverse_prefix = np.concatenate(([0.0], np.cumsum(reverse)))
+        current_cost = float(forward_prefix[-1])
+        best_cost, best_pair = current_cost, None
         for i in range(1, n - 1):
-            a, b = path_arr[i - 1], path_arr[i]
-            c_arr = path_arr[i + 1:n]
-            d_arr = path_arr[i + 2:n + 1]
-            old_cost = distance_matrix[a, b] + distance_matrix[c_arr, d_arr]
-            new_cost = distance_matrix[a, c_arr] + distance_matrix[b, d_arr]
-            gains = old_cost - new_cost
-            if gains.size == 0:
-                continue
-            best_idx = int(np.argmax(gains))
-            if gains[best_idx] > 1e-9:
-                j = i + 1 + best_idx
-                path_arr[i:j + 1] = path_arr[i:j + 1][::-1]
-                improved = True
-
-    return path_arr.tolist()
+            a, b = path[i - 1], path[i]
+            for j in range(i + 1, n):
+                c, d = path[j], path[j + 1]
+                candidate_cost = (current_cost - distance_matrix[a, b] - distance_matrix[c, d]
+                                  - (forward_prefix[j] - forward_prefix[i])
+                                  + distance_matrix[a, c]
+                                  + (reverse_prefix[j] - reverse_prefix[i])
+                                  + distance_matrix[b, d])
+                if candidate_cost + 1e-9 < best_cost:
+                    best_cost, best_pair = candidate_cost, (i, j)
+        if best_pair is None:
+            break
+        i, j = best_pair
+        path = path[:i] + path[i:j + 1][::-1] + path[j + 1:]
+    return path
 
 
 def calculate_path_distance(path, distance_matrix):
