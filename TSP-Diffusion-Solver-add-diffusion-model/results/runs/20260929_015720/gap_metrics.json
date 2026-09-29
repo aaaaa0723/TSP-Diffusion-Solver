@@ -1,0 +1,11 @@
+{
+  "evaluation_split": "test",
+  "num_test_cases": 30,
+  "mean_gap_percent": 25.862242910043538,
+  "p95_gap_percent": 35.967506719563346,
+  "all_routes_valid": true,
+  "mean_route_length": 1344.2080360178525,
+  "mean_ortools_length": 1067.9479557024547,
+  "mean_extra_km_vs_ortools": 276.2600803153977,
+  "objective_mean_plus_0_1_p95": 29.458993581999874
+}

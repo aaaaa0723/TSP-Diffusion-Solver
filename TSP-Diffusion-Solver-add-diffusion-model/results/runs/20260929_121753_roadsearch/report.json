@@ -1,0 +1,18 @@
+{
+  "status": "evaluated",
+  "evaluation_split": "test",
+  "num_test_cases": 150,
+  "decoder": "road_multistart",
+  "decoder_starts": 16,
+  "local_search_moves": 200,
+  "inference_seed": "42 + dataset index",
+  "mean_gap_percent": -1.502907695469883,
+  "p95_gap_percent": 0.4071135954296184,
+  "all_routes_valid": true,
+  "mean_route_length": 327.06314903971116,
+  "mean_ortools_length": 331.76532196563045,
+  "mean_extra_km_vs_ortools": -4.702172925919294,
+  "objective_mean_plus_0_1_p95": -1.4621963359269212,
+  "weights_retrained": false,
+  "source_run": "20260929_121753"
+}

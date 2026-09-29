@@ -1,0 +1,15 @@
+{
+  "decoder": "road_multistart",
+  "decoder_starts": 16,
+  "local_search_moves": 200,
+  "inference_seed": "42 + dataset index",
+  "evaluation_split": "validation",
+  "num_test_cases": 1,
+  "mean_gap_percent": 0.18929875708349336,
+  "p95_gap_percent": 0.18929875708349336,
+  "all_routes_valid": true,
+  "mean_route_length": 244.25570073723793,
+  "mean_ortools_length": 243.79420134425163,
+  "mean_extra_km_vs_ortools": 0.4614993929862976,
+  "objective_mean_plus_0_1_p95": 0.2082286327918427
+}

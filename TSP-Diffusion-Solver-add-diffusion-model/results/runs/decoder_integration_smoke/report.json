@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "train_loss": [
+    0.7013635635375977
+  ],
+  "validation_loss": [
+    0.7168240547180176
+  ],
+  "best_validation_loss": 0.7168240547180176,
+  "elapsed_seconds": 2.43,
+  "evaluation_split": "validation",
+  "decoder": "road_multistart",
+  "decoded_test_cases": 1,
+  "mean_gap_percent": 0.18929875708349336,
+  "p95_gap_percent": 0.18929875708349336,
+  "mean_extra_km_vs_ortools": 0.4614993929862976,
+  "route_closed": true
+}

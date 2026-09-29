@@ -1,0 +1,37 @@
+{
+  "smoke_test": true,
+  "epochs": 20,
+  "samples": 0,
+  "diffusion_steps": 32,
+  "inference_steps": 8,
+  "no_eval_plots": true,
+  "decoder": "road_multistart",
+  "decoder_starts": 16,
+  "local_search_moves": 200,
+  "hidden": 16,
+  "layers": 2,
+  "validation_limit": 32,
+  "learning_rate": 0.0002,
+  "weight_decay": 1e-05,
+  "eval_samples": 30,
+  "evaluation_split": "validation",
+  "run_dir": "results\\runs\\decoder_integration_smoke",
+  "no_latest": true,
+  "use_best_params": false,
+  "dataset_path": "results/tsp_dataset_7eleven.npz",
+  "run_id": "20260929_123030",
+  "device": "cpu",
+  "dataset_size": 1000,
+  "train_size": 1,
+  "validation_size": 1,
+  "validation_indices": [
+    1
+  ],
+  "test_size": 1,
+  "test_indices": [
+    2
+  ],
+  "num_nodes": 100,
+  "diffusion_type": "categorical",
+  "edge_representation": "symmetric binary adjacency"
+}
