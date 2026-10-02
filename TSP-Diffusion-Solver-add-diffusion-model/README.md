@@ -1,8 +1,8 @@
 # DIFUSCO TSP 專題
 
-目前預設實驗改為 **1,000 筆 × 每筆 300 間台中 7-ELEVEN，OR-Tools 每筆 30 秒**，資料集為 `results/tsp_dataset_7eleven_300nodes_30s.npz`。下方 100 點／5 秒的實測為先前實驗結果，不代表新設定的表現。
+Current default: **1,000 instances, 500 Taichung YouBike stations per instance, 30 seconds per OR-Tools reference**. Run `python code/generate_tsp.py`, then `python code/train.py`. The dataset is `results/tsp_dataset_youbike.npz`. Start the prepared road server first with `docker compose -f docker-compose.osrm.yml up -d`.
 
-在專案根目錄執行 `python code/run_300_experiment.py`，會依序生成資料、檢查 1,000 條參考路線、重新訓練 20 epochs，再評估全部 150 筆 test 樣本。狀態與完整日誌位於 `results/experiment_300nodes_30s/`；成功後更新 `results/runs/latest.txt`。若中途停止，生成階段可沿用 checkpoint；訓練階段重新開始。已存在的完整 300 點／30 秒資料集通過檢查後會直接供新訓練使用。
+Station data comes from the [official Taichung YouBike feed](https://data.gov.tw/en/datasets/136781) and is cached in `data/taichung_youbike.json`. All active stations with unique road-aligned positions within 100 meters are candidates; each instance independently samples 500 without replacement. Driving distances model a service vehicle. The cache stays fixed for reproducible resume; to refresh it, archive the cache and use a new dataset path via `TSP_DATASET_PATH`. Existing 7-ELEVEN datasets and runs are retained. NPZ `store_*` keys now hold station identities for compatibility. The optional `code/run_300_experiment.py` runs a separate 300-station YouBike experiment.
 
 本專題以 [DIFUSCO](https://github.com/Edward-Sun/DIFUSCO) 的 categorical edge diffusion 為基礎：將 TSP tour 表示成城市間的邊矩陣，逐步加入離散雜訊，再用 GNN 預測乾淨的 tour 邊。推論時從隨機邊狀態反向取樣，最後由 divide-and-conquer decoder 輸出 Hamiltonian cycle。方法參考論文 [Graph-based Diffusion Solvers for Combinatorial Optimization](https://arxiv.org/abs/2302.08224)。
 
@@ -15,7 +15,7 @@
 - `code/tune.py`：用 Optuna 搜尋訓練超參數。
 - `code/evaluate.py`、`code/evaluation.py`：計算 route gap、解碼路線、輸出圖表。
 - `code/generate_tsp.py`：產生座標和 OR-Tools 參考路線。
-- `results/tsp_dataset_7eleven_300nodes_30s.npz`：目前預設使用的 TSP 資料集；`tsp_dataset_7eleven.npz` 保留先前 100 點／5 秒資料。
+- `results/tsp_dataset_youbike.npz`：目前預設使用的 TSP 資料集；`tsp_dataset_7eleven.npz` 保留先前 100 點／5 秒資料。
 
 ## 1. 設定環境
 
@@ -102,7 +102,7 @@ mean gap (%) + 0.1 × p95 gap (%)
 
 ## 4. 完整訓練
 
-若已有 `results/tsp_dataset_7eleven_300nodes_30s.npz`，直接訓練：
+若已有 `results/tsp_dataset_youbike.npz`，直接訓練：
 
 ```powershell
 cd .\code

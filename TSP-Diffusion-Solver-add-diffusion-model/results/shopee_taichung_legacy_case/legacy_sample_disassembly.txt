@@ -1,0 +1,329 @@
+
+ 91:           0 RESUME               0
+
+ 93:           2 LOAD_FAST            (points)
+               4 LOAD_ATTR            (shape)
+              14 UNPACK_SEQUENCE      3
+              18 STORE_FAST           (b)
+              20 STORE_FAST           (n)
+              22 STORE_FAST           (_)
+
+ 94:          24 LOAD_GLOBAL          (NULL + torch)
+              36 LOAD_ATTR            (randint)
+              46 LOAD_CONST           (0)
+              48 LOAD_CONST           (2)
+              50 LOAD_FAST            (b)
+              52 LOAD_FAST            (n)
+              54 LOAD_FAST            (n)
+              56 BUILD_TUPLE          3
+              58 LOAD_FAST            (points)
+              60 LOAD_ATTR            (device)
+              70 KW_NAMES             (('device',))
+              72 PRECALL              4
+              76 CALL                 4
+              86 STORE_FAST           (state)
+
+ 95:          88 LOAD_GLOBAL          (NULL + np)
+             100 LOAD_ATTR            (linspace)
+             110 LOAD_FAST            (self)
+             112 LOAD_ATTR            (steps)
+             122 LOAD_CONST           (0)
+             124 LOAD_GLOBAL          (NULL + min)
+             136 LOAD_FAST            (inference_steps)
+             138 LOAD_FAST            (self)
+             140 LOAD_ATTR            (steps)
+             150 PRECALL              2
+             154 CALL                 2
+             164 LOAD_CONST           (1)
+             166 BINARY_OP            (+)
+             170 PRECALL              3
+             174 CALL                 3
+             184 LOAD_METHOD          (round)
+             206 PRECALL              0
+             210 CALL                 0
+             220 LOAD_METHOD          (astype)
+             242 LOAD_GLOBAL          (int)
+             254 PRECALL              1
+             258 CALL                 1
+             268 STORE_FAST           (schedule)
+
+ 96:         270 LOAD_GLOBAL          (NULL + np)
+             282 LOAD_ATTR            (unique)
+             292 LOAD_FAST            (schedule)
+             294 PRECALL              1
+             298 CALL                 1
+             308 LOAD_CONST           (None)
+             310 LOAD_CONST           (None)
+             312 LOAD_CONST           (-1)
+             314 BUILD_SLICE          3
+             316 BINARY_SUBSCR
+             326 STORE_FAST           (schedule)
+
+ 97:         328 LOAD_GLOBAL          (NULL + zip)
+             340 LOAD_FAST            (schedule)
+             342 LOAD_CONST           (None)
+             344 LOAD_CONST           (-1)
+             346 BUILD_SLICE          2
+             348 BINARY_SUBSCR
+             358 LOAD_FAST            (schedule)
+             360 LOAD_CONST           (1)
+             362 LOAD_CONST           (None)
+             364 BUILD_SLICE          2
+             366 BINARY_SUBSCR
+             376 PRECALL              2
+             380 CALL                 2
+             390 GET_ITER
+             392 EXTENDED_ARG         (512)
+             394 FOR_ITER             (to 1494)
+             396 UNPACK_SEQUENCE      2
+             400 STORE_FAST           (current)
+             402 STORE_FAST           (target)
+
+ 98:         404 LOAD_GLOBAL          (NULL + torch)
+             416 LOAD_ATTR            (full)
+             426 LOAD_FAST            (b)
+             428 BUILD_TUPLE          1
+             430 LOAD_GLOBAL          (NULL + int)
+             442 LOAD_FAST            (current)
+             444 PRECALL              1
+             448 CALL                 1
+             458 LOAD_FAST            (points)
+             460 LOAD_ATTR            (device)
+             470 KW_NAMES             (('device',))
+             472 PRECALL              3
+             476 CALL                 3
+             486 STORE_FAST           (t)
+
+ 99:         488 PUSH_NULL
+             490 LOAD_FAST            (model)
+             492 LOAD_FAST            (points)
+             494 LOAD_FAST            (state)
+             496 LOAD_FAST            (t)
+             498 PRECALL              3
+             502 CALL                 3
+             512 LOAD_METHOD          (softmax)
+             534 LOAD_CONST           (1)
+             536 KW_NAMES             (('dim',))
+             538 PRECALL              1
+             542 CALL                 1
+             552 LOAD_METHOD          (permute)
+             574 LOAD_CONST           (0)
+             576 LOAD_CONST           (2)
+             578 LOAD_CONST           (3)
+             580 LOAD_CONST           (1)
+             582 PRECALL              4
+             586 CALL                 4
+             596 STORE_FAST           (x0)
+
+100:         598 LOAD_FAST            (self)
+             600 LOAD_ATTR            (qbar)
+             610 LOAD_FAST            (current)
+             612 BINARY_SUBSCR
+             622 STORE_FAST           (qbar_now)
+
+101:         624 LOAD_FAST            (self)
+             626 LOAD_ATTR            (qbar)
+             636 LOAD_FAST            (target)
+             638 BINARY_SUBSCR
+             648 STORE_FAST           (qbar_target)
+
+102:         650 LOAD_GLOBAL          (torch)
+             662 LOAD_ATTR            (linalg)
+             672 LOAD_METHOD          (solve)
+             694 LOAD_FAST            (qbar_target)
+             696 LOAD_ATTR            (T)
+             706 LOAD_FAST            (qbar_now)
+             708 LOAD_ATTR            (T)
+             718 PRECALL              2
+             722 CALL                 2
+             732 LOAD_ATTR            (T)
+             742 STORE_FAST           (q_step)
+
+103:         744 LOAD_FAST            (q_step)
+             746 LOAD_METHOD          (clamp_min)
+             768 LOAD_CONST           (0)
+             770 PRECALL              1
+             774 CALL                 1
+             784 STORE_FAST           (q_step)
+
+104:         786 LOAD_FAST            (q_step)
+             788 LOAD_FAST            (q_step)
+             790 LOAD_METHOD          (sum)
+             812 LOAD_CONST           (-1)
+             814 LOAD_CONST           (True)
+             816 KW_NAMES             (('dim', 'keepdim'))
+             818 PRECALL              2
+             822 CALL                 2
+             832 LOAD_METHOD          (clamp_min)
+             854 LOAD_CONST           (1e-12)
+             856 PRECALL              1
+             860 CALL                 1
+             870 BINARY_OP            (/)
+             874 STORE_FAST           (q_step)
+
+105:         876 LOAD_GLOBAL          (NULL + F)
+             888 LOAD_ATTR            (one_hot)
+             898 LOAD_FAST            (state)
+             900 LOAD_CONST           (2)
+             902 PRECALL              2
+             906 CALL                 2
+             916 LOAD_METHOD          (float)
+             938 PRECALL              0
+             942 CALL                 0
+             952 STORE_FAST           (onehot)
+
+106:         954 LOAD_GLOBAL          (NULL + torch)
+             966 LOAD_ATTR            (einsum)
+             976 LOAD_CONST           ("...i,ki->...k")
+             978 LOAD_FAST            (onehot)
+             980 LOAD_FAST            (q_step)
+             982 PRECALL              3
+             986 CALL                 3
+             996 STORE_FAST           (likelihood)
+
+107:         998 LOAD_GLOBAL          (NULL + torch)
+            1010 LOAD_ATTR            (einsum)
+            1020 LOAD_CONST           ("ci,...i->...c")
+            1022 LOAD_FAST            (qbar_now)
+            1024 LOAD_FAST            (onehot)
+            1026 PRECALL              3
+            1030 CALL                 3
+            1040 LOAD_METHOD          (clamp_min)
+            1062 LOAD_CONST           (1e-12)
+            1064 PRECALL              1
+            1068 CALL                 1
+            1078 STORE_FAST           (denom)
+
+108:        1080 LOAD_FAST            (qbar_target)
+            1082 LOAD_CONST           (None)
+            1084 LOAD_CONST           (None)
+            1086 LOAD_CONST           (None)
+            1088 LOAD_CONST           (None)
+            1090 LOAD_CONST           (None)
+            1092 BUILD_SLICE          2
+            1094 LOAD_CONST           (None)
+            1096 LOAD_CONST           (None)
+            1098 BUILD_SLICE          2
+            1100 BUILD_TUPLE          5
+            1102 BINARY_SUBSCR
+            1112 LOAD_FAST            (likelihood)
+            1114 LOAD_CONST           (Ellipsis)
+            1116 LOAD_CONST           (None)
+            1118 LOAD_CONST           (None)
+            1120 LOAD_CONST           (None)
+            1122 BUILD_SLICE          2
+            1124 BUILD_TUPLE          3
+            1126 BINARY_SUBSCR
+            1136 BINARY_OP            (*)
+            1140 LOAD_FAST            (denom)
+            1142 LOAD_CONST           (Ellipsis)
+            1144 LOAD_CONST           (None)
+            1146 LOAD_CONST           (None)
+            1148 BUILD_SLICE          2
+            1150 LOAD_CONST           (None)
+            1152 BUILD_TUPLE          3
+            1154 BINARY_SUBSCR
+            1164 BINARY_OP            (/)
+            1168 STORE_FAST           (posterior)
+
+109:        1170 LOAD_FAST            (x0)
+            1172 LOAD_CONST           (Ellipsis)
+            1174 LOAD_CONST           (None)
+            1176 LOAD_CONST           (None)
+            1178 BUILD_SLICE          2
+            1180 LOAD_CONST           (None)
+            1182 BUILD_TUPLE          3
+            1184 BINARY_SUBSCR
+            1194 LOAD_FAST            (posterior)
+            1196 BINARY_OP            (*)
+            1200 LOAD_METHOD          (sum)
+            1222 LOAD_CONST           (-2)
+            1224 KW_NAMES             (('dim',))
+            1226 PRECALL              1
+            1230 CALL                 1
+            1240 LOAD_METHOD          (clamp_min)
+            1262 LOAD_CONST           (0)
+            1264 PRECALL              1
+            1268 CALL                 1
+            1278 STORE_FAST           (probs)
+
+110:        1280 LOAD_FAST            (probs)
+            1282 LOAD_FAST            (probs)
+            1284 LOAD_METHOD          (sum)
+            1306 LOAD_CONST           (-1)
+            1308 LOAD_CONST           (True)
+            1310 KW_NAMES             (('dim', 'keepdim'))
+            1312 PRECALL              2
+            1316 CALL                 2
+            1326 LOAD_METHOD          (clamp_min)
+            1348 LOAD_CONST           (1e-12)
+            1350 PRECALL              1
+            1354 CALL                 1
+            1364 BINARY_OP            (/)
+            1368 STORE_FAST           (probs)
+
+111:        1370 LOAD_FAST            (target)
+            1372 LOAD_CONST           (0)
+            1374 COMPARE_OP           (==)
+            1380 POP_JUMP_FORWARD_IF_FALSE (to 1402)
+
+112:        1382 LOAD_FAST            (probs)
+            1384 LOAD_CONST           ((Ellipsis, 1))
+            1386 BINARY_SUBSCR
+            1396 STORE_FAST           (state)
+            1398 EXTENDED_ARG         (256)
+            1400 JUMP_BACKWARD        (to 392)
+
+114:     >> 1402 LOAD_GLOBAL          (NULL + torch)
+            1414 LOAD_ATTR            (bernoulli)
+            1424 LOAD_FAST            (probs)
+            1426 LOAD_CONST           ((Ellipsis, 1))
+            1428 BINARY_SUBSCR
+            1438 PRECALL              1
+            1442 CALL                 1
+            1452 LOAD_METHOD          (long)
+            1474 PRECALL              0
+            1478 CALL                 0
+            1488 STORE_FAST           (state)
+            1490 EXTENDED_ARG         (512)
+            1492 JUMP_BACKWARD        (to 392)
+
+115:     >> 1494 LOAD_FAST            (state)
+            1496 LOAD_FAST            (state)
+            1498 LOAD_METHOD          (transpose)
+            1520 LOAD_CONST           (1)
+            1522 LOAD_CONST           (2)
+            1524 PRECALL              2
+            1528 CALL                 2
+            1538 BINARY_OP            (+)
+            1542 LOAD_CONST           (0.5)
+            1544 BINARY_OP            (*)
+            1548 STORE_FAST           (state)
+
+116:        1550 LOAD_GLOBAL          (NULL + torch)
+            1562 LOAD_ATTR            (arange)
+            1572 LOAD_FAST            (n)
+            1574 LOAD_FAST            (points)
+            1576 LOAD_ATTR            (device)
+            1586 KW_NAMES             (('device',))
+            1588 PRECALL              2
+            1592 CALL                 2
+            1602 STORE_FAST           (diagonal)
+
+117:        1604 LOAD_CONST           (0)
+            1606 LOAD_FAST            (state)
+            1608 LOAD_CONST           (None)
+            1610 LOAD_CONST           (None)
+            1612 BUILD_SLICE          2
+            1614 LOAD_FAST            (diagonal)
+            1616 LOAD_FAST            (diagonal)
+            1618 BUILD_TUPLE          3
+            1620 STORE_SUBSCR
+
+118:        1624 LOAD_FAST            (state)
+            1626 LOAD_METHOD          (clamp)
+            1648 LOAD_CONST           (0)
+            1650 LOAD_CONST           (1)
+            1652 PRECALL              2
+            1656 CALL                 2
+            1666 RETURN_VALUE

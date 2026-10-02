@@ -42,7 +42,7 @@ class StoreGenerationTests(unittest.TestCase):
                 np.testing.assert_equal(results[seed][3], indices)
                 generation.save_samples(path / "dataset.npz", results)
                 with np.load(path / "dataset.npz") as data:
-                    self.assertEqual(str(data["node_source"]), "taichung_7eleven_osm")
+                    self.assertEqual(str(data["node_source"]), "taichung_youbike")
                     self.assertEqual(json.loads(str(data["store_catalog_json"])), catalog)
                     np.testing.assert_equal(data["store_indices"][0], indices)
                 with patch.object(generation, "CATALOG_HASH", "different"):

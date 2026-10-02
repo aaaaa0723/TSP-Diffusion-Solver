@@ -1,0 +1,5768 @@
+{
+  "source": "https://spx.tw/api/service-point/point/around/list",
+  "collected_at": "2026-09-30T07:35:58.003693+00:00",
+  "scope": "All Taichung SPX points returned by uncapped spatial queries covering city bounds",
+  "queries": [
+    {
+      "latitude": 24.220035000000003,
+      "longitude": 120.9537598,
+      "radius": 60692,
+      "selected_radius": 60692,
+      "returned": 100,
+      "depth": 0
+    },
+    {
+      "latitude": 24.330772500000002,
+      "longitude": 121.2023599,
+      "radius": 30396,
+      "selected_radius": 30396,
+      "returned": 0,
+      "depth": 1
+    },
+    {
+      "latitude": 24.109297500000004,
+      "longitude": 121.2023599,
+      "radius": 30396,
+      "selected_radius": 30396,
+      "returned": 10,
+      "depth": 1
+    },
+    {
+      "latitude": 24.330772500000002,
+      "longitude": 120.7051597,
+      "radius": 30396,
+      "selected_radius": 30396,
+      "returned": 100,
+      "depth": 1
+    },
+    {
+      "latitude": 24.38614125,
+      "longitude": 120.82945975,
+      "radius": 15248,
+      "selected_radius": 15248,
+      "returned": 19,
+      "depth": 2
+    },
+    {
+      "latitude": 24.275403750000002,
+      "longitude": 120.82945975,
+      "radius": 15248,
+      "selected_radius": 15248,
+      "returned": 61,
+      "depth": 2
+    },
+    {
+      "latitude": 24.38614125,
+      "longitude": 120.58085965000001,
+      "radius": 15248,
+      "selected_radius": 15248,
+      "returned": 39,
+      "depth": 2
+    },
+    {
+      "latitude": 24.275403750000002,
+      "longitude": 120.58085965000001,
+      "radius": 15248,
+      "selected_radius": 15248,
+      "returned": 100,
+      "depth": 2
+    },
+    {
+      "latitude": 24.303088125000002,
+      "longitude": 120.643009675,
+      "radius": 7674,
+      "selected_radius": 7674,
+      "returned": 32,
+      "depth": 3
+    },
+    {
+      "latitude": 24.247719375000003,
+      "longitude": 120.643009675,
+      "radius": 7674,
+      "selected_radius": 7674,
+      "returned": 78,
+      "depth": 3
+    },
+    {
+      "latitude": 24.303088125000002,
+      "longitude": 120.51870962500001,
+      "radius": 7674,
+      "selected_radius": 7674,
+      "returned": 23,
+      "depth": 3
+    },
+    {
+      "latitude": 24.247719375000003,
+      "longitude": 120.51870962500001,
+      "radius": 7674,
+      "selected_radius": 7674,
+      "returned": 48,
+      "depth": 3
+    },
+    {
+      "latitude": 24.109297500000004,
+      "longitude": 120.7051597,
+      "radius": 30396,
+      "selected_radius": 30396,
+      "returned": 100,
+      "depth": 1
+    },
+    {
+      "latitude": 24.164666250000003,
+      "longitude": 120.82945975,
+      "radius": 15248,
+      "selected_radius": 15248,
+      "returned": 100,
+      "depth": 2
+    },
+    {
+      "latitude": 24.192350625000003,
+      "longitude": 120.891609775,
+      "radius": 7674,
+      "selected_radius": 7674,
+      "returned": 0,
+      "depth": 3
+    },
+    {
+      "latitude": 24.136981875000004,
+      "longitude": 120.891609775,
+      "radius": 7674,
+      "selected_radius": 7674,
+      "returned": 0,
+      "depth": 3
+    },
+    {
+      "latitude": 24.192350625000003,
+      "longitude": 120.76730972499999,
+      "radius": 7674,
+      "selected_radius": 7674,
+      "returned": 74,
+      "depth": 3
+    },
+    {
+      "latitude": 24.136981875000004,
+      "longitude": 120.76730972499999,
+      "radius": 7674,
+      "selected_radius": 7674,
+      "returned": 69,
+      "depth": 3
+    },
+    {
+      "latitude": 24.053928750000004,
+      "longitude": 120.82945975,
+      "radius": 15248,
+      "selected_radius": 15248,
+      "returned": 46,
+      "depth": 2
+    },
+    {
+      "latitude": 24.164666250000003,
+      "longitude": 120.58085965000001,
+      "radius": 15248,
+      "selected_radius": 15248,
+      "returned": 100,
+      "depth": 2
+    },
+    {
+      "latitude": 24.192350625000003,
+      "longitude": 120.643009675,
+      "radius": 7674,
+      "selected_radius": 7674,
+      "returned": 100,
+      "depth": 3
+    },
+    {
+      "latitude": 24.206192812500003,
+      "longitude": 120.6740846875,
+      "radius": 3887,
+      "selected_radius": 3887,
+      "returned": 60,
+      "depth": 4
+    },
+    {
+      "latitude": 24.178508437500003,
+      "longitude": 120.6740846875,
+      "radius": 3887,
+      "selected_radius": 3887,
+      "returned": 100,
+      "depth": 4
+    },
+    {
+      "latitude": 24.18542953125,
+      "longitude": 120.68962219375,
+      "radius": 1994,
+      "selected_radius": 1994,
+      "returned": 33,
+      "depth": 5
+    },
+    {
+      "latitude": 24.171587343750005,
+      "longitude": 120.68962219375,
+      "radius": 1994,
+      "selected_radius": 1994,
+      "returned": 43,
+      "depth": 5
+    },
+    {
+      "latitude": 24.18542953125,
+      "longitude": 120.65854718125,
+      "radius": 1994,
+      "selected_radius": 1994,
+      "returned": 27,
+      "depth": 5
+    },
+    {
+      "latitude": 24.171587343750005,
+      "longitude": 120.65854718125,
+      "radius": 1994,
+      "selected_radius": 1994,
+      "returned": 49,
+      "depth": 5
+    },
+    {
+      "latitude": 24.206192812500003,
+      "longitude": 120.6119346625,
+      "radius": 3887,
+      "selected_radius": 3887,
+      "returned": 23,
+      "depth": 4
+    },
+    {
+      "latitude": 24.178508437500003,
+      "longitude": 120.6119346625,
+      "radius": 3887,
+      "selected_radius": 3887,
+      "returned": 49,
+      "depth": 4
+    },
+    {
+      "latitude": 24.136981875000004,
+      "longitude": 120.643009675,
+      "radius": 7674,
+      "selected_radius": 7674,
+      "returned": 100,
+      "depth": 3
+    },
+    {
+      "latitude": 24.150824062500003,
+      "longitude": 120.6740846875,
+      "radius": 3887,
+      "selected_radius": 3887,
+      "returned": 100,
+      "depth": 4
+    },
+    {
+      "latitude": 24.15774515625,
+      "longitude": 120.68962219375,
+      "radius": 1994,
+      "selected_radius": 1994,
+      "returned": 48,
+      "depth": 5
+    },
+    {
+      "latitude": 24.143902968750005,
+      "longitude": 120.68962219375,
+      "radius": 1994,
+      "selected_radius": 1994,
+      "returned": 43,
+      "depth": 5
+    },
+    {
+      "latitude": 24.15774515625,
+      "longitude": 120.65854718125,
+      "radius": 1994,
+      "selected_radius": 1994,
+      "returned": 51,
+      "depth": 5
+    },
+    {
+      "latitude": 24.143902968750005,
+      "longitude": 120.65854718125,
+      "radius": 1994,
+      "selected_radius": 1994,
+      "returned": 48,
+      "depth": 5
+    },
+    {
+      "latitude": 24.123139687500004,
+      "longitude": 120.6740846875,
+      "radius": 3887,
+      "selected_radius": 3887,
+      "returned": 100,
+      "depth": 4
+    },
+    {
+      "latitude": 24.130060781250002,
+      "longitude": 120.68962219375,
+      "radius": 1994,
+      "selected_radius": 1994,
+      "returned": 31,
+      "depth": 5
+    },
+    {
+      "latitude": 24.116218593750006,
+      "longitude": 120.68962219375,
+      "radius": 1994,
+      "selected_radius": 1994,
+      "returned": 31,
+      "depth": 5
+    },
+    {
+      "latitude": 24.130060781250002,
+      "longitude": 120.65854718125,
+      "radius": 1994,
+      "selected_radius": 1994,
+      "returned": 47,
+      "depth": 5
+    },
+    {
+      "latitude": 24.116218593750006,
+      "longitude": 120.65854718125,
+      "radius": 1994,
+      "selected_radius": 1994,
+      "returned": 27,
+      "depth": 5
+    },
+    {
+      "latitude": 24.150824062500003,
+      "longitude": 120.6119346625,
+      "radius": 3887,
+      "selected_radius": 3887,
+      "returned": 36,
+      "depth": 4
+    },
+    {
+      "latitude": 24.123139687500004,
+      "longitude": 120.6119346625,
+      "radius": 3887,
+      "selected_radius": 3887,
+      "returned": 34,
+      "depth": 4
+    },
+    {
+      "latitude": 24.192350625000003,
+      "longitude": 120.51870962500001,
+      "radius": 7674,
+      "selected_radius": 7674,
+      "returned": 52,
+      "depth": 3
+    },
+    {
+      "latitude": 24.136981875000004,
+      "longitude": 120.51870962500001,
+      "radius": 7674,
+      "selected_radius": 7674,
+      "returned": 48,
+      "depth": 3
+    },
+    {
+      "latitude": 24.053928750000004,
+      "longitude": 120.58085965000001,
+      "radius": 15248,
+      "selected_radius": 15248,
+      "returned": 100,
+      "depth": 2
+    },
+    {
+      "latitude": 24.081613125000004,
+      "longitude": 120.643009675,
+      "radius": 7674,
+      "selected_radius": 7674,
+      "returned": 100,
+      "depth": 3
+    },
+    {
+      "latitude": 24.095455312500004,
+      "longitude": 120.6740846875,
+      "radius": 3887,
+      "selected_radius": 3887,
+      "returned": 67,
+      "depth": 4
+    },
+    {
+      "latitude": 24.067770937500004,
+      "longitude": 120.6740846875,
+      "radius": 3887,
+      "selected_radius": 3887,
+      "returned": 18,
+      "depth": 4
+    },
+    {
+      "latitude": 24.095455312500004,
+      "longitude": 120.6119346625,
+      "radius": 3887,
+      "selected_radius": 3887,
+      "returned": 16,
+      "depth": 4
+    },
+    {
+      "latitude": 24.067770937500004,
+      "longitude": 120.6119346625,
+      "radius": 3887,
+      "selected_radius": 3887,
+      "returned": 4,
+      "depth": 4
+    },
+    {
+      "latitude": 24.026244375000005,
+      "longitude": 120.643009675,
+      "radius": 7674,
+      "selected_radius": 7674,
+      "returned": 23,
+      "depth": 3
+    },
+    {
+      "latitude": 24.081613125000004,
+      "longitude": 120.51870962500001,
+      "radius": 7674,
+      "selected_radius": 7674,
+      "returned": 62,
+      "depth": 3
+    },
+    {
+      "latitude": 24.026244375000005,
+      "longitude": 120.51870962500001,
+      "radius": 7674,
+      "selected_radius": 7674,
+      "returned": 51,
+      "depth": 3
+    }
+  ],
+  "stores": [
+    {
+      "id": "spx/297",
+      "name": "南屯向心店",
+      "address": "台中市南屯區向心南路935號1樓",
+      "original_coords": [
+        120.643704,
+        24.136311
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/315",
+      "name": "北屯中清 - 智取店",
+      "address": "台中市北屯區中清路二段1226巷6號1樓",
+      "original_coords": [
+        120.660018,
+        24.193308
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/316",
+      "name": "台中中清 - 智取店",
+      "address": "台中市北區中清路一段39號1樓",
+      "original_coords": [
+        120.677041,
+        24.153416
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/333",
+      "name": "台中邦邦 - 智取店",
+      "address": "台中市北區中清路一段647號1樓",
+      "original_coords": [
+        120.671806,
+        24.170907
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/372",
+      "name": "台中忠誠 - 智取店",
+      "address": "台中市西區忠誠街65、67號1樓",
+      "original_coords": [
+        120.660992,
+        24.152482
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/408",
+      "name": "北屯東山店",
+      "address": "北屯區東山路一段121之2號1、2樓",
+      "original_coords": [
+        120.703067,
+        24.169869
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/466",
+      "name": "台中南屯店",
+      "address": "台中市西區南屯路一段6號1樓",
+      "original_coords": [
+        120.66843,
+        24.132369
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/467",
+      "name": "台中武昌 - 智取店",
+      "address": "台中市北區武昌路64號1樓",
+      "original_coords": [
+        120.668695,
+        24.168575
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/471",
+      "name": "台中五權店",
+      "address": "台中市西區五權五街82-2號1樓",
+      "original_coords": [
+        120.661459,
+        24.1367
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/474",
+      "name": "西屯中工 - 智取店",
+      "address": "台中市西屯區中工三路277號1樓",
+      "original_coords": [
+        120.617551,
+        24.174522
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/479",
+      "name": "台中環中店",
+      "address": "台中市北屯區環中東路二段312號1樓",
+      "original_coords": [
+        120.720367,
+        24.174446
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/483",
+      "name": "西屯福星店",
+      "address": "台中市西屯區福星北一街9號1樓",
+      "original_coords": [
+        120.644384,
+        24.182954
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/484",
+      "name": "西屯櫻城店",
+      "address": "台中市西屯區櫻城一街51-3號1樓",
+      "original_coords": [
+        120.651102,
+        24.171327
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/487",
+      "name": "台中西屯 - 智取店",
+      "address": "台中市西屯區西屯路二段180巷3號1樓",
+      "original_coords": [
+        120.649999,
+        24.167875
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/488",
+      "name": "西屯青海店",
+      "address": "台中市西屯區青海路二段246-1號1樓",
+      "original_coords": [
+        120.643865,
+        24.171826
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/492",
+      "name": "西屯大隆 - 智取店",
+      "address": "台中市西屯區大隆路144號1樓",
+      "original_coords": [
+        120.65027,
+        24.157907
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/493",
+      "name": "西屯大墩 - 智取店",
+      "address": "台中市西屯區大墩路955號1樓",
+      "original_coords": [
+        120.652053,
+        24.15936
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/519",
+      "name": "台中福瑞 - 智取店",
+      "address": "台中市西屯區福瑞街118、120號1樓",
+      "original_coords": [
+        120.606366,
+        24.187983
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/521",
+      "name": "台中文昌 - 智取店",
+      "address": "台中市北區文昌東二街76號1樓",
+      "original_coords": [
+        120.678323,
+        24.171986
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/522",
+      "name": "台中五廊店",
+      "address": "台中市西區五廊街6-1號1樓",
+      "original_coords": [
+        120.670514,
+        24.142017
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/529",
+      "name": "台中十甲店",
+      "address": "台中市東區十甲路423號1樓",
+      "original_coords": [
+        120.70841,
+        24.144555
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/531",
+      "name": "台中篤行 - 智取店",
+      "address": "台中市北區篤行路377-2、377-3號1樓",
+      "original_coords": [
+        120.67358,
+        24.158082
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/533",
+      "name": "大里中興 - 智取店",
+      "address": "台中市大里區中興路二段753號B1",
+      "original_coords": [
+        120.688237,
+        24.120196
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/534",
+      "name": "大里益民店",
+      "address": "台中市大里區益民路二段327號1樓",
+      "original_coords": [
+        120.683735,
+        24.112816
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/537",
+      "name": "台中大里店",
+      "address": "台中市大里區大里二街151號1樓",
+      "original_coords": [
+        120.684574,
+        24.102347
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/558",
+      "name": "北屯同榮 - 智取店",
+      "address": "台中市北屯區同榮路239號1樓",
+      "original_coords": [
+        120.662814,
+        24.197539
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/583",
+      "name": "北屯僑孝 - 智取店",
+      "address": "台中市北屯區僑孝街195號1樓",
+      "original_coords": [
+        120.697792,
+        24.176392
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/587",
+      "name": "西屯福吉 - 智取店",
+      "address": "台中市西屯區福吉街99號1樓",
+      "original_coords": [
+        120.640206,
+        24.183537
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/592",
+      "name": "南屯龍富 - 智取店",
+      "address": "台中市南屯區龍富十五路88號1樓",
+      "original_coords": [
+        120.631898,
+        24.142999
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/594",
+      "name": "大里中興二 - 智取店",
+      "address": "台中市大里區中興路二段639號1樓",
+      "original_coords": [
+        120.689599,
+        24.115895
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/595",
+      "name": "台中進化店",
+      "address": "台中市東區進化路215號1、2樓",
+      "original_coords": [
+        120.694198,
+        24.149774
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/614",
+      "name": "台中高工店",
+      "address": "台中市南區高工路480號1樓",
+      "original_coords": [
+        120.669138,
+        24.114547
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/629",
+      "name": "台中大同店",
+      "address": "台中市西區大同街232號1樓",
+      "original_coords": [
+        120.654028,
+        24.147103
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/638",
+      "name": "台中建德 - 智取店",
+      "address": "台中市東區建德街269、271號1樓",
+      "original_coords": [
+        120.694552,
+        24.129808
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/639",
+      "name": "台中忠孝店",
+      "address": "台中市東區忠孝路336號1樓",
+      "original_coords": [
+        120.688684,
+        24.132177
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/640",
+      "name": "台中錦中店",
+      "address": "台中市北區錦中街16號1樓",
+      "original_coords": [
+        120.688995,
+        24.155281
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/643",
+      "name": "南屯文心 - 智取店",
+      "address": "台中市南屯區文心南路46號1樓",
+      "original_coords": [
+        120.646736,
+        24.136299
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/644",
+      "name": "豐原中山 - 智取店",
+      "address": "台中市豐原區中山路165號1樓",
+      "original_coords": [
+        120.711615,
+        24.240166
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/656",
+      "name": "臺灣大道 - 智取店",
+      "address": "台中市北區臺灣大道一段630號1樓",
+      "original_coords": [
+        120.675587,
+        24.146048
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/662",
+      "name": "大里東南店",
+      "address": "台中市大里區東南路66號1樓",
+      "original_coords": [
+        120.69628,
+        24.079967
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/663",
+      "name": "南屯黎明店",
+      "address": "台中市南屯區黎明路二段133號1樓",
+      "original_coords": [
+        120.636477,
+        24.145339
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/665",
+      "name": "西屯文心店",
+      "address": "台中市西屯區文心路三段396號1樓",
+      "original_coords": [
+        120.662852,
+        24.171909
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/669",
+      "name": "台中柳川 - 智取店",
+      "address": "台中市北區柳川東路四段22號1樓",
+      "original_coords": [
+        120.679291,
+        24.149624
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/670",
+      "name": "豐原向陽店",
+      "address": "台中市豐原區向陽路327號1樓",
+      "original_coords": [
+        120.73011,
+        24.250493
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/671",
+      "name": "太平長億店",
+      "address": "台中市太平區長億路63-2號1樓",
+      "original_coords": [
+        120.719255,
+        24.117636
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/675",
+      "name": "台中建成店",
+      "address": "台中市南區建成路1675號1樓",
+      "original_coords": [
+        120.674006,
+        24.12626
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/677",
+      "name": "豐原圓環店",
+      "address": "台中市豐原區圓環東路315號1、2樓",
+      "original_coords": [
+        120.72333,
+        24.244826
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/678",
+      "name": "台中民族 - 智取店",
+      "address": "台中市中區民族路91號1樓",
+      "original_coords": [
+        120.679284,
+        24.139605
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/685",
+      "name": "台中崇德 - 智取店",
+      "address": "台中市北區崇德路一段163號1樓",
+      "original_coords": [
+        120.684855,
+        24.161955
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/690",
+      "name": "台中國光 - 智取店",
+      "address": "台中市南區國光路69號1樓",
+      "original_coords": [
+        120.67746,
+        24.130847
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/692",
+      "name": "南屯大英店",
+      "address": "台中市南屯區大英街144、146號1樓",
+      "original_coords": [
+        120.648852,
+        24.145681
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/693",
+      "name": "大里東榮店",
+      "address": "台中市大里區東榮路398號1、2樓",
+      "original_coords": [
+        120.682913,
+        24.1102
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/700",
+      "name": "台中五權南 - 智取店",
+      "address": "台中市南區五權南路495號1樓",
+      "original_coords": [
+        120.669855,
+        24.118292
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/703",
+      "name": "烏日中山店",
+      "address": "台中市烏日區中山路三段331號1、2、3樓",
+      "original_coords": [
+        120.606583,
+        24.10847
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/704",
+      "name": "沙鹿中山店",
+      "address": "台中市沙鹿區中山路245號1樓",
+      "original_coords": [
+        120.561472,
+        24.237622
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/707",
+      "name": "台中梅亭店",
+      "address": "台中市北區梅亭街276、278號1樓",
+      "original_coords": [
+        120.680448,
+        24.160442
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/708",
+      "name": "北屯遼陽店",
+      "address": "台中市北屯區遼陽五街41號1樓",
+      "original_coords": [
+        120.692464,
+        24.172121
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/709",
+      "name": "太平新平 - 智取店",
+      "address": "台中市太平區新平路二段333號1、2樓",
+      "original_coords": [
+        120.714205,
+        24.143174
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/717",
+      "name": "南屯黎明二 - 智取店",
+      "address": "台中市南屯區黎明路一段1095號1樓",
+      "original_coords": [
+        120.637714,
+        24.139454
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/719",
+      "name": "梧棲四維 - 智取店",
+      "address": "台中市梧棲區四維中路272號1樓",
+      "original_coords": [
+        120.534177,
+        24.261662
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/720",
+      "name": "沙鹿成功店",
+      "address": "台中市沙鹿區成功西街9號1、2樓",
+      "original_coords": [
+        120.560788,
+        24.2427
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/734",
+      "name": "太平育賢店",
+      "address": "台中市太平區育賢路255號1樓",
+      "original_coords": [
+        120.717006,
+        24.158752
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/735",
+      "name": "大里立新店",
+      "address": "台中市大里區立新街155號1樓",
+      "original_coords": [
+        120.703128,
+        24.107246
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/738",
+      "name": "龍井新興店",
+      "address": "台中市龍井區新興路7巷3號1樓",
+      "original_coords": [
+        120.591666,
+        24.180933
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/739",
+      "name": "太平宜昌店",
+      "address": "台中市太平區宜昌路596號1樓",
+      "original_coords": [
+        120.71591,
+        24.148204
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/745",
+      "name": "大肚文昌店",
+      "address": "台中市大肚區文昌路一段86號1樓",
+      "original_coords": [
+        120.543315,
+        24.150726
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/746",
+      "name": "大里塗城店",
+      "address": "台中市大里區塗城路498號1樓",
+      "original_coords": [
+        120.702388,
+        24.088728
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/749",
+      "name": "台中太原店",
+      "address": "台中市北區太原路一段478-3號1樓",
+      "original_coords": [
+        120.669275,
+        24.164752
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/753",
+      "name": "大里德芳 - 智取店",
+      "address": "台中市大里區德芳路二段43號1樓",
+      "original_coords": [
+        120.679807,
+        24.10417
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/765",
+      "name": "南屯黎明三店",
+      "address": "台中市南屯區黎明路一段3號1樓",
+      "original_coords": [
+        120.625916,
+        24.112349
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/768",
+      "name": "北屯進化 - 智取店",
+      "address": "台中市北屯區進化北路77號1樓、B1",
+      "original_coords": [
+        120.689304,
+        24.162829
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/770",
+      "name": "南屯忠勇店",
+      "address": "台中市南屯區忠勇路71-6號1樓",
+      "original_coords": [
+        120.61493,
+        24.145481
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/774",
+      "name": "豐原圓環二 - 智取店",
+      "address": "台中市豐原區圓環西路68號1樓",
+      "original_coords": [
+        120.709127,
+        24.252114
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/775",
+      "name": "霧峰中正 - 智取店",
+      "address": "台中市霧峰區中正路1203號1樓",
+      "original_coords": [
+        120.699464,
+        24.071942
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/780",
+      "name": "潭子中山店",
+      "address": "台中市潭子區中山路二段231號1樓",
+      "original_coords": [
+        120.705138,
+        24.209221
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/781",
+      "name": "龍井遊園店",
+      "address": "台中市龍井區遊園南路265號1、2樓",
+      "original_coords": [
+        120.583759,
+        24.180743
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/783",
+      "name": "太平育仁店",
+      "address": "台中市太平區育仁南路82號1樓",
+      "original_coords": [
+        120.72135,
+        24.151221
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/785",
+      "name": "豐原中山二 - 智取店",
+      "address": "台中市豐原區中山路321號1樓",
+      "original_coords": [
+        120.71498,
+        24.24845
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/787",
+      "name": "大雅民生 - 智取店",
+      "address": "台中市大雅區民生路四段40號1樓",
+      "original_coords": [
+        120.667811,
+        24.236078
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/789",
+      "name": "霧峰柳豐店",
+      "address": "台中市霧峰區柳豐路498號1樓",
+      "original_coords": [
+        120.68855,
+        24.043733
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/794",
+      "name": "西屯何厝店",
+      "address": "台中市西屯區何厝街86號1樓",
+      "original_coords": [
+        120.655514,
+        24.162802
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/802",
+      "name": "大雅民生二店",
+      "address": "台中市大雅區民生路一段353號1樓",
+      "original_coords": [
+        120.653964,
+        24.229289
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/812",
+      "name": "太平中平店",
+      "address": "台中市太平區中平路88號1、2樓",
+      "original_coords": [
+        120.718885,
+        24.130489
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/815",
+      "name": "后里甲后店",
+      "address": "台中市后里區甲后路一段661號1樓",
+      "original_coords": [
+        120.717229,
+        24.309592
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/821",
+      "name": "豐原惠陽 - 智取店",
+      "address": "台中市豐原區惠陽街147號1、2樓",
+      "original_coords": [
+        120.724594,
+        24.251955
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/822",
+      "name": "北屯陳平店",
+      "address": "台中市北屯區陳平路60巷15號1樓",
+      "original_coords": [
+        120.668224,
+        24.185503
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/837",
+      "name": "豐原新生店",
+      "address": "台中市豐原區新生北路63號1樓",
+      "original_coords": [
+        120.719277,
+        24.252844
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/842",
+      "name": "南屯永春南 - 智取店",
+      "address": "台中市南屯區永春南路56巷12號1樓",
+      "original_coords": [
+        120.611762,
+        24.138899
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/870",
+      "name": "大里仁化店",
+      "address": "台中市大里區仁化路368、370號1樓",
+      "original_coords": [
+        120.706612,
+        24.095557
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/882",
+      "name": "龍井藝術 - 智取店",
+      "address": "台中市龍井區藝術街98號1樓",
+      "original_coords": [
+        120.59227,
+        24.188304
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/886",
+      "name": "沙鹿靜宜店",
+      "address": "台中市沙鹿區臺灣大道七段233號1樓",
+      "original_coords": [
+        120.576263,
+        24.226051
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/888",
+      "name": "龍井沙田店",
+      "address": "台中市龍井區沙田路四段526號1樓",
+      "original_coords": [
+        120.545985,
+        24.189799
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/897",
+      "name": "大雅雅潭店",
+      "address": "台中市大雅區雅潭路四段922號1、2樓",
+      "original_coords": [
+        120.647686,
+        24.221369
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/901",
+      "name": "清水五權店",
+      "address": "台中市清水區五權南路7號1樓",
+      "original_coords": [
+        120.558927,
+        24.27378
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/906",
+      "name": "烏日中山二店",
+      "address": "台中市烏日區中山路一段572號1樓",
+      "original_coords": [
+        120.634584,
+        24.106849
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/912",
+      "name": "外埔甲后 - 智取店",
+      "address": "台中市外埔區甲后路五段103號1樓",
+      "original_coords": [
+        120.636673,
+        24.34293
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/917",
+      "name": "大甲車站店",
+      "address": "台中市大甲區蔣公路11之1號1樓",
+      "original_coords": [
+        120.626029,
+        24.344598
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/970",
+      "name": "梧棲民生店",
+      "address": "台中市梧棲區民生街32號1樓",
+      "original_coords": [
+        120.530923,
+        24.253507
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/971",
+      "name": "台中永興 - 智取店",
+      "address": "台中市北區永興街298巷3號1樓",
+      "original_coords": [
+        120.682726,
+        24.166292
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/976",
+      "name": "大甲順天 - 智取店",
+      "address": "台中市大甲區順天路332號1樓",
+      "original_coords": [
+        120.626859,
+        24.349879
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/978",
+      "name": "東勢豐勢店",
+      "address": "台中市東勢區豐勢路555號1樓",
+      "original_coords": [
+        120.82724,
+        24.259608
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/979",
+      "name": "東勢豐勢二 - 智取店",
+      "address": "台中市東勢區豐勢路167號1樓",
+      "original_coords": [
+        120.830234,
+        24.250551
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1009",
+      "name": "大甲文武 - 智取店",
+      "address": "台中市大甲區文武路205號1樓",
+      "original_coords": [
+        120.618473,
+        24.348729
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1010",
+      "name": "北屯松竹店",
+      "address": "台中市北屯區松竹路二段227號1樓",
+      "original_coords": [
+        120.694354,
+        24.182985
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1011",
+      "name": "北屯豐樂 - 智取店",
+      "address": "台中市北屯區豐樂路8之25號1樓",
+      "original_coords": [
+        120.683604,
+        24.193524
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1034",
+      "name": "台中復興 - 智取店",
+      "address": "台中市南區復興路二段75號1樓",
+      "original_coords": [
+        120.662303,
+        24.122939
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1036",
+      "name": "潭子中山二 - 智取店",
+      "address": "台中市潭子區中山路一段65號1樓",
+      "original_coords": [
+        120.702317,
+        24.192461
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1054",
+      "name": "沙鹿屏西 - 智取店",
+      "address": "台中市沙鹿區屏西路33號1、2樓",
+      "original_coords": [
+        120.567371,
+        24.205411
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1070",
+      "name": "北屯松竹二 - 智取店",
+      "address": "台中市北屯區松竹路二段703號1樓",
+      "original_coords": [
+        120.686624,
+        24.18148
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1082",
+      "name": "太平光興 - 智取店",
+      "address": "台中市太平區光興路719號1樓",
+      "original_coords": [
+        120.729796,
+        24.109546
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1147",
+      "name": "潭子大豐 - 智取店",
+      "address": "台中市潭子區大豐路三段82號1樓",
+      "original_coords": [
+        120.69229,
+        24.221284
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1155",
+      "name": "烏日三榮 - 智取店",
+      "address": "台中市烏日區三榮十五路38號1樓",
+      "original_coords": [
+        120.595457,
+        24.109879
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1210",
+      "name": "潭子勝利 - 智取店",
+      "address": "台中市潭子區勝利路247號1樓",
+      "original_coords": [
+        120.700419,
+        24.212473
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1243",
+      "name": "西屯中清 - 智取店",
+      "address": "台中市西屯區中清西二街115號1樓",
+      "original_coords": [
+        120.665225,
+        24.175563
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1264",
+      "name": "清水五權二 - 智取店",
+      "address": "台中市清水區五權路8號1樓",
+      "original_coords": [
+        120.571176,
+        24.275914
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1271",
+      "name": "梧棲大庄 - 智取店",
+      "address": "台中市梧棲區臺灣大道八段570號1樓",
+      "original_coords": [
+        120.545736,
+        24.246808
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1274",
+      "name": "大肚沙田 - 智取店",
+      "address": "台中市大肚區沙田路一段410號1樓",
+      "original_coords": [
+        120.566551,
+        24.122747
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1290",
+      "name": "太平大興 - 智取店",
+      "address": "台中市太平區大興路138號1樓",
+      "original_coords": [
+        120.733522,
+        24.153699
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1293",
+      "name": "豐原中正 - 智取店",
+      "address": "台中市豐原區中正路872號1樓",
+      "original_coords": [
+        120.700611,
+        24.249325
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1304",
+      "name": "西屯工業 - 智取店",
+      "address": "台中市西屯區工業區一路96之2號1樓",
+      "original_coords": [
+        120.614049,
+        24.175657
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1305",
+      "name": "西屯太原 - 智取店",
+      "address": "台中市西屯區太原路一段33號1樓",
+      "original_coords": [
+        120.65825,
+        24.159245
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1306",
+      "name": "北屯天津 - 智取店",
+      "address": "台中市北屯區天津路三段181號1樓",
+      "original_coords": [
+        120.684472,
+        24.169746
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1315",
+      "name": "潭子榮興 - 智取店",
+      "address": "台中市潭子區榮興街5號1樓",
+      "original_coords": [
+        120.701654,
+        24.187338
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1319",
+      "name": "西屯逢甲 - 智取店",
+      "address": "台中市西屯區逢甲路70號1樓",
+      "original_coords": [
+        120.644472,
+        24.178944
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1329",
+      "name": "豐原西勢 - 智取店",
+      "address": "台中市豐原區西勢二街27號1樓",
+      "original_coords": [
+        120.705934,
+        24.243501
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1390",
+      "name": "神岡豐洲 - 智取店",
+      "address": "台中市神岡區豐洲路168號1樓",
+      "original_coords": [
+        120.710442,
+        24.258907
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1391",
+      "name": "后里車站 - 智取店",
+      "address": "台中市后里區甲后路一段235號1樓",
+      "original_coords": [
+        120.726813,
+        24.30913
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1392",
+      "name": "豐原永康 - 智取店",
+      "address": "台中市豐原區永康路293號1樓",
+      "original_coords": [
+        120.723338,
+        24.240092
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1404",
+      "name": "台中三民 - 智取店",
+      "address": "台中市南區三民西路247號1樓",
+      "original_coords": [
+        120.661131,
+        24.129925
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1423",
+      "name": "潭子頭張 - 智取店",
+      "address": "台中市潭子區頭張路二段29號1樓",
+      "original_coords": [
+        120.697323,
+        24.194385
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1430",
+      "name": "北屯松義 - 智取店",
+      "address": "台中市北屯區松義街260號1樓",
+      "original_coords": [
+        120.698563,
+        24.186175
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1431",
+      "name": "清水中山 - 智取店",
+      "address": "台中市清水區中山路287之1號1樓",
+      "original_coords": [
+        120.57577,
+        24.270358
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1432",
+      "name": "台中北屯 - 智取店",
+      "address": "台中市北屯區北屯路178之7號1樓",
+      "original_coords": [
+        120.694653,
+        24.165396
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1436",
+      "name": "大甲青二 - 智取店",
+      "address": "台中市大甲區青二路8巷45號1樓",
+      "original_coords": [
+        120.645703,
+        24.405822
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1437",
+      "name": "台中東英店",
+      "address": "台中市東區東英二街79號1樓",
+      "original_coords": [
+        120.702325,
+        24.135246
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1448",
+      "name": "大里達明 - 智取店",
+      "address": "台中市大里區達明路53號1樓",
+      "original_coords": [
+        120.691938,
+        24.111421
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1450",
+      "name": "霧峰樹仁 - 智取店",
+      "address": "台中市霧峰區樹仁路132號1樓",
+      "original_coords": [
+        120.696395,
+        24.060478
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1454",
+      "name": "台中公正店",
+      "address": "台中市西區公正路143號1樓",
+      "original_coords": [
+        120.661309,
+        24.148927
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1513",
+      "name": "北屯大坑 - 智取店",
+      "address": "台中市北屯區東山路一段367之1號1樓",
+      "original_coords": [
+        120.724205,
+        24.176337
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1516",
+      "name": "外埔重光 - 智取店",
+      "address": "台中市外埔區甲后路三段1031號1樓",
+      "original_coords": [
+        120.653128,
+        24.331828
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1517",
+      "name": "太平育德 - 智取店",
+      "address": "台中市太平區育德路12號1樓",
+      "original_coords": [
+        120.722269,
+        24.157234
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1519",
+      "name": "北屯松和 - 智取店",
+      "address": "台中市北屯區松和街100號1、2樓",
+      "original_coords": [
+        120.693308,
+        24.178766
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1537",
+      "name": "沙鹿光華 - 智取店",
+      "address": "台中市沙鹿區光華路482號1樓",
+      "original_coords": [
+        120.569768,
+        24.244395
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1553",
+      "name": "太平成功 - 智取店",
+      "address": "台中市太平區成功東路91號1樓",
+      "original_coords": [
+        120.720595,
+        24.128212
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1557",
+      "name": "清水槺榔 - 智取店",
+      "address": "台中市清水區槺榔二街38號1樓",
+      "original_coords": [
+        120.547121,
+        24.263676
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1564",
+      "name": "龍井龍門店",
+      "address": "台中市龍井區龍門路46之1號1樓",
+      "original_coords": [
+        120.529898,
+        24.181794
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1565",
+      "name": "大甲忠孝 - 智取店",
+      "address": "台中市大甲區忠孝街186號1樓",
+      "original_coords": [
+        120.619545,
+        24.352027
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1568",
+      "name": "台中大慶 - 智取店",
+      "address": "台中市南區大慶街一段241號1樓",
+      "original_coords": [
+        120.65595,
+        24.113585
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1642",
+      "name": "台中太平 - 智取店",
+      "address": "台中市太平區太平路332號1樓",
+      "original_coords": [
+        120.717547,
+        24.123931
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1645",
+      "name": "后里公安 - 智取店",
+      "address": "台中市后里區公安路115號1樓",
+      "original_coords": [
+        120.709247,
+        24.305311
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1646",
+      "name": "潭子圓通 - 智取店",
+      "address": "台中市潭子區圓通南路279號1樓",
+      "original_coords": [
+        120.702072,
+        24.207211
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1647",
+      "name": "西屯何德店",
+      "address": "台中市西屯區西屯路二段42號1樓",
+      "original_coords": [
+        120.658651,
+        24.164811
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1665",
+      "name": "大里工業店",
+      "address": "台中市大里區工業三路28號1樓",
+      "original_coords": [
+        120.715204,
+        24.096329
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1694",
+      "name": "大雅中清店",
+      "address": "台中市大雅區中清路四段839號1樓",
+      "original_coords": [
+        120.631603,
+        24.23932
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1698",
+      "name": "大甲水源店",
+      "address": "台中市大甲區水源路71號1樓",
+      "original_coords": [
+        120.623974,
+        24.34107
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1705",
+      "name": "台中樹德店",
+      "address": "台中市南區大慶街二段10號1樓",
+      "original_coords": [
+        120.652671,
+        24.11449
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1710",
+      "name": "台中模範 - 智取店",
+      "address": "台中市西區模範街11號1樓",
+      "original_coords": [
+        120.666489,
+        24.148118
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1715",
+      "name": "太平永成 - 智取店",
+      "address": "台中市太平區永成北路153號1樓",
+      "original_coords": [
+        120.714907,
+        24.118022
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1723",
+      "name": "太平中山 - 智取店",
+      "address": "台中市太平區中山路二段493號1樓",
+      "original_coords": [
+        120.726034,
+        24.149527
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1733",
+      "name": "北屯雷中 - 智取店",
+      "address": "台中市北屯區雷中街2之3號1樓",
+      "original_coords": [
+        120.668411,
+        24.180672
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1751",
+      "name": "后里三豐 - 智取店",
+      "address": "台中市后里區三豐路三段909號1樓",
+      "original_coords": [
+        120.721683,
+        24.306831
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1775",
+      "name": "台中大智 - 智取店",
+      "address": "台中市東區大智路432號1樓",
+      "original_coords": [
+        120.689926,
+        24.127208
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1776",
+      "name": "梧棲中和 - 智取店",
+      "address": "台中市梧棲區中和街213號1、2、3樓",
+      "original_coords": [
+        120.53255,
+        24.258158
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1779",
+      "name": "清水港都 - 智取店",
+      "address": "台中市清水區港都三路100號1樓",
+      "original_coords": [
+        120.53638,
+        24.26859
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1787",
+      "name": "后里麗寶 - 智取店",
+      "address": "台中市后里區甲后路二段393號1樓",
+      "original_coords": [
+        120.693311,
+        24.313649
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1790",
+      "name": "龍井中央 - 智取店",
+      "address": "台中市龍井區中央路三段185號1、2、3樓",
+      "original_coords": [
+        120.525807,
+        24.215035
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1796",
+      "name": "大里長榮 - 智取店",
+      "address": "台中市大里區大里路35之1號1樓",
+      "original_coords": [
+        120.688918,
+        24.107057
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1797",
+      "name": "台中漢口 - 智取店",
+      "address": "台中市北區漢口路三段168之1號1樓",
+      "original_coords": [
+        120.671651,
+        24.166751
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1801",
+      "name": "大雅中山 - 智取店",
+      "address": "台中市大雅區中清路四段8號1樓",
+      "original_coords": [
+        120.645288,
+        24.225904
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1803",
+      "name": "大里金城 - 智取店",
+      "address": "台中市大里區塗城路798號1、2樓",
+      "original_coords": [
+        120.696881,
+        24.090749
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1812",
+      "name": "台中英才 - 智取店",
+      "address": "台中市北區英才路364號1樓",
+      "original_coords": [
+        120.669498,
+        24.155928
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1834",
+      "name": "龍井龍津 - 智取店",
+      "address": "台中市龍井區中央路一段96號1樓",
+      "original_coords": [
+        120.523612,
+        24.199218
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1838",
+      "name": "太平勤益 - 智取店",
+      "address": "台中市太平區中山路二段86號1、2樓",
+      "original_coords": [
+        120.73398,
+        24.147534
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1846",
+      "name": "台中二市 - 智取店",
+      "address": "台中市中區三民路二段111號1、2樓",
+      "original_coords": [
+        120.679538,
+        24.14278
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1847",
+      "name": "西屯光明 - 智取店",
+      "address": "台中市西屯區光明路52之51號1樓",
+      "original_coords": [
+        120.638446,
+        24.177127
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1855",
+      "name": "南屯三和 - 智取店",
+      "address": "台中市南屯區黎明路二段355號1樓",
+      "original_coords": [
+        120.635202,
+        24.150136
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1858",
+      "name": "台中建中 - 智取店",
+      "address": "台中市南區台中路266號1樓",
+      "original_coords": [
+        120.684574,
+        24.128888
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1866",
+      "name": "台中大勇 - 智取店",
+      "address": "台中市西區五權七街187號1樓",
+      "original_coords": [
+        120.657003,
+        24.135066
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1875",
+      "name": "北屯熱河 - 智取店",
+      "address": "台中市北屯區熱河路三段24號1樓",
+      "original_coords": [
+        120.688394,
+        24.176337
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1880",
+      "name": "沙鹿晉文 - 智取店",
+      "address": "台中市沙鹿區晉文路6號1樓",
+      "original_coords": [
+        120.578805,
+        24.223499
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1882",
+      "name": "大雅上雅 - 智取店",
+      "address": "台中市大雅區民生路一段232號1樓",
+      "original_coords": [
+        120.651516,
+        24.22776
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1883",
+      "name": "台中五常 - 智取店",
+      "address": "台中市北區柳川東路四段100號1樓",
+      "original_coords": [
+        120.680687,
+        24.154694
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1906",
+      "name": "台中三市 - 智取店",
+      "address": "台中市東區台中路65號1樓",
+      "original_coords": [
+        120.683372,
+        24.133992
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1930",
+      "name": "台中錦新 - 智取店",
+      "address": "台中市北區錦新街57號1樓",
+      "original_coords": [
+        120.685962,
+        24.153261
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1931",
+      "name": "清水星海 - 智取店",
+      "address": "台中市清水區星海路119號1樓",
+      "original_coords": [
+        120.569252,
+        24.261838
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1932",
+      "name": "大里立中 - 智取店",
+      "address": "台中市大里區立中街99號1樓",
+      "original_coords": [
+        120.697074,
+        24.103153
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1936",
+      "name": "西屯工三 - 智取店",
+      "address": "台中市西屯區中工三路46號1樓",
+      "original_coords": [
+        120.619123,
+        24.179958
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1943",
+      "name": "台中美村南 - 智取店",
+      "address": "台中市南區美村南路129號1、2、3、4、5樓",
+      "original_coords": [
+        120.666692,
+        24.117277
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1952",
+      "name": "沙鹿竹林 - 智取店",
+      "address": "台中市沙鹿區中山路132號1樓",
+      "original_coords": [
+        120.567646,
+        24.237098
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1956",
+      "name": "西屯逢大 - 智取店",
+      "address": "台中市西屯區逢大路99號1樓",
+      "original_coords": [
+        120.65018,
+        24.177269
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1961",
+      "name": "沙鹿英才 - 智取店",
+      "address": "台中市沙鹿區鎮南路二段290號1樓",
+      "original_coords": [
+        120.567865,
+        24.227088
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1967",
+      "name": "太平旱溪西 - 智取店",
+      "address": "台中市太平區旱溪西路二段186號1樓",
+      "original_coords": [
+        120.701627,
+        24.153638
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1984",
+      "name": "大里新仁 - 智取店",
+      "address": "台中市大里區新仁路一段129號1樓",
+      "original_coords": [
+        120.703283,
+        24.111078
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1987",
+      "name": "西屯潮洋 - 智取店",
+      "address": "台中市西屯區黎明路二段961號1樓",
+      "original_coords": [
+        120.636287,
+        24.170623
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/1988",
+      "name": "龍井新東 - 智取店",
+      "address": "台中市龍井區臺灣大道五段85號1樓",
+      "original_coords": [
+        120.590295,
+        24.183875
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2002",
+      "name": "太平樹德 - 智取店",
+      "address": "台中市太平區樹德路162號1、2樓",
+      "original_coords": [
+        120.711744,
+        24.155241
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2004",
+      "name": "豐原圓環東 - 智取店",
+      "address": "台中市豐原區圓環東路157之1號1樓",
+      "original_coords": [
+        120.719724,
+        24.243634
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2017",
+      "name": "大肚自由 - 智取店",
+      "address": "台中市大肚區自由路311號1樓",
+      "original_coords": [
+        120.548697,
+        24.151905
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2022",
+      "name": "台中明德 - 智取店",
+      "address": "台中市南區忠明南路1263號1樓",
+      "original_coords": [
+        120.681926,
+        24.119393
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2031",
+      "name": "大甲上上 - 智取店",
+      "address": "台中市大甲區順天路215號1樓",
+      "original_coords": [
+        120.623666,
+        24.346216
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2038",
+      "name": "太平勤大 - 智取店",
+      "address": "台中市太平區中山路一段324號1樓",
+      "original_coords": [
+        120.734092,
+        24.143423
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2080",
+      "name": "神岡社口 - 智取店",
+      "address": "台中市神岡區社口街100號1樓",
+      "original_coords": [
+        120.686611,
+        24.249906
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2099",
+      "name": "南屯五權西 - 智取店",
+      "address": "台中市南屯區五權西路二段708號1樓",
+      "original_coords": [
+        120.638184,
+        24.142467
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2102",
+      "name": "太平東平 - 智取店",
+      "address": "台中市太平區東平路405號1樓",
+      "original_coords": [
+        120.721857,
+        24.133558
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2117",
+      "name": "西屯西安 - 智取店",
+      "address": "台中市西屯區西安街183號1樓",
+      "original_coords": [
+        120.645211,
+        24.181925
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2121",
+      "name": "台中華美 - 智取店",
+      "address": "台中市西區華美街119號1樓",
+      "original_coords": [
+        120.658632,
+        24.144517
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2122",
+      "name": "太平市民 - 智取店",
+      "address": "台中市太平區市民大道一段117號1樓",
+      "original_coords": [
+        120.71376,
+        24.139678
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2132",
+      "name": "太平樹孝 - 智取店",
+      "address": "台中市太平區環中東路三段305號1樓",
+      "original_coords": [
+        120.717401,
+        24.154429
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2144",
+      "name": "台中旱溪 - 智取店",
+      "address": "台中市東區旱溪街428號1樓",
+      "original_coords": [
+        120.707375,
+        24.140441
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2146",
+      "name": "台中梅亭東 - 智取店",
+      "address": "台中市北區進化路573號與575之1號1樓",
+      "original_coords": [
+        120.694224,
+        24.159569
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2154",
+      "name": "南屯春安 - 智取店",
+      "address": "台中市南屯區春安二街38號1樓",
+      "original_coords": [
+        120.608373,
+        24.13496
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2164",
+      "name": "神岡中山 - 智取店",
+      "address": "台中市神岡區中山路1458號1樓",
+      "original_coords": [
+        120.661215,
+        24.258984
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2168",
+      "name": "南屯同心 - 智取店",
+      "address": "台中市南屯區大墩五街269號1樓",
+      "original_coords": [
+        120.649382,
+        24.141582
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2174",
+      "name": "沙鹿四平 - 智取店",
+      "address": "台中市沙鹿區四平街12號1、2、3樓",
+      "original_coords": [
+        120.559384,
+        24.231952
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2175",
+      "name": "大雅學府 - 智取店",
+      "address": "台中市大雅區學府路69號1樓",
+      "original_coords": [
+        120.65078,
+        24.216962
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2184",
+      "name": "北屯北華 - 智取店",
+      "address": "台中市北屯區北華街81號1樓",
+      "original_coords": [
+        120.69546,
+        24.162589
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2186",
+      "name": "西屯福康 - 智取店",
+      "address": "台中市西屯區福康路100號1樓",
+      "original_coords": [
+        120.618389,
+        24.186722
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2209",
+      "name": "北屯國校 - 智取店",
+      "address": "台中市北屯區國校巷43號1樓",
+      "original_coords": [
+        120.690634,
+        24.164591
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2212",
+      "name": "台中富強 - 智取店",
+      "address": "台中市北區富強街102之2號1樓",
+      "original_coords": [
+        120.6955,
+        24.158511
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2226",
+      "name": "北屯軍福 - 智取店",
+      "address": "台中市北屯區軍福十八路277號1樓",
+      "original_coords": [
+        120.714208,
+        24.178152
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2234",
+      "name": "北屯軍功 - 智取店",
+      "address": "台中市北屯區東山路一段283號1樓",
+      "original_coords": [
+        120.718787,
+        24.175957
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2239",
+      "name": "龍井東海 - 智取店",
+      "address": "台中市龍井區新興路49之3號1、2、3樓",
+      "original_coords": [
+        120.587116,
+        24.181264
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2240",
+      "name": "南屯田心 - 智取店",
+      "address": "台中市南屯區五權西路二段439號1、2、3、4樓",
+      "original_coords": [
+        120.644174,
+        24.140102
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2267",
+      "name": "西屯中科 - 智取店",
+      "address": "台中市西屯區西屯路三段166之60號1、2、3、4、5樓",
+      "original_coords": [
+        120.613106,
+        24.190401
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2272",
+      "name": "霧峰振興 - 智取店",
+      "address": "台中市霧峰區振興街90號1樓",
+      "original_coords": [
+        120.697424,
+        24.067716
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2278",
+      "name": "大里大衛 - 智取店",
+      "address": "台中市大里區大衛路77號1樓",
+      "original_coords": [
+        120.67901,
+        24.097085
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2296",
+      "name": "大雅上楓 - 智取店",
+      "address": "台中市大雅區民生路四段142之1號1、2、3樓",
+      "original_coords": [
+        120.67013,
+        24.237549
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2301",
+      "name": "潭子站前 - 智取店",
+      "address": "台中市潭子區中山路二段295號1、2、3樓",
+      "original_coords": [
+        120.705206,
+        24.211027
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2306",
+      "name": "北屯水景 - 智取店",
+      "address": "台中市北屯區東山路一段189之15號與189之16號1樓",
+      "original_coords": [
+        120.709305,
+        24.171249
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2308",
+      "name": "北屯敦富 - 智取店",
+      "address": "台中市北屯區敦富三街130號1樓",
+      "original_coords": [
+        120.704815,
+        24.185915
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2318",
+      "name": "霧峰中投 - 寄件店",
+      "address": "台中市霧峰區中投東路二段398號1樓",
+      "original_coords": [
+        120.663517,
+        24.073346
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2322",
+      "name": "龍井遊園北 - 智取店",
+      "address": "台中市龍井區遊園北路432號1、2樓",
+      "original_coords": [
+        120.589539,
+        24.191522
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2330",
+      "name": "后里文化 - 智取店",
+      "address": "台中市后里區文化路87號1、2樓",
+      "original_coords": [
+        120.712628,
+        24.307943
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2337",
+      "name": "大里大元 - 智取店",
+      "address": "台中市大里區中興路二段152之5號1樓",
+      "original_coords": [
+        120.687903,
+        24.099995
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2351",
+      "name": "烏日新興 - 智取店",
+      "address": "台中市烏日區新興路311號1樓",
+      "original_coords": [
+        120.622658,
+        24.104612
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2352",
+      "name": "大雅大林 - 智取店",
+      "address": "台中市大雅區大林路281號1樓",
+      "original_coords": [
+        120.650398,
+        24.244013
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2363",
+      "name": "大里爽文 - 智取店",
+      "address": "台中市大里區爽文路975號1樓",
+      "original_coords": [
+        120.674511,
+        24.111314
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2364",
+      "name": "西屯福祥 - 智取店",
+      "address": "台中市西屯區福祥街1號1、2樓",
+      "original_coords": [
+        120.622762,
+        24.183405
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2385",
+      "name": "台中東門 - 智取店",
+      "address": "台中市東區東門路121號與123號1樓",
+      "original_coords": [
+        120.698951,
+        24.127414
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2387",
+      "name": "大雅員林 - 寄件店",
+      "address": "台中市大雅區大林路281號1樓",
+      "original_coords": [
+        120.650419,
+        24.244248
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2390",
+      "name": "台中精誠 - 智取店",
+      "address": "台中市西區精誠路39之8號1樓",
+      "original_coords": [
+        120.655219,
+        24.153796
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2391",
+      "name": "台中權站 - 智取店",
+      "address": "台中市西區三民路一段26之1號1樓",
+      "original_coords": [
+        120.66706,
+        24.129805
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2392",
+      "name": "西屯福瑞 - 智取店",
+      "address": "台中市西屯區福瑞街27巷10號1、2樓",
+      "original_coords": [
+        120.605974,
+        24.1868
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2397",
+      "name": "龍井東大 - 智取店",
+      "address": "台中市龍井區臺灣大道五段3巷30弄1號1樓",
+      "original_coords": [
+        120.592575,
+        24.182117
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2407",
+      "name": "西屯河南 - 智取店",
+      "address": "台中市西屯區河南路四段73號1樓",
+      "original_coords": [
+        120.636575,
+        24.158524
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2413",
+      "name": "豐原三豐 - 智取店",
+      "address": "台中市豐原區三豐路一段365號1樓",
+      "original_coords": [
+        120.71992,
+        24.262354
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2417",
+      "name": "霧峰吉峰 - 智取店",
+      "address": "台中市霧峰區吉峰路100之12號1樓",
+      "original_coords": [
+        120.708177,
+        24.076437
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2418",
+      "name": "豐原豐東 - 智取店",
+      "address": "台中市豐原區豐東路316號1樓",
+      "original_coords": [
+        120.733183,
+        24.251042
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2419",
+      "name": "台中德富 - 智取店",
+      "address": "台中市南區德富路430號1樓",
+      "original_coords": [
+        120.659232,
+        24.112638
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2429",
+      "name": "西屯福順 - 智取店",
+      "address": "台中市西屯區福順路880號1、2樓",
+      "original_coords": [
+        120.608455,
+        24.186142
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2450",
+      "name": "西屯成都 - 智取店",
+      "address": "台中市西屯區成都路120號1樓",
+      "original_coords": [
+        120.662218,
+        24.166938
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2463",
+      "name": "南屯溝墘 - 智取店",
+      "address": "台中市南屯區大墩路707號1樓",
+      "original_coords": [
+        120.649578,
+        24.1529
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2464",
+      "name": "西屯福林 - 智取店",
+      "address": "台中市西屯區福林路67號1樓",
+      "original_coords": [
+        120.614314,
+        24.185953
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2465",
+      "name": "北屯福十六 - 智取店",
+      "address": "台中市北屯區軍福十六路356之1號1樓",
+      "original_coords": [
+        120.723436,
+        24.175169
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2466",
+      "name": "南屯文山 - 智取店",
+      "address": "台中市南屯區向上路五段125號1、2樓",
+      "original_coords": [
+        120.613754,
+        24.148871
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2478",
+      "name": "大里國光 - 智取店",
+      "address": "台中市大里區國光路二段256號1樓",
+      "original_coords": [
+        120.681093,
+        24.106098
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2491",
+      "name": "豐原直興 - 智取店",
+      "address": "台中市豐原區直興街180號1樓",
+      "original_coords": [
+        120.726875,
+        24.255719
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2493",
+      "name": "西屯上安 - 智取店",
+      "address": "台中市西屯區上安路11巷12號1樓",
+      "original_coords": [
+        120.641492,
+        24.169624
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2494",
+      "name": "北屯祥順 - 智取店",
+      "address": "台中市北屯區祥順路二段59號1樓",
+      "original_coords": [
+        120.727724,
+        24.163468
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2516",
+      "name": "台中新榮 - 智取店",
+      "address": "台中市南區復興路三段161號1樓",
+      "original_coords": [
+        120.673687,
+        24.130698
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2522",
+      "name": "台中工六 - 智取店",
+      "address": "台中市南區工學路119號與121號1樓",
+      "original_coords": [
+        120.660181,
+        24.116557
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2536",
+      "name": "沙鹿鎮南 - 智取店",
+      "address": "台中市沙鹿區鎮南路二段30號1樓",
+      "original_coords": [
+        120.570697,
+        24.217065
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2612",
+      "name": "烏日新溪南 - 智取店",
+      "address": "台中市烏日區溪南路一段387號1樓",
+      "original_coords": [
+        120.643421,
+        24.079047
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2617",
+      "name": "大里金德 - 智取店",
+      "address": "台中市大里區塗城路950號1樓",
+      "original_coords": [
+        120.693513,
+        24.090876
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2624",
+      "name": "潭子僑興 - 智取店",
+      "address": "台中市潭子區僑興路117號1樓",
+      "original_coords": [
+        120.701696,
+        24.20611
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2627",
+      "name": "南屯豐樂 - 智取店",
+      "address": "台中市南屯區文心南三路797號1樓",
+      "original_coords": [
+        120.640975,
+        24.133337
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2628",
+      "name": "烏日中華 - 智取店",
+      "address": "台中市烏日區中華路54號1樓",
+      "original_coords": [
+        120.641622,
+        24.110342
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2634",
+      "name": "西屯西平 - 智取店",
+      "address": "台中市西屯區西安街277巷25弄50號1樓",
+      "original_coords": [
+        120.647424,
+        24.18337
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2678",
+      "name": "清水大秀 - 智取店",
+      "address": "台中市清水區五權路315號1樓",
+      "original_coords": [
+        120.557247,
+        24.278495
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2687",
+      "name": "台中科博館 - 智取店",
+      "address": "台中市北區西屯路一段420號1樓",
+      "original_coords": [
+        120.664977,
+        24.161203
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2688",
+      "name": "台中向上 - 智取店",
+      "address": "台中市西區向上路一段130號1樓",
+      "original_coords": [
+        120.662508,
+        24.146946
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2695",
+      "name": "大里成功 - 智取店",
+      "address": "台中市大里區成功二路103號1樓",
+      "original_coords": [
+        120.704037,
+        24.094836
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2706",
+      "name": "沙鹿北勢東 - 智取店",
+      "address": "台中市沙鹿區北勢東路258號1樓",
+      "original_coords": [
+        120.580231,
+        24.213601
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2721",
+      "name": "梧棲福德 - 智取店",
+      "address": "台中市梧棲區中央路二段10之2號1樓",
+      "original_coords": [
+        120.53902,
+        24.25028
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2722",
+      "name": "清水高中 - 智取店",
+      "address": "台中市清水區中山路151之9號1樓",
+      "original_coords": [
+        120.573768,
+        24.265536
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2738",
+      "name": "清水高美 - 智取店",
+      "address": "台中市清水區高美路312之12號1樓",
+      "original_coords": [
+        120.570529,
+        24.291399
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2751",
+      "name": "烏日榮和 - 智取店",
+      "address": "台中市烏日區三榮路二段128號1樓",
+      "original_coords": [
+        120.599479,
+        24.10788
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2752",
+      "name": "豐原府前 - 智取店",
+      "address": "台中市豐原區府前街84號1樓",
+      "original_coords": [
+        120.718353,
+        24.249738
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2766",
+      "name": "潭子甘蔗 - 智取店",
+      "address": "台中市潭子區中山路二段241巷21號1樓",
+      "original_coords": [
+        120.702955,
+        24.209962
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2784",
+      "name": "台中進化北 - 智取店",
+      "address": "台中市北區進化北路298號與300號1樓",
+      "original_coords": [
+        120.682607,
+        24.163264
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2788",
+      "name": "南屯寶山東 - 智取店",
+      "address": "台中市南屯區寶山東二街23號1樓",
+      "original_coords": [
+        120.616628,
+        24.152487
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2804",
+      "name": "台中向上南 - 智取店",
+      "address": "台中市西區向上南路一段132號1樓",
+      "original_coords": [
+        120.655844,
+        24.145142
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2805",
+      "name": "西屯惠來 - 智取店",
+      "address": "台中市西屯區惠來路三段150號1樓",
+      "original_coords": [
+        120.647717,
+        24.169086
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2806",
+      "name": "龍井山腳 - 智取店",
+      "address": "台中市龍井區沙田路六段261號1樓",
+      "original_coords": [
+        120.550473,
+        24.21067
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2826",
+      "name": "南屯干城 - 智取店",
+      "address": "台中市南屯區干城街252號1樓",
+      "original_coords": [
+        120.631371,
+        24.151912
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2835",
+      "name": "南屯大誠 - 智取店",
+      "address": "台中市南屯區大墩路72號1樓",
+      "original_coords": [
+        120.650132,
+        24.138677
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2836",
+      "name": "梧棲自立 - 智取店",
+      "address": "台中市梧棲區自立二街456號1樓",
+      "original_coords": [
+        120.528978,
+        24.241804
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2842",
+      "name": "太平永平南 - 智取店",
+      "address": "台中市太平區永平南路21號1、2樓",
+      "original_coords": [
+        120.721563,
+        24.1299
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2843",
+      "name": "潭子圓通南 - 智取店",
+      "address": "台中市潭子區圓通南路25號1樓",
+      "original_coords": [
+        120.709077,
+        24.206493
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2848",
+      "name": "南屯東興 - 智取店",
+      "address": "台中市南屯區東興路一段671號1樓",
+      "original_coords": [
+        120.652812,
+        24.135469
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2849",
+      "name": "台中福立 - 智取店",
+      "address": "台中市東區進化路80號1樓",
+      "original_coords": [
+        120.694722,
+        24.143795
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2858",
+      "name": "清水夜市 - 智取店",
+      "address": "台中市清水區五權路131號1樓",
+      "original_coords": [
+        120.566046,
+        24.276761
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2870",
+      "name": "大肚遊二 - 智取店",
+      "address": "台中市大肚區遊園路二段121號1樓",
+      "original_coords": [
+        120.579998,
+        24.171444
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2875",
+      "name": "北屯文昌 - 智取店",
+      "address": "台中市北屯區文昌東八街27號1樓",
+      "original_coords": [
+        120.69064,
+        24.169446
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2888",
+      "name": "大里立高 - 智取店",
+      "address": "台中市大里區益民路一段148號1樓",
+      "original_coords": [
+        120.692772,
+        24.107465
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2901",
+      "name": "大里永大 - 智取店",
+      "address": "台中市大里區永大街598號1樓",
+      "original_coords": [
+        120.677989,
+        24.114477
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2902",
+      "name": "神岡社南 - 智取店",
+      "address": "台中市神岡區中山路845之1號1樓",
+      "original_coords": [
+        120.67504,
+        24.251588
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2904",
+      "name": "北屯大連 - 智取店",
+      "address": "台中市北屯區大連路一段125號1樓",
+      "original_coords": [
+        120.674031,
+        24.176756
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2905",
+      "name": "太平立行 - 智取店",
+      "address": "台中市太平區立行街50號1樓",
+      "original_coords": [
+        120.713785,
+        24.158195
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2906",
+      "name": "台中二聖 - 智取店",
+      "address": "台中市東區自由路四段259號1樓",
+      "original_coords": [
+        120.703935,
+        24.142837
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2907",
+      "name": "清水建國 - 智取店",
+      "address": "台中市清水區建國路106號1樓",
+      "original_coords": [
+        120.558692,
+        24.270708
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2930",
+      "name": "潭子雅潭 - 智取店",
+      "address": "台中市潭子區雅潭路二段192號1樓",
+      "original_coords": [
+        120.692955,
+        24.216114
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2934",
+      "name": "豐原葫蘆墩 - 智取店",
+      "address": "台中市豐原區三豐路一段191號1樓",
+      "original_coords": [
+        120.720802,
+        24.258508
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2940",
+      "name": "豐原成功 - 智取店",
+      "address": "台中市豐原區成功路166號1樓",
+      "original_coords": [
+        120.709537,
+        24.245075
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2950",
+      "name": "太平中和 - 智取店",
+      "address": "台中市太平區中和街312號1樓",
+      "original_coords": [
+        120.725918,
+        24.136529
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2978",
+      "name": "沙鹿光正 - 智取店",
+      "address": "台中市沙鹿區光正街73號1樓",
+      "original_coords": [
+        120.563818,
+        24.243995
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2991",
+      "name": "台中正義 - 智取店",
+      "address": "台中市南區正義街122號與126號1樓",
+      "original_coords": [
+        120.679955,
+        24.129768
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/2992",
+      "name": "台中篤信 - 智取店",
+      "address": "台中市西區篤信街39號1樓",
+      "original_coords": [
+        120.672679,
+        24.149793
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3009",
+      "name": "梧棲四維東 - 智取店",
+      "address": "台中市梧棲區四維東路149巷7號1樓",
+      "original_coords": [
+        120.538571,
+        24.260791
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3018",
+      "name": "大里中軟 - 智取店",
+      "address": "台中市大里區中興路一段188號1樓",
+      "original_coords": [
+        120.697171,
+        24.084531
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3026",
+      "name": "南屯精科 - 智取店",
+      "address": "台中市南屯區文山三街213號與215號1樓",
+      "original_coords": [
+        120.610103,
+        24.145999
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3030",
+      "name": "台中一中 - 智取店",
+      "address": "台中市北區三民路三段109號1樓",
+      "original_coords": [
+        120.683073,
+        24.147722
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3031",
+      "name": "台中自強 - 智取店",
+      "address": "台中市北區自強一街17號1樓",
+      "original_coords": [
+        120.696478,
+        24.153113
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3032",
+      "name": "北屯福十三 - 智取店",
+      "address": "台中市北屯區軍福十三路91號1樓",
+      "original_coords": [
+        120.730883,
+        24.170675
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3033",
+      "name": "新社鎮安 - 智取店",
+      "address": "台中市新社區中和街四段341號1樓",
+      "original_coords": [
+        120.808759,
+        24.247599
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3051",
+      "name": "神岡三民 - 智取店",
+      "address": "台中市神岡區三民路632號1樓",
+      "original_coords": [
+        120.659676,
+        24.272876
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3052",
+      "name": "豐原富陽 - 智取店",
+      "address": "台中市豐原區富陽路127號1樓",
+      "original_coords": [
+        120.746007,
+        24.261919
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3061",
+      "name": "台中崇倫 - 智取店",
+      "address": "台中市南區忠明南路546號1樓",
+      "original_coords": [
+        120.657156,
+        24.131594
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3062",
+      "name": "潭子大德 - 智取店",
+      "address": "台中市潭子區大德一路6之1號1樓",
+      "original_coords": [
+        120.675094,
+        24.2039
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3078",
+      "name": "台中天津 - 智取店",
+      "address": "台中市北區天津路二段128號1樓",
+      "original_coords": [
+        120.676086,
+        24.169763
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3113",
+      "name": "清水四維東 - 智取店",
+      "address": "台中市清水區四維東路453號1樓",
+      "original_coords": [
+        120.541253,
+        24.26699
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3114",
+      "name": "潭子福潭 - 智取店",
+      "address": "台中市潭子區福潭路758號1樓",
+      "original_coords": [
+        120.708873,
+        24.21559
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3115",
+      "name": "烏日溪福 - 智取店",
+      "address": "台中市烏日區溪南路一段621號1樓",
+      "original_coords": [
+        120.643012,
+        24.07398
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3116",
+      "name": "台中樂群 - 智取店",
+      "address": "台中市西區樂群街27之1號1樓",
+      "original_coords": [
+        120.673307,
+        24.139727
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3129",
+      "name": "北屯太原 - 智取店",
+      "address": "台中市北屯區南京東路三段63號1樓",
+      "original_coords": [
+        120.69941,
+        24.164408
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3130",
+      "name": "北屯豐田 - 智取店",
+      "address": "台中市北屯區大連路三段142號1樓",
+      "original_coords": [
+        120.69523,
+        24.174293
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3131",
+      "name": "潭子潭富 - 智取店",
+      "address": "台中市潭子區潭富路二段177之5號1樓",
+      "original_coords": [
+        120.694129,
+        24.224453
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3139",
+      "name": "梧棲文昌 - 智取店",
+      "address": "台中市梧棲區文昌路407巷50號1樓",
+      "original_coords": [
+        120.539734,
+        24.243548
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3149",
+      "name": "大甲興安 - 智取店",
+      "address": "台中市大甲區興安路49之5號1樓",
+      "original_coords": [
+        120.614122,
+        24.347944
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3183",
+      "name": "西屯東興 - 智取店",
+      "address": "台中市西屯區東興路三段376號1樓",
+      "original_coords": [
+        120.655172,
+        24.157609
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3185",
+      "name": "台中建國南 - 智取店",
+      "address": "台中市南區忠明南路730巷21號1樓",
+      "original_coords": [
+        120.659016,
+        24.124594
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3186",
+      "name": "大里新生 - 智取店",
+      "address": "台中市大里區新生路91號1樓",
+      "original_coords": [
+        120.689612,
+        24.104484
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3193",
+      "name": "台中日日新 - 智取店",
+      "address": "台中市中區民族路241之2號1樓",
+      "original_coords": [
+        120.674751,
+        24.143746
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3211",
+      "name": "南屯嶺東 - 智取店",
+      "address": "台中市南屯區嶺東路30號1樓",
+      "original_coords": [
+        120.610041,
+        24.138885
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3222",
+      "name": "北屯熱平 - 智取店",
+      "address": "台中市北屯區熱河路二段99號1、2、3樓",
+      "original_coords": [
+        120.687229,
+        24.170375
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3244",
+      "name": "台中太漢 - 智取店",
+      "address": "台中市北區漢口路三段50號1樓",
+      "original_coords": [
+        120.667467,
+        24.166724
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3250",
+      "name": "北屯四張犁 - 智取店",
+      "address": "台中市北屯區昌平路二段50之6巷33號1樓",
+      "original_coords": [
+        120.683701,
+        24.191624
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3251",
+      "name": "新社中和 - 智取店",
+      "address": "台中市新社區中和街四段82號1、2、3樓",
+      "original_coords": [
+        120.807077,
+        24.241337
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3252",
+      "name": "石岡明德 - 智取店",
+      "address": "台中市石岡區明德路68號1樓",
+      "original_coords": [
+        120.778394,
+        24.274254
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3268",
+      "name": "台中省三 - 智取店",
+      "address": "台中市北區梅亭街154號1樓",
+      "original_coords": [
+        120.68593,
+        24.160403
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3269",
+      "name": "豐原豐南 - 智取店",
+      "address": "台中市豐原區豐南街256號1樓",
+      "original_coords": [
+        120.718884,
+        24.237853
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3278",
+      "name": "大里興名 - 智取店",
+      "address": "台中市大里區大明路316號1樓",
+      "original_coords": [
+        120.681695,
+        24.115206
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3279",
+      "name": "大雅二和 - 智取店",
+      "address": "台中市大雅區雅潭路四段710號1樓",
+      "original_coords": [
+        120.65289,
+        24.221469
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3280",
+      "name": "沙鹿公明 - 智取店",
+      "address": "台中市沙鹿區中清路六段323號1樓",
+      "original_coords": [
+        120.606753,
+        24.246915
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3290",
+      "name": "北屯大坑口 - 智取店",
+      "address": "台中市北屯區東山路一段19號1樓",
+      "original_coords": [
+        120.69831,
+        24.170511
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3291",
+      "name": "北屯興松 - 智取店",
+      "address": "台中市北屯區松竹五路一段109號1樓",
+      "original_coords": [
+        120.704271,
+        24.174776
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3292",
+      "name": "北屯東豐 - 智取店",
+      "address": "台中市北屯區豐樂路32之13號1樓",
+      "original_coords": [
+        120.690289,
+        24.192655
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3307",
+      "name": "大里新塗城 - 智取店",
+      "address": "台中市大里區塗城路256之3號1樓",
+      "original_coords": [
+        120.707596,
+        24.08718
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3340",
+      "name": "台中北平 - 智取店",
+      "address": "台中市北區北平路二段41號1樓",
+      "original_coords": [
+        120.673563,
+        24.171793
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3341",
+      "name": "北屯興安 - 智取店",
+      "address": "台中市北屯區興安路二段242之1號1樓",
+      "original_coords": [
+        120.69521,
+        24.18031
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3342",
+      "name": "梧棲港埠 - 智取店",
+      "address": "台中市梧棲區港埠路一段1057號1樓",
+      "original_coords": [
+        120.535191,
+        24.248194
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3365",
+      "name": "沙鹿高工 - 智取店",
+      "address": "台中市沙鹿區光華路253號1樓",
+      "original_coords": [
+        120.564356,
+        24.238171
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3383",
+      "name": "台中立德 - 智取店",
+      "address": "台中市東區立德街4號1樓",
+      "original_coords": [
+        120.685843,
+        24.135339
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3402",
+      "name": "沙鹿大晉 - 智取店",
+      "address": "台中市沙鹿區臺灣大道七段9號1樓",
+      "original_coords": [
+        120.579832,
+        24.219907
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3407",
+      "name": "沙鹿正德 - 智取店",
+      "address": "台中市沙鹿區正德路78號1樓",
+      "original_coords": [
+        120.569383,
+        24.205536
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3413",
+      "name": "西屯新福科 - 智取店",
+      "address": "台中市西屯區福科路313號1樓",
+      "original_coords": [
+        120.624375,
+        24.182037
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3414",
+      "name": "西屯重慶 - 智取店",
+      "address": "台中市西屯區重慶路165號1樓",
+      "original_coords": [
+        120.65687,
+        24.167183
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3428",
+      "name": "台中樹義 - 智取店",
+      "address": "台中市南區樹義五街72號1樓",
+      "original_coords": [
+        120.654009,
+        24.109826
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3436",
+      "name": "太平大源 - 智取店",
+      "address": "台中市太平區大源二街26號1樓",
+      "original_coords": [
+        120.724796,
+        24.144799
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3448",
+      "name": "大甲中山 - 智取店",
+      "address": "台中市大甲區中山路一段1100號1樓",
+      "original_coords": [
+        120.631338,
+        24.354663
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3450",
+      "name": "南屯敦業 - 智取店",
+      "address": "台中市南屯區大業路236之2號1樓",
+      "original_coords": [
+        120.649169,
+        24.153818
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3454",
+      "name": "沙鹿錦華 - 智取店",
+      "address": "台中市沙鹿區錦華街27號1樓",
+      "original_coords": [
+        120.563453,
+        24.248905
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3455",
+      "name": "龍井新庄 - 智取店",
+      "address": "台中市龍井區新興路106號1樓",
+      "original_coords": [
+        120.583581,
+        24.1822
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3457",
+      "name": "北屯后庄 - 智取店",
+      "address": "台中市北屯區后庄路195號1樓",
+      "original_coords": [
+        120.666739,
+        24.19127
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3458",
+      "name": "台中和昌 - 智取店",
+      "address": "台中市南區和昌街74號1樓",
+      "original_coords": [
+        120.664123,
+        24.121066
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3459",
+      "name": "大里仁文 - 智取店",
+      "address": "台中市大里區仁化路556號1樓",
+      "original_coords": [
+        120.700916,
+        24.096331
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3460",
+      "name": "潭子祥和 - 智取店",
+      "address": "台中市潭子區祥和路88號1樓",
+      "original_coords": [
+        120.712479,
+        24.229693
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3461",
+      "name": "烏日興祥 - 智取店",
+      "address": "台中市烏日區興祥街197號1樓",
+      "original_coords": [
+        120.636905,
+        24.110286
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3462",
+      "name": "台中忠明 - 智取店",
+      "address": "台中市西區忠明路47號1樓",
+      "original_coords": [
+        120.661473,
+        24.160139
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3472",
+      "name": "台中公園 - 智取店",
+      "address": "台中市中區公園路97號與97之1號1樓",
+      "original_coords": [
+        120.679639,
+        24.146304
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3473",
+      "name": "台中中達 - 智取店",
+      "address": "台中市北區英才路194號1樓",
+      "original_coords": [
+        120.674467,
+        24.15592
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3474",
+      "name": "北屯瀋陽 - 智取店",
+      "address": "台中市北屯區瀋陽路三段15號1樓",
+      "original_coords": [
+        120.6862,
+        24.1734
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3475",
+      "name": "潭子福興 - 智取店",
+      "address": "台中市潭子區潭興路二段363號1樓",
+      "original_coords": [
+        120.709845,
+        24.210388
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3476",
+      "name": "台中博館 - 智取店",
+      "address": "台中市西區博館路113號1樓",
+      "original_coords": [
+        120.665378,
+        24.156346
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3489",
+      "name": "台中南陽 - 智取店",
+      "address": "台中市南區南陽街2號1樓",
+      "original_coords": [
+        120.66303,
+        24.125371
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3498",
+      "name": "豐原安康 - 智取店",
+      "address": "台中市豐原區永康路119號1樓",
+      "original_coords": [
+        120.726682,
+        24.242399
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3508",
+      "name": "潭子家福 - 智取店",
+      "address": "台中市潭子區頭張路一段71號1樓",
+      "original_coords": [
+        120.700061,
+        24.194328
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3528",
+      "name": "南屯東大 - 智取店",
+      "address": "台中市南屯區東興東街46號1樓",
+      "original_coords": [
+        120.653932,
+        24.138565
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3531",
+      "name": "西屯河二 - 智取店",
+      "address": "台中市西屯區河南路二段301巷26號與28號1樓",
+      "original_coords": [
+        120.646926,
+        24.172482
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3534",
+      "name": "北屯東和 - 智取店",
+      "address": "台中市北屯區東山路一段373之2號1樓",
+      "original_coords": [
+        120.727111,
+        24.176658
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3535",
+      "name": "豐原圓中 - 智取店",
+      "address": "台中市豐原區圓環東路460之2號1樓",
+      "original_coords": [
+        120.726222,
+        24.246385
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3538",
+      "name": "台中興大 - 智取店",
+      "address": "台中市南區學府路52號1樓",
+      "original_coords": [
+        120.67526,
+        24.125088
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3541",
+      "name": "台中學府 - 智取店",
+      "address": "台中市南區學府路176號與178號與170號之5與170號之6與170號之7號1樓",
+      "original_coords": [
+        120.673965,
+        24.129544
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3545",
+      "name": "北屯瀋二 - 智取店",
+      "address": "台中市北屯區瀋陽路二段21號1樓",
+      "original_coords": [
+        120.680504,
+        24.17405
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3546",
+      "name": "台中德祥 - 智取店",
+      "address": "台中市南區德祥街78號1樓",
+      "original_coords": [
+        120.652744,
+        24.120118
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3547",
+      "name": "大里巧聖 - 智取店",
+      "address": "台中市大里區益民路二段182號1樓",
+      "original_coords": [
+        120.684108,
+        24.108551
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3548",
+      "name": "大雅中北 - 智取店",
+      "address": "台中市大雅區中山北路151巷1號與2號1樓",
+      "original_coords": [
+        120.647118,
+        24.218036
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3549",
+      "name": "豐原保康 - 智取店",
+      "address": "台中市豐原區保康路4號1樓",
+      "original_coords": [
+        120.721664,
+        24.243252
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3563",
+      "name": "西屯文華 - 智取店",
+      "address": "台中市西屯區文華路119號1樓",
+      "original_coords": [
+        120.646316,
+        24.179561
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3572",
+      "name": "台中華興 - 智取店",
+      "address": "台中市北區華興街55號1樓",
+      "original_coords": [
+        120.669044,
+        24.160045
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3573",
+      "name": "南屯公益 - 智取店",
+      "address": "台中市南屯區公益路二段226號1樓",
+      "original_coords": [
+        120.645621,
+        24.151078
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3574",
+      "name": "南屯大聖 - 智取店",
+      "address": "台中市南屯區大聖街115號1樓",
+      "original_coords": [
+        120.650539,
+        24.149166
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3575",
+      "name": "南屯楓和 - 智取店",
+      "address": "台中市南屯區楓和路757號1樓",
+      "original_coords": [
+        120.628078,
+        24.11783
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3592",
+      "name": "台中大安 - 智取店",
+      "address": "台中市大安區中松路20號1樓",
+      "original_coords": [
+        120.587173,
+        24.346674
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3595",
+      "name": "西屯漢城六 - 智取店",
+      "address": "台中市西屯區漢成六街56號1樓",
+      "original_coords": [
+        120.665042,
+        24.171702
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3599",
+      "name": "台中崇熱 - 智取店",
+      "address": "台中市北屯區崇德五路67號1樓",
+      "original_coords": [
+        120.688889,
+        24.178818
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3609",
+      "name": "沙鹿保成 - 智取店",
+      "address": "台中市沙鹿區屏西路301號1樓",
+      "original_coords": [
+        120.570257,
+        24.21313
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3624",
+      "name": "神岡民生 - 智取店",
+      "address": "台中市神岡區民生路39號1樓",
+      "original_coords": [
+        120.681254,
+        24.2451
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3628",
+      "name": "西屯長安 - 智取店",
+      "address": "台中市西屯區長安路二段92號1樓",
+      "original_coords": [
+        120.665202,
+        24.173739
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3633",
+      "name": "台中忠明南 - 智取店",
+      "address": "台中市南區忠明南路914號1樓",
+      "original_coords": [
+        120.663118,
+        24.119179
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3635",
+      "name": "台中德義 - 智取店",
+      "address": "臺中市南區樹義一巷17號1樓",
+      "original_coords": [
+        120.656728,
+        24.118309
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3640",
+      "name": "西屯國安 - 智取店",
+      "address": "台中市西屯區國安一路208巷7號1樓",
+      "original_coords": [
+        120.61012,
+        24.193088
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3641",
+      "name": "南屯黎楓 - 智取店",
+      "address": "台中市南屯區黎明路一段213號1樓",
+      "original_coords": [
+        120.626885,
+        24.117022
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3644",
+      "name": "台中福仁 - 智取店",
+      "address": "台中市東區福仁街79號1樓",
+      "original_coords": [
+        120.691912,
+        24.144126
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3646",
+      "name": "台中榮興 - 智取店",
+      "address": "台中市東區復興路五段190號1樓",
+      "original_coords": [
+        120.68961,
+        24.146145
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3651",
+      "name": "台中順獅 - 智取店",
+      "address": "台中市北區太原路二段190之2號1樓",
+      "original_coords": [
+        120.680392,
+        24.164907
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3653",
+      "name": "北屯順興 - 智取店",
+      "address": "台中市北屯區順興街255號1樓",
+      "original_coords": [
+        120.702858,
+        24.177923
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3671",
+      "name": "台中育隆 - 智取店",
+      "address": "台中市北區育隆路3號1樓",
+      "original_coords": [
+        120.694046,
+        24.15745
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3692",
+      "name": "西屯寧夏 - 智取店",
+      "address": "台中市西屯區重慶路238號1樓",
+      "original_coords": [
+        120.660649,
+        24.169295
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3697",
+      "name": "神岡大豐北 - 智取店",
+      "address": "台中市神岡區大豐北街97巷30弄26號1樓",
+      "original_coords": [
+        120.69937,
+        24.252414
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3699",
+      "name": "北屯太和 - 智取店",
+      "address": "台中市北屯區太和路二段101號1樓",
+      "original_coords": [
+        120.725249,
+        24.16549
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3700",
+      "name": "太平立文 - 智取店",
+      "address": "台中市太平區立文街13號1樓",
+      "original_coords": [
+        120.716074,
+        24.156272
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3701",
+      "name": "台中吉龍 - 智取店",
+      "address": "台中市北區忠明五街32號1樓",
+      "original_coords": [
+        120.667337,
+        24.163601
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3702",
+      "name": "台中信義 - 智取店",
+      "address": "台中市南區五權南路342號1樓",
+      "original_coords": [
+        120.670319,
+        24.12164
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3716",
+      "name": "西屯至善 - 智取店",
+      "address": "台中市西屯區逢甲路246號1樓",
+      "original_coords": [
+        120.639746,
+        24.175286
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3717",
+      "name": "沙鹿南陽 - 智取店",
+      "address": "台中市沙鹿區南陽路301號與303號1樓",
+      "original_coords": [
+        120.574472,
+        24.215069
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3826",
+      "name": "豐原忠孝 - 智取店",
+      "address": "台中市豐原區忠孝街95號1樓",
+      "original_coords": [
+        120.715909,
+        24.253822
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3827",
+      "name": "北屯太順 - 智取店",
+      "address": "台中市北屯區太順路43號1樓",
+      "original_coords": [
+        120.726714,
+        24.159004
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3834",
+      "name": "太平鵬儀 - 智取店",
+      "address": "台中市太平區鵬儀路176號1樓",
+      "original_coords": [
+        120.724595,
+        24.122308
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3836",
+      "name": "霧峰四德 - 智取店",
+      "address": "台中市霧峰區四德路474號1樓",
+      "original_coords": [
+        120.675709,
+        24.063984
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3841",
+      "name": "台中貴和 - 智取店",
+      "address": "台中市西區貴和街14之1號1樓",
+      "original_coords": [
+        120.67151,
+        24.135725
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/3849",
+      "name": "南屯三厝 - 智取店",
+      "address": "台中市南屯區大墩十一街609號1樓",
+      "original_coords": [
+        120.636365,
+        24.148474
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4012",
+      "name": "太平振福 - 智取店",
+      "address": "台中市太平區振福路432之2號1樓",
+      "original_coords": [
+        120.708073,
+        24.152571
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4013",
+      "name": "台中甲東 - 智取店",
+      "address": "台中市東區十甲東路477號1樓",
+      "original_coords": [
+        120.706931,
+        24.13815
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4015",
+      "name": "沙鹿自強 - 智取店",
+      "address": "台中市沙鹿區自強路700號1樓",
+      "original_coords": [
+        120.561211,
+        24.206856
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4017",
+      "name": "南屯精銳 - 智取店",
+      "address": "台中市南屯區龍富路四段51號1樓",
+      "original_coords": [
+        120.625658,
+        24.141796
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4018",
+      "name": "北屯功福 - 智取店",
+      "address": "台中市北屯區軍功路二段192號1樓",
+      "original_coords": [
+        120.71976,
+        24.179826
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4059",
+      "name": "沙鹿三鹿 - 智取店",
+      "address": "台中市沙鹿區保成路138號1樓",
+      "original_coords": [
+        120.566177,
+        24.211885
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4060",
+      "name": "西屯大道 - 智取店",
+      "address": "台中市西屯區臺灣大道三段700號1樓",
+      "original_coords": [
+        120.63731,
+        24.170876
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4062",
+      "name": "台中民龍 - 智取店",
+      "address": "台中市西區博館二街151號1樓",
+      "original_coords": [
+        120.669825,
+        24.152021
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4063",
+      "name": "西屯工和 - 智取店",
+      "address": "台中市西屯區工業區三十八路89號1樓",
+      "original_coords": [
+        120.588363,
+        24.177193
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4064",
+      "name": "潭子復興 - 智取店",
+      "address": "台中市潭子區復興路一段76號1樓",
+      "original_coords": [
+        120.706467,
+        24.204003
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4065",
+      "name": "外埔三崁 - 智取店",
+      "address": "台中市外埔區甲后路三段916號1樓",
+      "original_coords": [
+        120.655351,
+        24.329961
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4066",
+      "name": "大雅雅環 - 智取店",
+      "address": "台中市大雅區雅環路一段186號1樓",
+      "original_coords": [
+        120.653504,
+        24.218628
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4101",
+      "name": "大肚社腳 - 智取店",
+      "address": "台中市大肚區沙田路一段920號1樓",
+      "original_coords": [
+        120.553784,
+        24.134525
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4102",
+      "name": "太平平和 - 智取店",
+      "address": "台中市太平區東平路454號1、2樓",
+      "original_coords": [
+        120.724807,
+        24.134207
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4103",
+      "name": "大肚自強 - 智取店",
+      "address": "台中市大肚區遊園路二段282號1樓",
+      "original_coords": [
+        120.581369,
+        24.174577
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4104",
+      "name": "霧峰萬豐 - 智取店",
+      "address": "台中市霧峰區中正路170號1、2樓",
+      "original_coords": [
+        120.696932,
+        24.026007
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4105",
+      "name": "台中樂業 - 智取店",
+      "address": "台中市東區樂業南路140號1樓",
+      "original_coords": [
+        120.694906,
+        24.136019
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4106",
+      "name": "台中中美 - 智取店",
+      "address": "台中市西區中美街467號1樓",
+      "original_coords": [
+        120.660914,
+        24.155254
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4107",
+      "name": "北屯和順 - 智取店",
+      "address": "台中市北屯區和順路417號1樓",
+      "original_coords": [
+        120.722363,
+        24.17177
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4108",
+      "name": "北屯平德 - 智取店",
+      "address": "台中市北屯區平德路135號1樓",
+      "original_coords": [
+        120.670331,
+        24.184616
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4109",
+      "name": "台中梅東三 - 智取店",
+      "address": "台中市北區梅川東路三段100號1樓",
+      "original_coords": [
+        120.676832,
+        24.162637
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4110",
+      "name": "太平精美 - 智取店",
+      "address": "台中市太平區太平路179號1樓",
+      "original_coords": [
+        120.720547,
+        24.120578
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4111",
+      "name": "北屯洲際 - 智取店",
+      "address": "台中市北屯區崇德路三段687號1樓",
+      "original_coords": [
+        120.686272,
+        24.195416
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4154",
+      "name": "豐原豐后 - 智取店",
+      "address": "台中市豐原區三豐路二段153號1樓",
+      "original_coords": [
+        120.720646,
+        24.267813
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4155",
+      "name": "台中誠北 - 智取店",
+      "address": "台中市西區精誠路198號1樓",
+      "original_coords": [
+        120.65494,
+        24.151707
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4156",
+      "name": "南屯春東 - 智取店",
+      "address": "台中市南屯區永春東七路736號1樓",
+      "original_coords": [
+        120.634212,
+        24.145558
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4157",
+      "name": "霧峰本堂 - 智取店",
+      "address": "台中市霧峰區中正路790號1樓",
+      "original_coords": [
+        120.698404,
+        24.061424
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4158",
+      "name": "南屯墩四 - 智取店",
+      "address": "台中市南屯區大墩四街402號1樓",
+      "original_coords": [
+        120.643926,
+        24.141791
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4159",
+      "name": "大甲光明 - 智取店",
+      "address": "台中市大甲區光明路193號1樓",
+      "original_coords": [
+        120.619375,
+        24.34535
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4161",
+      "name": "北屯崇平 - 智取店",
+      "address": "台中市北屯區崇德十一路92號1樓",
+      "original_coords": [
+        120.68794,
+        24.189531
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4162",
+      "name": "台中新民 - 智取店",
+      "address": "台中市北區三民路三段305之1號1樓",
+      "original_coords": [
+        120.688649,
+        24.157032
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4196",
+      "name": "北屯四平 - 智取店",
+      "address": "台中市北屯區四平路463號1樓",
+      "original_coords": [
+        120.681032,
+        24.191533
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4201",
+      "name": "台中永成 - 智取店",
+      "address": "台中市西區永成街39號1樓",
+      "original_coords": [
+        120.664553,
+        24.131314
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4205",
+      "name": "台中東成三 - 智取店",
+      "address": "台中市北區東成三街286號1樓",
+      "original_coords": [
+        120.701411,
+        24.156402
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4228",
+      "name": "台中東十 - 智取店",
+      "address": "台中市東區東英二街150號1樓",
+      "original_coords": [
+        120.705943,
+        24.135045
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4233",
+      "name": "梧棲大智 - 智取店",
+      "address": "台中市梧棲區中央路二段309之3號1樓",
+      "original_coords": [
+        120.541316,
+        24.256828
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4235",
+      "name": "烏日信義 - 智取店",
+      "address": "台中市烏日區信義街76號1樓",
+      "original_coords": [
+        120.640852,
+        24.105731
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4251",
+      "name": "台中國美 - 智取店",
+      "address": "台中市西區五權一街56號1樓",
+      "original_coords": [
+        120.66349,
+        24.139388
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4252",
+      "name": "西屯美滿 - 智取店",
+      "address": "台中市西屯區美滿街32號1樓",
+      "original_coords": [
+        120.653927,
+        24.171641
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4254",
+      "name": "大里東明 - 智取店",
+      "address": "台中市大里區東明路135號1樓",
+      "original_coords": [
+        120.685621,
+        24.113155
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4257",
+      "name": "台中華公 - 智取店",
+      "address": "台中市西區華美街256號1樓",
+      "original_coords": [
+        120.659048,
+        24.148782
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4258",
+      "name": "西屯上石 - 智取店",
+      "address": "台中市西屯區西屯路二段272之12號1樓",
+      "original_coords": [
+        120.64438,
+        24.175066
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4260",
+      "name": "大甲甲后五 - 智取店",
+      "address": "台中市大甲區甲后路五段277巷120號1樓",
+      "original_coords": [
+        120.632844,
+        24.343501
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4293",
+      "name": "北屯敦化 - 智取店",
+      "address": "台中市北屯區敦化路一段597號1、2樓",
+      "original_coords": [
+        120.665662,
+        24.186326
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4305",
+      "name": "台中海岸 - 智取店",
+      "address": "台中市西區五權八街151號1樓",
+      "original_coords": [
+        120.660262,
+        24.13422
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4319",
+      "name": "神岡神林 - 智取店",
+      "address": "台中市神岡區神林路16之5號1樓",
+      "original_coords": [
+        120.660124,
+        24.25556
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4324",
+      "name": "台中高南 - 智取店",
+      "address": "台中市南區高工南路8號1樓",
+      "original_coords": [
+        120.661729,
+        24.112912
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4348",
+      "name": "太平永豐 - 智取店",
+      "address": "台中市太平區永豐路29巷3之1號1樓",
+      "original_coords": [
+        120.713505,
+        24.124457
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4351",
+      "name": "台中南門 - 智取店",
+      "address": "台中市南區南門路1之8號1樓",
+      "original_coords": [
+        120.683574,
+        24.122186
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4357",
+      "name": "北屯竹二 - 智取店",
+      "address": "台中市北屯區松竹路二段142號1樓",
+      "original_coords": [
+        120.697629,
+        24.183278
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4358",
+      "name": "豐原水源 - 智取店",
+      "address": "台中市豐原區水源路210號1樓",
+      "original_coords": [
+        120.740131,
+        24.255865
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4360",
+      "name": "豐原社皮 - 智取店",
+      "address": "台中市豐原區社皮路56號1樓",
+      "original_coords": [
+        120.700163,
+        24.24605
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4363",
+      "name": "后里豐四 - 智取店",
+      "address": "台中市后里區三豐路四段131號1樓",
+      "original_coords": [
+        120.723105,
+        24.312265
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4378",
+      "name": "烏日國小 - 智取店",
+      "address": "台中市烏日區中山路二段267號1樓",
+      "original_coords": [
+        120.623844,
+        24.10621
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4409",
+      "name": "南屯興墩 - 智取店",
+      "address": "台中市南屯區東興路二段294號1樓",
+      "original_coords": [
+        120.653189,
+        24.143975
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4415",
+      "name": "西屯西美 - 智取店",
+      "address": "台中市西屯區西屯路二段296之8號1樓",
+      "original_coords": [
+        120.641974,
+        24.17821
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4420",
+      "name": "龍井央二 - 智取店",
+      "address": "台中市龍井區中央路二段162號1樓",
+      "original_coords": [
+        120.523804,
+        24.207364
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4421",
+      "name": "北屯櫻花 - 智取店",
+      "address": "台中市北屯區南興北三路3號1樓",
+      "original_coords": [
+        120.707164,
+        24.197374
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4422",
+      "name": "北屯總太 - 智取店",
+      "address": "台中市北屯區環太東路499號1樓",
+      "original_coords": [
+        120.730225,
+        24.158737
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4426",
+      "name": "神岡溪洲 - 智取店",
+      "address": "台中市神岡區豐洲路1677號1樓",
+      "original_coords": [
+        120.679686,
+        24.265894
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4440",
+      "name": "北屯橫坑 - 智取店",
+      "address": "台中市北屯區東山路二段28之1號1樓",
+      "original_coords": [
+        120.740265,
+        24.178828
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4466",
+      "name": "大里好來 - 智取店",
+      "address": "台中市大里區好來一街77號1樓",
+      "original_coords": [
+        120.700016,
+        24.108726
+      ],
+      "point_status": 0,
+      "is_display": true
+    },
+    {
+      "id": "spx/4472",
+      "name": "太平新福 - 智取店",
+      "address": "台中市太平區中山路四段210號1樓",
+      "original_coords": [
+        120.702064,
+        24.14822
+      ],
+      "point_status": 0,
+      "is_display": true
+    }
+  ]
+}

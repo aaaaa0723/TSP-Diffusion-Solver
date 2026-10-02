@@ -1,0 +1,22 @@
+{
+  "phase": "complete",
+  "updated_at": "2026-09-29 14:53:47",
+  "dataset": "C:\\Users\\\u6137\u5fb7\\Desktop\\TSP-Diffusion-Solver-add-diffusion-model\\results\\tsp_dataset_7eleven_300nodes_30s.npz",
+  "run_dir": "C:\\Users\\\u6137\u5fb7\\Desktop\\TSP-Diffusion-Solver-add-diffusion-model\\results\\runs\\20260929_125724_300nodes_30s",
+  "metrics": {
+    "decoder": "road_multistart",
+    "decoder_starts": 16,
+    "local_search_moves": 200,
+    "reference_solve_seconds": 30,
+    "inference_seed": "42 + dataset index",
+    "evaluation_split": "test",
+    "num_test_cases": 150,
+    "mean_gap_percent": -1.6844813860584695,
+    "p95_gap_percent": 0.18834667297862895,
+    "all_routes_valid": true,
+    "mean_route_length": 617.3224979581839,
+    "mean_ortools_length": 627.7115120937614,
+    "mean_extra_km_vs_ortools": -10.389014135577405,
+    "objective_mean_plus_0_1_p95": -1.6656467187606065
+  }
+}

@@ -1,4 +1,4 @@
-"""Generate 1,000 300-store instances with 30s references, then train/evaluate."""
+"""Generate 1,000 300-station instances with 30s references, then train/evaluate."""
 import json
 import os
 from pathlib import Path
@@ -9,8 +9,8 @@ import time
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "results" / "experiment_300nodes_30s"
-DATASET = ROOT / "results" / "tsp_dataset_7eleven_300nodes_30s.npz"
+OUTPUT = ROOT / "results" / "experiment_youbike_300nodes_30s"
+DATASET = ROOT / "results" / "tsp_dataset_youbike_300nodes_30s.npz"
 
 
 def status(phase, **details):

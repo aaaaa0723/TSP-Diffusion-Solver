@@ -1,0 +1,8 @@
+services:
+  osrm:
+    image: osrm/osrm-backend:latest
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data/osrm:/data
+    command: osrm-routed --algorithm mld --max-table-size 1000 /data/taiwan-latest.osrm

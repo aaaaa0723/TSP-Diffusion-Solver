@@ -48,12 +48,13 @@ def load_candidates():
     return stores
 
 
-def prepare_stores(osrm_url, minimum):
+def prepare_stores(osrm_url, minimum, *, candidates=None, source=None,
+                   label="7-ELEVEN", license_name="ODbL 1.0"):
     """Exclude distant road snaps and duplicate road positions before sampling."""
     maximum = float(os.environ.get("TSP_STORE_MAX_SNAP_METERS", "100"))
     if not np.isfinite(maximum) or maximum <= 0:
         raise ValueError("TSP_STORE_MAX_SNAP_METERS must be positive and finite")
-    candidates = load_candidates()
+    candidates = load_candidates() if candidates is None else candidates
     stores, positions = [], set()
     with requests.Session() as session:
         for index, store in enumerate(candidates):
@@ -82,9 +83,10 @@ def prepare_stores(osrm_url, minimum):
     if len(stores) < minimum:
         raise ValueError(f"Only {len(stores)} unique road-aligned stores; need {minimum}. "
                          "Refresh the OSM catalog or inspect the OSRM road data.")
-    print(f"7-ELEVEN pool: {len(stores)}/{len(candidates)} stores within {maximum:g} m of a road.")
-    source = json.loads(CATALOG_PATH.read_text(encoding="utf-8")).get("source", "OpenStreetMap contributors / Overpass")
-    return {"source": source, "license": "ODbL 1.0",
+    print(f"{label} pool: {len(stores)}/{len(candidates)} locations within {maximum:g} m of a road.")
+    if source is None:
+        source = json.loads(CATALOG_PATH.read_text(encoding="utf-8")).get("source", "OpenStreetMap contributors / Overpass")
+    return {"source": source, "license": license_name,
             "region": "Taichung, OSM relation 2921154", "osrm_url": osrm_url,
             "prepared_at": datetime.now(timezone.utc).isoformat(),
             "max_snap_meters": maximum, "stores": stores}

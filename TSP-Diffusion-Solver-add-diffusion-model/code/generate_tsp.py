@@ -11,11 +11,11 @@ import requests
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
 from experiment_utils import DATASET_PATH, TAICHUNG_BOUNDARY_PATH
-from seven_eleven import prepare_stores
+from youbike import NODE_SOURCE, prepare_stores
 
 
 NUM_SAMPLES = int(os.environ.get("TSP_NUM_SAMPLES", "1000"))
-NUM_NODES = int(os.environ.get("TSP_NUM_NODES", "500"))
+NUM_NODES = int(os.environ.get("TSP_NUM_NODES", "300"))
 SOLVE_SECONDS = max(1, int(os.environ.get("TSP_SOLVE_SECONDS", os.environ.get("TSP_SOLVER_TIME_LIMIT_SECONDS", "30"))))
 NUM_WORKERS = max(1, min(cpu_count(), int(os.environ.get("TSP_NUM_WORKERS", "8"))))
 CHECKPOINT_EVERY = max(1, int(os.environ.get("TSP_CHECKPOINT_EVERY", "10")))
@@ -201,7 +201,7 @@ def save_samples(path, results):
         store_coords=np.asarray([store["original_coords"] for store in catalog_stores], dtype=np.float64)[sample_indices],
         store_catalog_json=np.asarray(json.dumps(STORE_CATALOG, ensure_ascii=False)),
         catalog_hash=np.asarray(CATALOG_HASH),
-        node_source=np.asarray("taichung_7eleven_osm"),
+        node_source=np.asarray(NODE_SOURCE),
         coords=coords,
         adjacencies=adjacencies,
         distances=distances,
@@ -255,7 +255,7 @@ def save_progress_sample(path, seed, coords, adjacency, distances, store_indices
         seed=np.int32(seed),
         store_indices=store_indices,
         catalog_hash=np.asarray(CATALOG_HASH),
-        node_source=np.asarray("taichung_7eleven_osm"),
+        node_source=np.asarray(NODE_SOURCE),
         coords=coords,
         adjacencies=adjacency,
         distances=distances,
@@ -292,7 +292,7 @@ def main():
     run_start = time.time()
 
     print(
-        f"Generating {NUM_SAMPLES} TSP samples ({NUM_NODES} 7-ELEVEN stores each); "
+        f"Generating {NUM_SAMPLES} TSP samples ({NUM_NODES} YouBike stations each); "
         f"workers={workers}, solver limit={SOLVE_SECONDS}s, distance=osrm_driving, boundary=臺中市."
     )
     if completed_before:

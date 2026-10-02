@@ -1,4 +1,4 @@
-# Diffusion + ORSM：本地差異
+# Diffusion + OSRM：本地差異
 
 相較 GitHub 的 `add-diffusion-model` 分支，本地修改是在既有 TSP 擴散模型上加入道路距離資料支援。Diffusion 模型與訓練流程已存在於 GitHub 分支中。
 
