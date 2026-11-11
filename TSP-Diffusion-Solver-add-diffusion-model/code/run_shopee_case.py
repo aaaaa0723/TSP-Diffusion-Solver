@@ -63,10 +63,11 @@ def main():
         generation.STORE_CATALOG = catalog
         generation.CATALOG_HASH = hashlib.sha256(json.dumps(catalog, sort_keys=True).encode()).hexdigest()
         print("Requesting road matrix and solving OR-Tools (30 seconds)", flush=True)
-        seed, coords, adjacency, distances, indices = generation.solve_single_tsp(42)
-        generation.save_samples(dataset_path, {seed: (coords, adjacency, distances, indices)})
+        seed, coords, adjacency, distances, indices, durations, costs, metadata = generation.solve_single_tsp(42)
+        generation.save_samples(dataset_path, {seed: (coords, adjacency, distances, indices, durations, costs, metadata)})
     with np.load(dataset_path, allow_pickle=False) as data:
         coords, adjacency, distances = data["coords"][0], data["adjacencies"][0], data["distances"][0]
+        costs = data["costs"][0] if "costs" in data.files else distances
         ids, names = data["store_ids"][0], data["store_names"][0]
     assert np.isfinite(distances).all()
     assert len(set(ids)) == len(coords)
@@ -88,7 +89,7 @@ def main():
             centered = points - points.mean(dim=1, keepdim=True)
             feature_distances = torch.cdist(centered, centered)
         else:
-            feature_distances = torch.from_numpy(distances[None]).to(device)
+            feature_distances = torch.from_numpy(costs[None]).to(device)
         heatmap = diffusion.sample(model, points, feature_distances,
                                    inference_steps=params["inference_steps"])[0].cpu().numpy()
     inference_seconds = time.perf_counter() - started
@@ -104,7 +105,7 @@ def main():
         loader.exec_module(legacy)
         route = legacy.divide_and_conquer_decoder(heatmap, coords=coords)
     else:
-        route = divide_and_conquer_decoder(heatmap, distance_matrix=distances,
+        route = divide_and_conquer_decoder(heatmap, distance_matrix=costs,
                                            decoder=params.get("decoder", "road_multistart"),
                                            starts=params.get("decoder_starts", 16),
                                            max_moves=params.get("local_search_moves", 200))

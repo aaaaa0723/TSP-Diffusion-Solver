@@ -72,7 +72,9 @@ def evaluate_checkpoint(run_dir, sample_limit=30, split="test", decoder=None, ma
             raise ValueError("Dataset has no OSRM distance matrix. Regenerate it with generate_tsp.py.")
         if "distance_mode" not in dataset.files or str(dataset["distance_mode"]) != "osrm_driving":
             raise ValueError("Dataset distance_mode must be osrm_driving; regenerate the dataset.")
-        distances = dataset["distances"][:params["dataset_size"]]
+        objective_unit = "equivalent_km" if "costs" in dataset.files else "km"
+        physical_distances = dataset["distances"][:params["dataset_size"]]
+        distances = dataset["costs" if "costs" in dataset.files else "distances"][:params["dataset_size"]]
         reference_solve_seconds = int(dataset["solve_seconds"]) if "solve_seconds" in dataset.files else None
     train_ids, validation_ids, test_ids = split_indices(len(coords))
     if split == "validation":
@@ -115,10 +117,12 @@ def evaluate_checkpoint(run_dir, sample_limit=30, split="test", decoder=None, ma
         records.append({"index": int(index), "coords": coords[index], "route": route,
                         "reference": reference, "route_length": predicted_length,
                         "reference_length": reference_length,
-                        "extra_km": extra_km,
+                        "extra_km": extra_km, "objective_unit": objective_unit,
+                        "physical_route_km": float(calculate_path_distance(route, physical_distances[index])),
+                        "physical_reference_km": float(calculate_path_distance(reference, physical_distances[index])),
                         "gap_percent": (predicted_length - reference_length) / reference_length * 100})
-        print(f"{split} {index}: DIFUSCO+decoder={predicted_length:.3f} km, OR-Tools={reference_length:.3f} km, "
-              f"difference={extra_km:+.3f} km, gap={records[-1]['gap_percent']:.2f}%")
+        print(f"{split} {index}: DIFUSCO+decoder={predicted_length:.3f} {objective_unit}, OR-Tools={reference_length:.3f} {objective_unit}, "
+              f"difference={extra_km:+.3f} {objective_unit}, gap={records[-1]['gap_percent']:.2f}%")
 
     artifact_dir = run_dir / "validation" if split == "validation" else run_dir
     artifact_dir.mkdir(parents=True, exist_ok=True)
@@ -126,7 +130,7 @@ def evaluate_checkpoint(run_dir, sample_limit=30, split="test", decoder=None, ma
     mean_gap = float(gaps.mean())
     p95_gap = float(np.percentile(gaps, 95))
     mean_extra_km = float(np.mean([item["extra_km"] for item in records]))
-    metrics = {"decoder": decoder, "decoder_starts": decoder_starts, "local_search_moves": local_search_moves,
+    metrics = {"objective_unit": objective_unit,"decoder": decoder, "decoder_starts": decoder_starts, "local_search_moves": local_search_moves,
                "reference_solve_seconds": reference_solve_seconds,
                "inference_seed": "42 + dataset index", "evaluation_split": split, "num_test_cases": len(records), "mean_gap_percent": mean_gap,
                "p95_gap_percent": p95_gap,
@@ -151,7 +155,7 @@ def evaluate_checkpoint(run_dir, sample_limit=30, split="test", decoder=None, ma
     fig, ax = plt.subplots(figsize=(8, 5))
     ax.hist(gaps, bins=min(20, max(5, len(gaps))), color="#4C78A8", edgecolor="white")
     ax.axvline(mean_gap, color="#E45756", linestyle="--", linewidth=2,
-               label=f"Mean gap: {mean_gap:.2f}% | mean extra: {mean_extra_km:+.2f} km")
+               label=f"Mean gap: {mean_gap:.2f}% | mean extra: {mean_extra_km:+.2f} {objective_unit}")
     ax.set(title="DIFUSCO vs OR-Tools: test route gap", xlabel="Route gap (%)", ylabel="Test instances")
     ax.legend()
     ax.grid(axis="y", alpha=.25)
@@ -193,12 +197,12 @@ def plot_road_cases(run_dir, records):
             name = "OR-Tools" if key == "reference" else "DIFUSCO + decoder"
             length = item["reference_length"] if key == "reference" else item["route_length"]
             ax.plot(line[:, 0], line[:, 1], color=color, linestyle=style, linewidth=1.2,
-                    alpha=.85, label=f"{name}: {length:.2f} km")
+                    alpha=.85, label=f"{name}: {length:.2f} {item.get('objective_unit', 'km')}")
         ax.set_aspect("equal", adjustable="datalim")
         ax.set_xlabel("Longitude")
         ax.set_ylabel("Latitude")
         ax.set_title(f"{label.title()} case (instance {item['index']}): "
-                     f"gap {item['gap_percent']:.2f}%, extra {item['extra_km']:+.2f} km")
+                     f"gap {item['gap_percent']:.2f}%, extra {item['extra_km']:+.2f} {item.get('objective_unit', 'km')}")
         ax.legend()
         ax.grid(alpha=.15)
         fig.tight_layout()

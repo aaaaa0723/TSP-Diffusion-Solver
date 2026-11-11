@@ -1,0 +1,31 @@
+{
+  "run": "20261111_214014_cost_300nodes_cuda",
+  "dataset": {
+    "filename": "tsp_dataset_youbike_300nodes_toll_signals.npz",
+    "bytes": 1019230944,
+    "sha256": "8ed7d46529bd1d07ac72d8e8d6d7e2309c6c55b64247504218fb2063e499e2cb"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "torch": "2.11.0+cu128",
+    "cuda_runtime": "12.8",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "numpy": "2.5.1",
+    "ortools": "9.15.6755",
+    "requests": "2.34.2",
+    "matplotlib": "3.11.2"
+  },
+  "osrm_image": "ghcr.io/project-osrm/osrm-backend@sha256:8a1b1bc938412f15f9b5b32d794c4ec6bf4a85dfbbabfa0a014b70b187edb53b",
+  "artifacts": {
+    "average_case_comparison.png": "ceb663f33a0524a1bf09fa6b0624a02a07eb7884ed012b85a6da435136773a15",
+    "best_case_comparison.png": "c56152ad9a4744435fc69e3684a81a2103e80006e7789b7a2650be96e55a38dd",
+    "difusco_tsp.pth": "700373c2c2fe4ce39aa8bef02801422101c02941326cbb1cbb7a5dfdabb9fc04",
+    "gap_metrics.json": "354a742006f91fb71119aeaa1f6db221a7f5bd215b57781d039e2ad9627adea0",
+    "loss_curve.png": "ec829c851ad66989b54dbb09d5c3508981aae8c22eb22e9d99770d01367a9f88",
+    "mean_gap_histogram.png": "1e3d21a6bcfdcb351a937d0d89a3013fe889ebae94da18ff7e7ef12c0b172932",
+    "params.json": "f643c3fc8e62af0b014d94ed6011b03356cfca848b32c494a8957646de04d039",
+    "plot_records.json": "f007a5cfb29ff7f8d7a554a9cf46ac567ea0294c9e3ca5eca809598bc6803108",
+    "report.json": "2122f3c5dbc6ffeb0f3bcc66a82faea315ce6f390435f10e014ffac898e31993",
+    "worst_case_comparison.png": "3e20ef5a16df006c87c7dd01b9a3fac581b04f309d3b9c2d77beeecd1ed7cdfe"
+  }
+}

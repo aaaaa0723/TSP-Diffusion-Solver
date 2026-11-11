@@ -12,6 +12,8 @@ from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
 from experiment_utils import DATASET_PATH, TAICHUNG_BOUNDARY_PATH
 from youbike import NODE_SOURCE, prepare_stores
+from osm_route_cost import get_feature_matrices, UnreachableRouteError
+from road_requests import configure_session
 
 
 NUM_SAMPLES = int(os.environ.get("TSP_NUM_SAMPLES", "1000"))
@@ -27,6 +29,7 @@ BOUNDARY_URL = os.environ.get(
 OSRM_SESSION = None
 STORE_CATALOG = None
 CATALOG_HASH = None
+COST_MODE = "osm_distance_duration_toll_signals_v3"
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -35,7 +38,7 @@ if hasattr(sys.stdout, "reconfigure"):
 def init_worker(catalog, catalog_hash):
     """Share a fixed store pool across Windows/Linux workers."""
     global OSRM_SESSION, STORE_CATALOG, CATALOG_HASH
-    OSRM_SESSION = requests.Session()
+    OSRM_SESSION = configure_session(requests.Session())
     STORE_CATALOG = catalog
     CATALOG_HASH = catalog_hash
 
@@ -44,15 +47,20 @@ class UnreachableStoresError(ValueError):
     pass
 
 
-def get_osrm_distance_matrix(coords):
+def get_osrm_matrices(coords):
     """Request an OSRM road-distance matrix for the supplied coordinates."""
     url = f"{OSRM_URL}/table/v1/driving"
     payload = {
         "coordinates": np.asarray(coords, dtype=float).tolist(),
-        "annotations": ["distance"],
+        "annotations": ["distance", "duration"],
     }
 
     try:
+        if os.environ.get("TSP_PAIR_STORE_PATH"):
+            from pair_store import get_pair_store
+            distances, durations, toll_km, signal_counts = get_pair_store().matrices(coords)
+            costs, metadata = build_route_cost(distances, durations, toll_km, signal_counts)
+            return distances, durations, costs, metadata
         session = OSRM_SESSION or requests
         response = session.post(url, json=payload, timeout=120)
         response.raise_for_status()
@@ -67,7 +75,13 @@ def get_osrm_distance_matrix(coords):
             raise ValueError("OSRM returned an invalid matrix shape")
         if not np.isfinite(matrix).all() or (matrix < 0).any():
             raise UnreachableStoresError("Some selected stores have no driving route between them")
-        return (matrix / 1000.0).astype(np.float32)
+        durations = np.asarray(data["durations"], dtype=np.float32)
+        distances = (matrix / 1000.0).astype(np.float32)
+        toll_km, signal_counts = get_feature_matrices(coords, distances, durations, session, OSRM_URL)
+        costs, metadata = build_route_cost(distances, durations, toll_km, signal_counts)
+        return distances, durations, costs, metadata
+    except UnreachableRouteError as exc:
+        raise UnreachableStoresError(str(exc)) from exc
     except UnreachableStoresError:
         raise
     except Exception as exc:
@@ -78,6 +92,42 @@ def get_osrm_distance_matrix(coords):
             f"OSRM request failed for {len(coords)} coordinates: {detail}. "
             f"Check {OSRM_URL} and ensure --max-table-size >= NUM_NODES."
         ) from exc
+
+
+def get_osrm_distance_matrix(coords):
+    return get_osrm_matrices(coords)[0]
+
+
+def build_route_cost(distances, durations, toll_km=None, signal_counts=None):
+    """Balance distance and OSM-profile travel time in equivalent kilometers."""
+    distances = np.asarray(distances, dtype=np.float64)
+    durations = np.asarray(durations, dtype=np.float64)
+    if distances.ndim != 2 or distances.shape[0] != distances.shape[1] or durations.shape != distances.shape:
+        raise ValueError("Distance and duration matrices must have matching square shapes")
+    if any(not np.isfinite(a).all() or (a < 0).any() for a in (distances, durations)):
+        raise UnreachableStoresError("Invalid or unreachable distance/duration")
+    mask = ~np.eye(len(distances), dtype=bool) & (distances > 0) & (durations > 0)
+    if not mask.any():
+        raise ValueError("No positive road pairs available to calibrate costs")
+    km_per_second = float(np.median(distances[mask]) / np.median(durations[mask]))
+    toll_km = np.zeros_like(distances) if toll_km is None else np.asarray(toll_km, dtype=float)
+    signal_counts = np.zeros_like(distances) if signal_counts is None else np.asarray(signal_counts, dtype=float)
+    for feature in (toll_km, signal_counts):
+        if feature.shape != distances.shape or not np.isfinite(feature).all() or (feature < 0).any():
+            raise ValueError("Invalid toll/signal feature matrix")
+    if (toll_km > distances + .002).any() or (signal_counts != np.floor(signal_counts)).any():
+        raise ValueError("Toll length exceeds route length or signal count is not an integer")
+    costs = .35 * distances + .65 * durations * km_per_second + .25 * toll_km + .02 * signal_counts
+    np.fill_diagonal(costs, 0)
+    return costs.astype(np.float32), {"mode": COST_MODE, "distance_weight": .35,
+        "duration_weight": .65, "duration_km_per_second": km_per_second,
+        "unit": "equivalent_km", "traffic": "static_osrm_profile",
+        "toll_penalty_equivalent_km_per_km": .25,
+        "signal_penalty_equivalent_km_per_signal": .02,
+        "toll_km": toll_km.astype(np.float32), "signal_counts": signal_counts.astype(np.int32),
+        "feature_source": "OSM toll ways and highway=traffic_signals on OSRM route nodes",
+        "pair_route_source": "annotated_osrm_route",
+        "osm_feature_index": os.environ.get("TSP_OSM_FEATURE_INDEX", "overpass")}
 
 
 def _extract_taichung_geometry(feature_collection):
@@ -123,9 +173,10 @@ def solve_single_tsp(seed):
         store_indices = rng.choice(len(STORE_CATALOG["stores"]), NUM_NODES, replace=False)
         coords = np.asarray([STORE_CATALOG["stores"][i]["coords"] for i in store_indices], dtype=np.float32)
         try:
-            distance_matrix = get_osrm_distance_matrix(coords)
+            distance_matrix, durations, costs, cost_metadata = get_osrm_matrices(coords)
             break
         except UnreachableStoresError:
+            print(f"Seed {seed}: unreachable station pair; resampling ({attempt + 1}/20)", flush=True)
             if attempt == 19:
                 raise RuntimeError(f"Could not find {NUM_NODES} mutually reachable stores for seed {seed}")
     # Only finite, fully reachable samples are passed to the solver.
@@ -135,7 +186,7 @@ def solve_single_tsp(seed):
     def distance_callback(from_index, to_index):
         from_node = manager.IndexToNode(from_index)
         to_node = manager.IndexToNode(to_index)
-        return int(round(float(distance_matrix[from_node, to_node]) * 1000.0))
+        return int(round(float(costs[from_node, to_node]) * 1000.0))
 
     callback_index = routing.RegisterTransitCallback(distance_callback)
     routing.SetArcCostEvaluatorOfAllVehicles(callback_index)
@@ -161,7 +212,7 @@ def solve_single_tsp(seed):
         to_node = manager.IndexToNode(index)
         adjacency[from_node, to_node] = 1
 
-    return seed, coords, adjacency, distance_matrix, store_indices
+    return seed, coords, adjacency, distance_matrix, store_indices, durations, costs, cost_metadata
 
 
 
@@ -190,6 +241,11 @@ def save_samples(path, results):
     adjacencies = np.stack([results[int(seed)][1] for seed in seeds]).astype(np.int8)
     distances = np.stack([results[int(seed)][2] for seed in seeds]).astype(np.float32)
     sample_indices = np.stack([results[int(seed)][3] for seed in seeds])
+    durations = np.stack([results[int(seed)][4] for seed in seeds])
+    costs = np.stack([results[int(seed)][5] for seed in seeds])
+    cost_metadata_json = [json.dumps({k: v for k, v in results[int(seed)][6].items() if k not in ("toll_km", "signal_counts")}, sort_keys=True) for seed in seeds]
+    toll_km = [results[int(seed)][6].get("toll_km", np.zeros_like(results[int(seed)][2])) for seed in seeds]
+    signal_counts = [results[int(seed)][6].get("signal_counts", np.zeros_like(results[int(seed)][2])) for seed in seeds]
     catalog_stores = STORE_CATALOG["stores"]
     temp_path = path.with_name(f"{path.stem}.tmp.npz")
     np.savez_compressed(
@@ -205,6 +261,12 @@ def save_samples(path, results):
         coords=coords,
         adjacencies=adjacencies,
         distances=distances,
+        durations=durations,
+        costs=costs,
+        cost_mode=np.asarray(COST_MODE),
+        cost_metadata_json=np.asarray(cost_metadata_json),
+        toll_km=np.asarray(toll_km, dtype=np.float32),
+        signal_counts=np.asarray(signal_counts, dtype=np.int32),
         num_samples=np.int32(NUM_SAMPLES),
         num_nodes=np.int32(NUM_NODES),
         solve_seconds=np.int32(SOLVE_SECONDS),
@@ -234,6 +296,8 @@ def load_progress(path):
                     f"Checkpoint settings {actual} do not match {expected}; "
                     f"move or remove {path} before starting a new dataset."
                 )
+            if "cost_mode" not in saved.files or str(saved["cost_mode"]) != COST_MODE:
+                raise ValueError("Checkpoint cost mode mismatch; regenerate in a separate progress directory")
             if "distances" not in saved.files:
                 raise ValueError(
                     f"Checkpoint {checkpoint_path} has no OSRM distance matrix; "
@@ -241,12 +305,16 @@ def load_progress(path):
                 )
             seed = int(saved["seed"])
             results[seed] = (
-                saved["coords"], saved["adjacencies"], saved["distances"], saved["store_indices"]
+                saved["coords"], saved["adjacencies"], saved["distances"], saved["store_indices"],
+                saved["durations"], saved["costs"], {**json.loads(str(saved["cost_metadata_json"])), "toll_km": saved["toll_km"], "signal_counts": saved["signal_counts"]}
             )
     return results
 
 
-def save_progress_sample(path, seed, coords, adjacency, distances, store_indices):
+def save_progress_sample(path, seed, coords, adjacency, distances, store_indices, durations, costs, cost_metadata):
+    toll_km = cost_metadata.get("toll_km", np.zeros_like(distances))
+    signal_counts = cost_metadata.get("signal_counts", np.zeros_like(distances))
+    cost_metadata_json = json.dumps({k: v for k, v in cost_metadata.items() if k not in ("toll_km", "signal_counts")}, sort_keys=True)
     path.mkdir(parents=True, exist_ok=True)
     sample_path = path / f"sample_{seed:06d}.npz"
     temp_path = path / f"sample_{seed:06d}.tmp.npz"
@@ -259,6 +327,12 @@ def save_progress_sample(path, seed, coords, adjacency, distances, store_indices
         coords=coords,
         adjacencies=adjacency,
         distances=distances,
+        durations=durations,
+        costs=costs,
+        cost_mode=np.asarray(COST_MODE),
+        cost_metadata_json=np.asarray(cost_metadata_json),
+        toll_km=np.asarray(toll_km, dtype=np.float32),
+        signal_counts=np.asarray(signal_counts, dtype=np.int32),
         num_samples=np.int32(NUM_SAMPLES),
         num_nodes=np.int32(NUM_NODES),
         solve_seconds=np.int32(SOLVE_SECONDS),
@@ -280,11 +354,14 @@ def main():
 
     DATASET_PATH.parent.mkdir(parents=True, exist_ok=True)
     progress_path = DATASET_PATH.with_name(
-        f"{DATASET_PATH.stem}.progress_{NUM_SAMPLES}x{NUM_NODES}_{SOLVE_SECONDS}s_{CATALOG_HASH[:12]}"
+        f"{DATASET_PATH.stem}.progress_{NUM_SAMPLES}x{NUM_NODES}_{SOLVE_SECONDS}s_{CATALOG_HASH[:12]}_{COST_MODE}"
     )
     progress_path.mkdir(parents=True, exist_ok=True)
     (progress_path / "store_catalog.json").write_text(
         json.dumps(STORE_CATALOG, ensure_ascii=False, indent=2), encoding="utf-8")
+    if os.environ.get("TSP_PAIR_STORE_DIRECTORY"):
+        from pair_store import create_pair_store
+        create_pair_store(STORE_CATALOG, CATALOG_HASH, OSRM_URL, progress_path)
     results = load_progress(progress_path)
     pending_seeds = [seed for seed in range(NUM_SAMPLES) if seed not in results]
     workers = min(NUM_WORKERS, max(1, len(pending_seeds)))
@@ -301,12 +378,12 @@ def main():
     try:
         if pending_seeds:
             with Pool(processes=workers, initializer=init_worker, initargs=(STORE_CATALOG, CATALOG_HASH)) as pool:
-                for seed, coords, adjacency, distances, store_indices in pool.imap_unordered(
+                for seed, coords, adjacency, distances, store_indices, durations, costs, cost_metadata in pool.imap_unordered(
                     solve_single_tsp, pending_seeds, chunksize=1
                 ):
-                    results[seed] = (coords, adjacency, distances, store_indices)
+                    results[seed] = (coords, adjacency, distances, store_indices, durations, costs, cost_metadata)
                     save_progress_sample(
-                        progress_path, seed, coords, adjacency, distances, store_indices
+                        progress_path, seed, coords, adjacency, distances, store_indices, durations, costs, cost_metadata
                     )
                     completed = len(results)
                     run_completed = completed - completed_before
@@ -338,8 +415,7 @@ def main():
         raise
 
     save_samples(DATASET_PATH, results)
-    if progress_path.exists():
-        shutil.rmtree(progress_path)
+    # Retain checkpoints until the independent runner validation is complete.
 
     print(
         f"Dataset complete: {DATASET_PATH}; "

@@ -1,0 +1,14 @@
+.runtime/
+.venv/
+.vscode/
+__pycache__/
+*.pyc
+*.log
+data/osm_cost_index_*/
+data/osm_route_cost_cache/
+data/osm_pair_store/
+data/osrm/
+*.osm.pbf
+results/generation_toll_signals/
+results/training_toll_signals/
+results/tsp_dataset_youbike_300nodes_toll_signals*

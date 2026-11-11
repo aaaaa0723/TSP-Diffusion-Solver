@@ -1,8 +1,8 @@
 services:
   osrm:
-    image: osrm/osrm-backend:latest
+    image: ghcr.io/project-osrm/osrm-backend@sha256:8a1b1bc938412f15f9b5b32d794c4ec6bf4a85dfbbabfa0a014b70b187edb53b
     ports:
-      - "5000:5000"
+      - "127.0.0.1:5000:5000"
     volumes:
-      - ./data/osrm:/data
-    command: osrm-routed --algorithm mld --max-table-size 1000 /data/taiwan-latest.osrm
+      - ./data/osrm:/data:ro
+    command: osrm-routed --algorithm mld --threads 8 --max-table-size 1000 /data/taiwan-260925.osrm

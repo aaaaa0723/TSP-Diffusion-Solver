@@ -21,7 +21,8 @@ def export_benchmark(run_dir, split):
     summary = json.loads((run_dir / f"decoder_benchmark_{split}.json").read_text())
     params = json.loads((run_dir / "params.json").read_text())
     with np.load(ROOT / params["dataset_path"], allow_pickle=False) as dataset:
-        coords, distances, labels = (dataset[key] for key in ("coords", "distances", "adjacencies"))
+        coords, distances, labels = (dataset[key] for key in ("coords", "costs" if "costs" in dataset.files else "distances", "adjacencies"))
+        objective_unit = "equivalent_km" if "costs" in dataset.files else "km"
         reference_seconds = int(dataset["solve_seconds"]) if "solve_seconds" in dataset.files else None
     records = []
     for record in summary["records"]:
@@ -29,12 +30,13 @@ def export_benchmark(run_dir, split):
         length = calculate_path_distance(record["route"], distances[index])
         reference = record["reference_length"]
         records.append({"index": index, "coords": coords[index].tolist(), "route": record["route"],
+                        "objective_unit": objective_unit,
                         "reference": adjacency_to_tour(labels[index]), "route_length": length,
                         "reference_length": reference, "extra_km": length - reference,
                         "gap_percent": record["hybrid_gap_percent"]})
     output = run_dir / "validation" if split == "validation" else run_dir
     output.mkdir(parents=True, exist_ok=True)
-    metrics = {"evaluation_split": split, "num_test_cases": len(records),
+    metrics = {"objective_unit": objective_unit, "evaluation_split": split, "num_test_cases": len(records),
                "reference_solve_seconds": reference_seconds,
                "decoder": "road_multistart", "decoder_starts": summary["starts"],
                "local_search_moves": summary["max_moves"], "inference_seed": summary["inference_seed"],
@@ -78,7 +80,7 @@ def main():
         return
     params = json.loads((run_dir / "params.json").read_text(encoding="utf-8"))
     with np.load(ROOT / params["dataset_path"], allow_pickle=False) as dataset:
-        coords, distances, labels = (dataset[key] for key in ("coords", "distances", "adjacencies"))
+        coords, distances, labels = (dataset[key] for key in ("coords", "costs" if "costs" in dataset.files else "distances", "adjacencies"))
     model = DIFUSCOTSP(params["hidden"], params["layers"])
     model.load_state_dict(torch.load(run_dir / "difusco_tsp.pth", map_location="cpu", weights_only=True))
     model.eval()

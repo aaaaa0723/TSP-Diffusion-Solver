@@ -7,6 +7,7 @@ from urllib.request import urlopen
 
 import numpy as np
 import requests
+from road_requests import configure_session
 
 from experiment_utils import DATA_DIR
 
@@ -57,6 +58,7 @@ def prepare_stores(osrm_url, minimum, *, candidates=None, source=None,
     candidates = load_candidates() if candidates is None else candidates
     stores, positions = [], set()
     with requests.Session() as session:
+        configure_session(session)
         for index, store in enumerate(candidates):
             lon, lat = store["original_coords"]
             response = session.get(f"{osrm_url}/nearest/v1/driving/{lon:.8f},{lat:.8f}",

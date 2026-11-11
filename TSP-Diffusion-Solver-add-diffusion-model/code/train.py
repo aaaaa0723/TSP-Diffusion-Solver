@@ -70,7 +70,7 @@ def main():
             raise ValueError("Dataset distance_mode must be osrm_driving; regenerate the dataset.")
         coords = torch.from_numpy(arrays["coords"])
         labels = torch.from_numpy(arrays["adjacencies"])
-        road_distances = torch.from_numpy(arrays["distances"])
+        road_distances = torch.from_numpy(arrays["costs" if "costs" in arrays.files else "distances"])
         reference_solve_seconds = int(arrays["solve_seconds"]) if "solve_seconds" in arrays.files else None
     count = min(len(coords), args.samples) if args.samples else len(coords)
     coords, labels, road_distances = coords[:count], labels[:count], road_distances[:count]
