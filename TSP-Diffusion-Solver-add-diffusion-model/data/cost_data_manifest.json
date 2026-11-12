@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "release_tag": "cost-data-2026-11-11-v1",
+  "release_url": "https://github.com/aaaaa0723/TSP-Diffusion-Solver/releases/tag/cost-data-2026-11-11-v1",
+  "source_branch": "feat/osm-route-cost-cuda-results",
+  "cost_mode": "osm_distance_duration_toll_signals_v3",
+  "num_samples": 1000,
+  "num_nodes": 300,
+  "assets": [
+    {
+      "name": "tsp_dataset_youbike_300nodes_toll_signals.npz",
+      "bytes": 1019230944,
+      "sha256": "8ed7d46529bd1d07ac72d8e8d6d7e2309c6c55b64247504218fb2063e499e2cb",
+      "url": "https://github.com/aaaaa0723/TSP-Diffusion-Solver/releases/download/cost-data-2026-11-11-v1/tsp_dataset_youbike_300nodes_toll_signals.npz"
+    },
+    {
+      "name": "osm-reproduction-taiwan-260925.tar.gz",
+      "bytes": 1119604850,
+      "sha256": "cda4f029f56dc8e6a0cbc10a35d4796b1e3763a3d9f8dc2ad3556405b4f29b45",
+      "url": "https://github.com/aaaaa0723/TSP-Diffusion-Solver/releases/download/cost-data-2026-11-11-v1/osm-reproduction-taiwan-260925.tar.gz"
+    }
+  ],
+  "dataset_destination": "results/tsp_dataset_youbike_300nodes_toll_signals.npz",
+  "osm_archive_extract_destination": "project root (contains data/)",
+  "osm_image": "ghcr.io/project-osrm/osrm-backend@sha256:8a1b1bc938412f15f9b5b32d794c4ec6bf4a85dfbbabfa0a014b70b187edb53b"
+}

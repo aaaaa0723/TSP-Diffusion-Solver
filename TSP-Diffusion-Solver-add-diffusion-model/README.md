@@ -81,6 +81,10 @@ k = median(正值道路距離) / median(正值行駛時間)
 
 目前不包含即時交通、實際號誌週期、實際收費、坡度或路面品質。OSM 標籤缺漏會影響特徵涵蓋率。模型以對稱邊標籤學習，但道路成本可有方向性，最後以有向成本解碼和評分。
 
+## 完整資料下載
+
+完整測資與原始／預處理道路資料：[Release 附件與校驗步驟](DATA_DOWNLOADS.md)。已補上實際訓練環境的 [Linux/CUDA 固定套件清單](code/requirements-training-linux-cu128.txt)。
+
 ## 安裝與執行
 
 以下命令在本 README 所在的專案目錄執行。儲存庫根目錄下另有一層 `TSP-Diffusion-Solver-add-diffusion-model/`。
@@ -100,7 +104,7 @@ Windows 可使用 `setup_windows.ps1` 建立環境；CUDA 可用性須另外確�
 
 ### 1. 準備相同的道路圖資
 
-完整資料集約 973 MiB，OSM PBF、OSRM 圖資、特徵索引及大量快取**不納入 Git**。模型、指標與五張圖已隨本次 run 提交；要重新訓練或計算新案例，必須另備原始資料，不能只下載模型就假設完整測資也存在。
+完整資料集約 973 MiB，OSM PBF、OSRM 圖資、特徵索引**不納入 Git 歷史，已改由 GitHub Release 附件提供**。完整 NPZ 與道路重現資料包均可下載，含 SHA-256；請依 [DATA_DOWNLOADS.md](DATA_DOWNLOADS.md) 下載並放到程式使用的位置。模型、指標與五張圖則直接保存在本分支。衍生快取與逐筆檢查點不另發布。
 
 本次使用 OSRM **v26.9.0**，固定映像：
 
